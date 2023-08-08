@@ -3,7 +3,7 @@ import signup from "@/firebase/auth/signup";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CollegeStudents } from "@/app/components/svgs";
+import { CollegeStudents, Logo } from "@/app/components/svgs";
 
 export default function SignupPage() {
   const {
@@ -51,8 +51,11 @@ export default function SignupPage() {
           <CollegeStudents className="w-full h-full" />
         </div>
         <div className="w-full h-full flex items-center flex-col gap-5 justify-center">
-          <span className="w-full font-sans flex items-center justify-center lg:text-3xl md:text-2xl text-xl text-[#FF725E] font-bold text-center">
-            Campus Commune
+          <span className="w-full flex items-center justify-center gap-2">
+            <Logo className="lg:text-3xl md:text-2xl text-xl text-[#FF725E]" />
+            <p className="font-sans lg:text-3xl md:text-2xl text-xl text-[#FF725E] font-bold">
+              Campus Commune
+            </p>
           </span>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
             <div className="flex flex-col gap-4 w-full">
