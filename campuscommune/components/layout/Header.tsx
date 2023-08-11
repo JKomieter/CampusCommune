@@ -1,16 +1,14 @@
 "use client";
 import { GiHamburgerMenu } from "react-icons/gi";
-
 import { Logo } from "../svgs";
 import HeaderIcons from "./HeaderIcons";
 import HeaderSearchBar from "./HeaderSearchBar";
-import { IoIosArrowDown } from "react-icons/io";
 
 
 const Header = () => {
     return (
-      <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 shadow-lg">
-        <div className="flex items-center justify-between gap-4 w-full">
+      <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 shadow-lg bg-white">
+        <div className="flex items-center justify-between gap-4 w-full ">
           <div className="font-sans font-semibold lg:text-2xl md:text-xl text-lg text-[#FF725E] hidden md:flex">
             CampComm
           </div>

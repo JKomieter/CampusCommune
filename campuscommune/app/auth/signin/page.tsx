@@ -3,7 +3,7 @@ import signin from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { CollegeStudents2 } from "@/app/components/svgs";
+import { CollegeStudents2 } from "@/components/svgs";
 
 export default function SignInPage() {
   const {

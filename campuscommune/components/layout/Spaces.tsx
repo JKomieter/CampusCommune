@@ -8,8 +8,8 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 // component for Sidebar quick access buttons
 const Spaces = () => {
     return (
-      <div className="">
-        <div className="flex flex-col gap-6 items-start bg-neutral-200 shadow-lg px-4 py-3 rounded-md">
+      <div className="md:flex hidden basis-1/5">
+        <div className="flex flex-col gap-6 items-start bg-white shadow-lg px-4 py-3 rounded-md">
           <div className="cursor-pointer flex items-center gap-2">
             <AiOutlinePlus size={20} className="text-neutral-800" />
             <p>Create Space</p>
