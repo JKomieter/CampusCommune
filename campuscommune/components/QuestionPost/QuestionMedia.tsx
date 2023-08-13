@@ -9,7 +9,7 @@ const QuestionMedia = ({image}: {image: string}) => {
                 alt="Coding Setup"
                 width={500}
                 height={500}
-                className="md:max-h-[300px] w-full object-cover"
+                className="sm:max-h-[300px] w-full object-cover"
             />
         </div>
     )

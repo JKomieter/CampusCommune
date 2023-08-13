@@ -1,9 +1,13 @@
 "use client";
 import signup from "@/firebase/auth/signup";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CollegeStudents, Logo } from "@/components/svgs";
+import { addDoc, collection } from "firebase/firestore";
+import { auth } from "@/firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { db } from "@/firebase/config";
 
 export default function SignupPage() {
   const {
@@ -14,10 +18,13 @@ export default function SignupPage() {
 
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [user] = useAuthState(auth);
+  const userCollectionRef = collection(db, "user");
 
   const onSubmit = async (data: Record<string, string>) => {
     try {
-      const { email, password, confirmedPassword } = data;
+      const { email, password, confirmedPassword, major, firstName, lastName } =
+        data;
 
       if (password !== confirmedPassword) {
         // show message to user that passwords do not match
@@ -27,20 +34,36 @@ export default function SignupPage() {
 
       const { userCredential, error } = await signup(email, password);
 
-      console.log(userCredential, error);
-
-      // check if user is signed up successfully
-      if (error) {
-        console.log(error);
+      if (!userCredential) {
+        setErrorMsg(error?.message as string);
       }
-
-      // else successful
-      router.push("/");
-                                 
-      setErrorMsg("");
+      console.log(user);
+      // Store user in database
+      await createUserInDB(email, major, firstName, lastName);
     } catch (error) {
       console.log(error);
-      // show message to user that something went wrong
+      setErrorMsg("Something went wrong. Please try again later.");
+    }
+  };
+
+  const createUserInDB = async (
+    email: string,
+    major: string,
+    firstName: string,
+    lastName: string
+  ) => {
+    // add user to database
+    const data = {
+      email,
+      major,
+      full_name: `${firstName} ${lastName}`,
+    };
+
+    try {
+      await addDoc(userCollectionRef, data);
+    } catch (error) {
+      console.log(error);
+      setErrorMsg("Something went wrong. Please try again later.");
     }
   };
 
@@ -54,7 +77,7 @@ export default function SignupPage() {
           <span className="w-full flex items-center justify-center gap-2">
             <Logo className="lg:text-3xl md:text-2xl text-xl text-[#FF725E]" />
             <p className="font-sans lg:text-3xl md:text-2xl text-xl text-[#FF725E] font-bold">
-              Campus Commune
+              Campus <span className="text-neutral-700">Commune</span>
             </p>
           </span>
           <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
@@ -69,6 +92,7 @@ export default function SignupPage() {
                     className="w-full rounded-lg border-neutral-700 p-1 basis-[40px] focus:border-[#FF725E]"
                     style={{ borderWidth: "1px" }}
                     id="firstName"
+                    required
                     {...register("firstName", { required: true })}
                   />
                   {errors.firstName && <span>This field is required</span>}
@@ -82,6 +106,7 @@ export default function SignupPage() {
                     className="w-full rounded-lg border-neutral-700 p-1 basis-[40px] focus:border-[#FF725E]"
                     style={{ borderWidth: "1px" }}
                     id="lastName"
+                    required
                     {...register("lastName", { required: true })}
                   />
                   {errors.lastName && <span>This field is required</span>}
@@ -96,6 +121,7 @@ export default function SignupPage() {
                   className="w-full rounded-lg border-neutral-700 p-1 basis-[40px] focus:border-[#FF725E]"
                   style={{ borderWidth: "1px" }}
                   id="email"
+                  required
                   {...register("email", { required: true })}
                 />
                 {errors.email && <span>This field is required</span>}
@@ -109,6 +135,7 @@ export default function SignupPage() {
                   className="w-full rounded-lg border-neutral-700 p-1 basis-[40px] focus:border-[#FF725E]"
                   style={{ borderWidth: "1px" }}
                   id="major"
+                  required
                   {...register("major", { required: true })}
                 />
                 {errors.major && <span>This field is required</span>}
@@ -122,6 +149,7 @@ export default function SignupPage() {
                   className="w-full rounded-lg border-neutral-700 p-1 basis-[40px] focus:border-[#FF725E]"
                   style={{ borderWidth: "1px" }}
                   id="password"
+                  required
                   {...register("password", { required: true })}
                 />
                 {errors.password && <span>This field is required</span>}
@@ -135,16 +163,20 @@ export default function SignupPage() {
                   className="w-full rounded-lg border-neutral-700 p-1 basis-[40px] focus:border-[#FF725E]"
                   style={{ borderWidth: "1px" }}
                   id="confirmedPassword"
+                  required
                   {...register("confirmedPassword", { required: true })}
                 />
                 {errors.confirmedPassword && (
                   <span>{errorMsg || "This field is required"}</span>
                 )}
               </div>
+              <span className="text-sm text-red-500 w-full flex items-center justify-center">
+                {errorMsg}
+              </span>
               <button
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
-                className="items-center w-full flex justify-center bg-[#FF725E] py-2 rounded-lg transition duration-500 hover:bg-[#ff533c]"
+                className="items-center w-full flex justify-center bg-neutral-700 py-2 rounded-lg transition duration-500 hover:bg-[#ff533c]"
               >
                 <span className="text-white font-semibold text-lg">
                   Sign Up

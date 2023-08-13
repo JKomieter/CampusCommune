@@ -8,12 +8,12 @@ const Questions = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const questionsRef = collection(db, "questions");
+  const usersRef = collection(db, "questions");
 
   useEffect(() => {
     const getQuestions = async () => {
       try {
-        const data = await getDocs(questionsRef);
+        const data = await getDocs(usersRef);
         console.log(data.docs.map((doc) => doc.data()));
         setQuestions(data.docs.map((doc) => doc.data() as Question));
       } catch (error) {
@@ -30,19 +30,20 @@ const Questions = () => {
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
       {questions.map((question: Question) => (
         <QuestionItem
-          key={question.authorId}
-          authorId={question.authorId}
-          authorName={question.authorName}
-          authorPhotoURL={question.authorPhotoURL}
+          key={question.author_id}
+          author_id={question.author_id}
+          author_name={question.author_name}
+          author_photo={question.author_photo}
           title={question.title}
           body={question.body}
           tags={question.tags}
           upvotes={question.upvotes}
           downvotes={question.downvotes}
           image={question.image}
-          createdAt={question.createdAt}
-          authorMajor={question.authorMajor}
-          authorYear={question.authorYear}
+          created_at={question.created_at}
+          author_major={question.author_major}
+          author_year={question.author_year}
+          answers={question.answers}
         />
       ))}
     </div>

@@ -7,30 +7,31 @@ import { Question } from "@/types"
 
 
 const QuestionItem: React.FC<Question> = ({
-    authorId,
-    authorName,
-    authorPhotoURL,
-    authorMajor,
-    authorYear,
+    author_id,
+    author_name,
+    author_photo,
+    author_major,
+    author_year,
     title,
     body,
-    createdAt,
+    created_at,
     tags,
     upvotes,
     downvotes,
     image,
     answers,
 }) => {
+
     return (
         <div className="w-full bg-white shadow-lg rounded-md overflow-y-visible">
             <div className="w-full flex flex-col gap-4 items-start">
                 <UserQuestionDisplay
-                    authorId={authorId}
-                    authorName={authorName}
-                    authorPhotoURL={authorPhotoURL}
-                    authorMajor={authorMajor}
-                    authorYear={authorYear}
-                    createdAt={createdAt}
+                    author_id={author_id}
+                    author_name={author_name}
+                    author_photo={author_photo}
+                    author_major={author_major}
+                    author_year={author_year}
+                    created_at={created_at}
                 />
                 <QuestionInfo
                     title={title}

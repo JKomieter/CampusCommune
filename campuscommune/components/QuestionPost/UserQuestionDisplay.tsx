@@ -6,15 +6,15 @@ import { BadgesLvlOne } from '../svgs';
 
 
 const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
-    authorId,
-    authorName,
-    authorPhotoURL,
-    authorMajor,
-    authorYear,
-    createdAt,
+    author_id,
+    author_name,
+    author_photo,
+    author_major,
+    author_year,
+    created_at,
 }) => {
 
-    const date = new Date(createdAt?.seconds * 1000);
+    const date = new Date(created_at?.seconds * 1000);
 
     return (
       <div className="flex flex-row items-center justify-between px-3 py-2 gap-3 w-full">
@@ -22,7 +22,7 @@ const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
           <span className="w-full h-full overflow-hidden rounded-full bg-neutral-900">
             <Image
               src={"/images/defaultUser.jpg"}
-              alt={authorName}
+              alt={author_name}
               width={40}
               height={40}
               className="w-10 h-10 rounded-full object-cover"
@@ -33,7 +33,7 @@ const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
           <div className="w-full flex flex-row items-start justify-between">
             <div className="w-full flex flex-row gap-1">
               <span className="text-sm font-bold text-neutral-800">
-                {authorName}
+                {author_name}
                 <BadgesLvlOne className="inline-block ml-1 text-blue-400 text-lg" />
               </span>
               <BsDot size={18} className="text-neutral-800" />
@@ -45,7 +45,7 @@ const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
           </div>
           <div className="w-full flex flex-row gap-1">
             <span className="text-sm text-neutral-500">
-              {authorMajor} {authorYear}
+              {author_major} {author_year}
             </span>
             <BsDot size={18} className="text-neutral-500" />
             <span className="text-sm text-neutral-500">
