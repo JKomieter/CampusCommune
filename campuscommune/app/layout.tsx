@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from '../components/layout/Header'
 import { Providers } from '@/themeProvider/Provider'
+import AskModal from '@/components/modals/AskModal'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en" className='light'>
       <body className={inter.className}>
         <Providers>
+          <AskModal />
           <Header />
           {children}
         </Providers>

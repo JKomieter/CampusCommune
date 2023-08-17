@@ -1,9 +1,11 @@
 "use client";
 import signin from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CollegeStudents2 } from "@/components/svgs";
+import { auth } from "@/firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function SignInPage() {
   const {
@@ -13,22 +15,25 @@ export default function SignInPage() {
   } = useForm();
 
   const router = useRouter();
+  const [user] = useAuthState(auth);
+  const [err, setErr] = useState<string | false>(false);
 
   const onSubmit = useCallback(async (data: Record<string, string>) => {
     try {
       const { email, password } = data;
       const results = await signin(email, password);
 
-      // check if user is signed up successfully
+      console.log(results);   
+      console.log(user?.email);   
     } catch (error) {
       console.log(error);
-      // show message to user that something went wrong
+      setErr("Invalid email or password")
     }
   }, []);
 
   return (
     <div className="flex justify-center items-center w-screen h-screen">
-      <div className="flex items-center justify-center w-full gap-5 px-6 lg:flex-row flex-col">
+      <div className="flex items-center justify-center w-full md:gap-5 gap-3 px-6 lg:flex-row flex-col">
         <div className="w-full h-full">
           <CollegeStudents2 className="w-full h-full" />
         </div>
@@ -64,7 +69,12 @@ export default function SignInPage() {
                 />
                 {errors.password && <span>This field is required</span>}
               </div>
-              <button className="items-center w-full flex justify-center bg-[#FF725E] py-2 rounded-lg transition duration-500 hover:bg-[#ff533c]">
+              <div className="w-full flex items-center justify-center">
+                <span className="text-red-300 text-sm">
+                  {err ? err : ""}
+                </span>
+              </div>
+              <button className="items-center w-full flex justify-center cursor-pointer bg-neutral-700 py-2 rounded-lg transition duration-500 hover:bg-[#ff533c]">
                 <span className="text-white font-semibold text-lg">
                   Log In
                 </span>

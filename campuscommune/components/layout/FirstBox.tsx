@@ -1,17 +1,42 @@
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { HiOutlinePencil, HiOutlinePencilAlt } from "react-icons/hi";
+import { auth } from "@/firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useMemo } from "react";
+import { useAskModalStore } from "@/store/askModalPopupStore";
+import { Avatar } from "@nextui-org/react";
+
 
 const FirstBox = () => {
+
+  const [user] = useAuthState(auth);
+  const { setOpen } = useAskModalStore();
+
+  const getCurrentUserEmailFirstChar = useMemo(() => {
+    let letter = "C";
+    if (user) {
+      const email = user?.email;
+      letter = email?.charAt(0).toUpperCase() as string;
+    }
+    return letter;
+  }, [user]);
+
   return (
     <div className="w-full py-1 px-1 rounded-md shadow-lg bg-white flex flex-col item-center gap-2">
       <div className="w-full flex flex-row items-center gap-3">
-        <span className="p-2 rounded-full bg-neutral-800 w-10 h-10 flex items-baseline justify-center">
-          <p className="text-lg text-neutral-200 ">J</p>
-        </span>
+        {/* <span className="p-2 rounded-full bg-neutral-800 w-10 h-10 flex items-center justify-center">
+          <p className="text-lg text-neutral-200 ">{getCurrentUserEmailFirstChar}</p>
+        </span> */}
+        <Avatar
+          src="https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"
+          size="md"
+          className="z-0"
+        />
         <input
+          onClick={() => setOpen(true)}
           type="text"
           placeholder="What's on your mind?"
-          className="w-full px-2 py-1 rounded-2xl focus:outline-none bg-[#fbfae0]"
+          className="w-full px-2 py-1 rounded-2xl focus:outline-none bg-neutral-200"
         />
       </div>
       <div className="flex items-center justify-evenly w-full">

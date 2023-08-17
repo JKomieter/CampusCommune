@@ -3,6 +3,7 @@ import { UserQuestionDisplayProps } from '@/types';
 import { BsDot } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import { BadgesLvlOne } from '../svgs';
+import { Avatar } from '@nextui-org/react';
 
 
 const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
@@ -20,12 +21,9 @@ const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
       <div className="flex flex-row items-center justify-between px-3 py-2 gap-3 w-full">
         <div className="w-10 h-10">
           <span className="w-full h-full overflow-hidden rounded-full bg-neutral-900">
-            <Image
-              src={"/images/defaultUser.jpg"}
-              alt={author_name}
-              width={40}
-              height={40}
-              className="w-10 h-10 rounded-full object-cover"
+            <Avatar
+              src={ author_photo || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"}
+              size="md"
             />
           </span>
         </div>
