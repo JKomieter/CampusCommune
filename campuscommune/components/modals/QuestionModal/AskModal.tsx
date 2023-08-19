@@ -1,27 +1,32 @@
 "use client";
 import { useAskModalStore } from "@/store/askModalPopupStore";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import QuestionMode from "./QuestionMode";
 import PostMode from "./PostMode";
 import { db, auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import BottomActions from "./BottomActions";
+import CreateMode from "./CreateMode";
 
 const AskModal = () => {
   const { isOpen, setOpen } = useAskModalStore();
-  const [mode, setMode] = useState<"question" | "post">("question");
-  const [text, setText] = useState<string>("");
   const [user] = useAuthState(auth);
+  const [mode, setMode] = useState<"question" | "post">("question");
+  const [ step, setStep ] = useState<number>(1);
+  const [text, setText] = useState<string>("");
+
 
   const handleAddQuestion = async () => {};
 
-  const modeStyles = {
-    borderBottomWidth: "4px",
-    borderBottomLeftRadius: "3px",
-    borderBottomRightRadius: "3px",
-  };
+  const handleChangeStep = useCallback(() => {
+    if (text.length === 0) return;
+    setStep(2);
+    setTimeout(() => {
+      setStep(3);
+    }, 3000);
+  }, [text]);
 
   if (!isOpen) return null;
 
@@ -38,36 +43,18 @@ const AskModal = () => {
           <IoClose
             size={25}
             className="cursor-pointer"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false)
+              setStep(1)}}
           />
-          <button className="flex items-center justify-center bg-blue-600 rounded-3xl">
-            <p className="text-neutral-100 font-semibold px-3 py-2">Add</p>
-          </button>
         </div>
-        <div
-          className="w-full flex flex-row items-center border-b-neutral-400"
-          style={{ borderBottomWidth: "0.6px" }}
-        >
-          <div
-            className="w-full text-center text-sm font-medium text-neutral-700 border-blue-600 cursor-pointer py-2"
-            style={mode === "question" ? modeStyles : {}}
-            onClick={() => setMode("question")}
-          >
-            Add Question
-          </div>
-          <div
-            onClick={() => setMode("post")}
-            className="w-full text-center text-sm font-medium text-neutral-700 border-blue-600 cursor-pointer py-2"
-            style={mode === "post" ? modeStyles : {}}
-          >
-            Create Post
-          </div>
-        </div>
-        {mode === "question" ? (
-          <QuestionMode text={text} setText={setText} />
-        ) : (
-          <PostMode />
-        )}
+        <CreateMode
+          mode={mode}
+          setMode={setMode}
+          step={step}
+          text={text}
+          setText={setText}
+        />
         <div className="w-full h-full flex items-end justify-end">
           <div
             className="py-3 px-3 w-full border-t-neutral-700 flex items-end justify-end gap-3"
@@ -75,6 +62,7 @@ const AskModal = () => {
           >
             <BottomActions
               mode={mode}
+              handleChangeStep={handleChangeStep}
             />
           </div>
         </div>
