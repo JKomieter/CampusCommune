@@ -1,12 +1,11 @@
-import Image from 'next/image';
-import { UserQuestionDisplayProps } from '@/types';
+import { UserPostDisplayProps } from '@/types';
 import { BsDot } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import { BadgesLvlOne } from '../svgs';
 import { Avatar } from '@nextui-org/react';
 
 
-const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
+const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
     author_id,
     author_name,
     author_photo,
@@ -55,4 +54,4 @@ const UserQuestionDisplay: React.FC<UserQuestionDisplayProps> = ({
     );
 }
 
-export default UserQuestionDisplay;
+export default UserPostDisplay;

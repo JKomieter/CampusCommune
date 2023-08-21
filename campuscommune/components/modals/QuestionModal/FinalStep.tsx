@@ -16,7 +16,6 @@ const FinalStep: React.FC<FinalStepProps> = ({
 
     const modeStyles = {
       color: "#FF725E",
-    //   backgroundColor: "#F5F5F5 ",
       borderBottomWidth: "2px",
       borderColor: "#FF725E",
     } as React.CSSProperties;

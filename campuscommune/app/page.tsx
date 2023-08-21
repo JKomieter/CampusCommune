@@ -5,17 +5,17 @@ import Spaces from "../components/layout/Spaces";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
 import MainContent from "../components/layout/MainContent";
-import News from "@/components/layout/News";
+import News from "@/components/News/News";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
 
   useEffect(() => {
-    // f (!user) {
+    // if (!user) {
     //   router.push("/auth/signin");
-    // }i
-  }, [error]);
+    // }
+  }, []);
 
   return (
     <div className="w-full h-screen bg-neutral-200 overflow-x-hidden ">

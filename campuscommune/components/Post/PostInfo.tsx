@@ -1,7 +1,7 @@
-import { QuestionInfoProps } from "@/types"
+import { PostInfoProps } from "@/types"
 
 
-const QuestionInfo: React.FC<QuestionInfoProps> = ({
+const PostInfo: React.FC<PostInfoProps> = ({
     title,
     body,
 }) => {
@@ -17,4 +17,4 @@ const QuestionInfo: React.FC<QuestionInfoProps> = ({
     )
 }
 
-export default QuestionInfo;
+export default PostInfo;

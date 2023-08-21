@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import Header from '../components/layout/Header'
 import { Providers } from '@/themeProvider/Provider'
 import AskModal from '@/components/modals/QuestionModal/AskModal'
+import { Toaster } from "react-hot-toast";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,6 +23,7 @@ export default function RootLayout({
     <html lang="en" className='light'>
       <body className={inter.className}>
         <Providers>
+          <Toaster position="top-center" reverseOrder={false} />
           <AskModal />
           <Header />
           {children}

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 
-const QuestionMedia = ({image}: {image: string}) => {
+const PostMedia = ({image}: {image: string}) => {
     return (
         <div className="w-full">
             <Image
@@ -15,4 +15,4 @@ const QuestionMedia = ({image}: {image: string}) => {
     )
 }
 
-export default QuestionMedia;
+export default PostMedia;

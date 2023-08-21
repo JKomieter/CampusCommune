@@ -1,4 +1,4 @@
-export type Question = {
+export type Post = {
     author_id: string;
     author_name: string;
     author_major: string;
@@ -20,7 +20,7 @@ export type Answer = {
     created_at: Date;
 }
 
-export interface UserQuestionDisplayProps {
+export interface UserPostDisplayProps {
     author_id: string;
     author_name: string;
     author_major: string;
@@ -29,13 +29,20 @@ export interface UserQuestionDisplayProps {
     created_at: Date;
 }
 
-export interface QuestionInfoProps {
+export interface PostInfoProps {
     title: string;
     body: string;
 }
 
-export interface QuestionActionProps {
+export interface PostActionProps {
     upvotes: number;
     downvotes: number;
+    answers: Answer[];
+}
+
+export interface Question {
+    author_id: string;
+    author_name: string;
+    text: string;
     answers: Answer[];
 }

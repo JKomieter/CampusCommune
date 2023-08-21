@@ -1,10 +1,10 @@
 import VoteActions from "./VoteActions";
-import { QuestionActionProps } from "@/types";
+import { PostActionProps } from "@/types";
 import { TbMessageCircle } from "react-icons/tb";
 import { PiShareFatBold } from "react-icons/pi";
 import { BsThreeDots } from "react-icons/bs";
 
-const QuestionActions: React.FC<QuestionActionProps> = ({
+const PostActions: React.FC<PostActionProps> = ({
   upvotes,
   downvotes,
   answers,
@@ -33,4 +33,4 @@ const QuestionActions: React.FC<QuestionActionProps> = ({
   );
 };
 
-export default QuestionActions;
+export default PostActions;

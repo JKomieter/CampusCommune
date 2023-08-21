@@ -1,12 +1,12 @@
 "use client";
 
-import Questions from "./Questions";
+import Posts from "../Post/Posts";
 
 
 const Content = () => {
     return (
         <div className="w-full">
-            <Questions />
+            <Posts />
         </div>
     )
 }

@@ -3,22 +3,50 @@ import { useAskModalStore } from "@/store/askModalPopupStore";
 import { motion } from "framer-motion";
 import { useCallback, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import QuestionMode from "./QuestionMode";
-import PostMode from "./PostMode";
 import { db, auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import BottomActions from "./BottomActions";
+import BottomActions from "./Buttons/BottomActions";
 import CreateMode from "./CreateMode";
+import { addDoc, collection } from "firebase/firestore";
+import toast from "react-hot-toast";
+import { usePostLoadingStore } from "@/store/postLoading";
 
+// component for the modal that pops up when the user clicks on the "Ask a question" button
 const AskModal = () => {
   const { isOpen, setOpen } = useAskModalStore();
   const [user] = useAuthState(auth);
   const [mode, setMode] = useState<"question" | "post">("question");
   const [ step, setStep ] = useState<number>(1);
   const [text, setText] = useState<string>("");
+  const questionsCollectionRef = collection(db, "questions");
 
+  const { setPostLoading } = usePostLoadingStore();
 
-  const handleAddQuestion = async () => {};
+  console.log("user", user);
+
+  const handleAddQuestion = useCallback(async () => {
+    if (text.length === 0) return;
+    setPostLoading(true);
+
+    const Question = {
+      text,
+      author_id: user?.uid || "",
+      author_name: user?.displayName || "",
+      created_at: new Date(),
+    };
+
+    await addDoc(questionsCollectionRef, Question);
+    setOpen(false);
+    setStep(1);
+    setText("");
+
+    setTimeout(() => {
+      setPostLoading(false);
+    }, 2000);
+
+    toast.success("Question added successfully!");
+    
+  }, [text]);
 
   const handleChangeStep = useCallback(() => {
     if (text.length === 0) return;
@@ -44,8 +72,10 @@ const AskModal = () => {
             size={25}
             className="cursor-pointer"
             onClick={() => {
-              setOpen(false)
-              setStep(1)}}
+              setOpen(false);
+              setStep(1);
+              setText("");
+            }}
           />
         </div>
         <CreateMode
@@ -62,7 +92,11 @@ const AskModal = () => {
           >
             <BottomActions
               mode={mode}
+              step={step}
               handleChangeStep={handleChangeStep}
+              handleAddQuestion={handleAddQuestion}
+              setStep={setStep}
+              setText={setText}
             />
           </div>
         </div>

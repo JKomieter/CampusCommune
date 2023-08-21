@@ -1,12 +1,12 @@
-import QuestionActions from "@/components/QuestionPost/QuestionActions";
-import QuestionInfo from "@/components/QuestionPost/QuestionInfo";
-import QuestionMedia from "@/components/QuestionPost/QuestionMedia";
-import UserQuestionDisplay from "@/components/QuestionPost/UserQuestionDisplay";
-import { Question } from "@/types"
+import PostActions from "@/components/Post/PostActions";
+import PostInfo from "@/components/Post/PostInfo";
+import PostMedia from "@/components/Post/PostMedia";
+import UserPostDisplay from "@/components/Post/UserPostDisplay";
+import { Post } from "@/types"
 
 
 
-const QuestionItem: React.FC<Question> = ({
+const PostItem: React.FC<Post> = ({
     author_id,
     author_name,
     author_photo,
@@ -25,7 +25,7 @@ const QuestionItem: React.FC<Question> = ({
     return (
         <div className="w-full bg-white shadow-lg rounded-md overflow-y-visible">
             <div className="w-full flex flex-col gap-4 items-start">
-                <UserQuestionDisplay
+                <UserPostDisplay
                     author_id={author_id}
                     author_name={author_name}
                     author_photo={author_photo}
@@ -33,14 +33,14 @@ const QuestionItem: React.FC<Question> = ({
                     author_year={author_year}
                     created_at={created_at}
                 />
-                <QuestionInfo
+                <PostInfo
                     title={title}
                     body={body}
                 />
-                <QuestionMedia
+                <PostMedia
                     image={image}
                 />
-                <QuestionActions
+                <PostActions
                     upvotes={upvotes}
                     downvotes={downvotes}
                     answers={answers}
@@ -50,4 +50,4 @@ const QuestionItem: React.FC<Question> = ({
     )
 }
 
-export default QuestionItem;
+export default PostItem;
