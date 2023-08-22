@@ -1,6 +1,6 @@
 "use client";
 
-import Posts from "../Post/Posts";
+import Posts from "../Feed/Feed";
 
 
 const Content = () => {

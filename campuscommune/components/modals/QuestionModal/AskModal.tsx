@@ -33,6 +33,7 @@ const AskModal = () => {
       author_id: user?.uid || "",
       author_name: user?.displayName || "",
       created_at: new Date(),
+      type: "question",
     };
 
     await addDoc(questionsCollectionRef, Question);

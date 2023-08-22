@@ -1,12 +1,12 @@
-import PostActions from "@/components/Post/PostActions";
-import PostInfo from "@/components/Post/PostInfo";
-import PostMedia from "@/components/Post/PostMedia";
-import UserPostDisplay from "@/components/Post/UserPostDisplay";
-import { Post } from "@/types"
+import PostActions from "@/components/Feed/Post/PostActions";
+import PostInfo from "@/components/Feed/Post/PostInfo";
+import PostMedia from "@/components/Feed/Post/PostMedia";
+import UserPostDisplay from "@/components/Feed/Post/UserPostDisplay";
+import { PostType } from "@/types"
 
 
 
-const PostItem: React.FC<Post> = ({
+const PostItem: React.FC<PostType> = ({
     author_id,
     author_name,
     author_photo,

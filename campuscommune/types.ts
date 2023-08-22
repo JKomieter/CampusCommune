@@ -1,4 +1,6 @@
-export type Post = {
+export type FeedType = PostType | QuestionType;
+
+export type PostType = {
     author_id: string;
     author_name: string;
     author_major: string;
@@ -12,6 +14,7 @@ export type Post = {
     tags: string[];
     image: string;
     answers: Answer[];
+    type: string;
 }
 
 export type Answer = {
@@ -40,9 +43,14 @@ export interface PostActionProps {
     answers: Answer[];
 }
 
-export interface Question {
+export type QuestionType = {
     author_id: string;
     author_name: string;
+    created_at: Date;
     text: string;
     answers: Answer[];
+    followers: string[];
+    pass: boolean;
+    type: string;
 }
+
