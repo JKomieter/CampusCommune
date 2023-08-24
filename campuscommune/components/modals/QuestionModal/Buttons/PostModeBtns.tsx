@@ -22,8 +22,7 @@ const PostModeBtns: React.FC<PostModeBtnsProps> = ({
 
     setImage(file);
     const reader = new FileReader();
-    //convert file into base64
-
+    //convert file into base64 string
     reader.onload = (event: any) => {
       console.log(`Post: ${event.target.result}`);
     };

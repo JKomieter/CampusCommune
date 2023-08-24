@@ -63,7 +63,7 @@ const AskModal = () => {
       author_name: user?.displayName || "",
       created_at: new Date(),
       type: "post",
-      image: image || "",
+      image: ,
     };
 
     await addDoc(postsCollectionRef, Post);
