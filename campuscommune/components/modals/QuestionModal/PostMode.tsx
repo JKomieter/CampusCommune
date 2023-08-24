@@ -3,12 +3,12 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import PostMedia from "./PostMedia";
 
 interface PostModeProps {
-  image: File | undefined;
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  image: string;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
   title: string;
-  setTitle: (title: string) => void;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
   description: string;
-  setDescription: (description: string) => void;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PostMode: React.FC<PostModeProps> = ({
@@ -19,6 +19,7 @@ const PostMode: React.FC<PostModeProps> = ({
   description,
   setDescription,
 }) => {
+
 
   return (
     <>
@@ -43,7 +44,7 @@ const PostMode: React.FC<PostModeProps> = ({
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className='w-full border-none outline-none bg-transparent '
+          className='w-full border-none outline-none bg-transparent text-sm'
           placeholder='Add a title...'
         />
       </div>
@@ -52,7 +53,7 @@ const PostMode: React.FC<PostModeProps> = ({
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className='w-full h-full border-none outline-none bg-transparent pb-3'
+          className='w-full h-full border-none outline-none bg-transparent pb-3 text-sm'
           placeholder='Add a description...'
         />
       </div>

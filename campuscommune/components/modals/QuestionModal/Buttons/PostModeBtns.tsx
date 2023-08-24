@@ -1,11 +1,12 @@
 "use client";
 import { PiImagesLight } from "react-icons/pi";
 import { useDropzone } from "react-dropzone";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import Resizer from "react-image-file-resizer";
 
 interface PostModeBtnsProps {
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
-  image: File | undefined;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
+  image: string;
   handleAddPost: () => void;
 }
 
@@ -15,15 +16,31 @@ const PostModeBtns: React.FC<PostModeBtnsProps> = ({
   handleAddPost,
 }) => {
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     //upload the file to the server
-    
     const file = acceptedFiles[0];
-
-    setImage(file);
     const reader = new FileReader();
-    //convert file into base64 string
-    reader.onload = (event: any) => {
+
+    const resizeFile = (file: File) =>
+      new Promise((resolve) => {
+        Resizer.imageFileResizer(
+          file,
+          300,
+          400,
+          "JPEG",
+          99.9,
+          0,
+          (uri) => {
+            resolve(uri);
+          },
+          "base64"
+        );
+      });
+
+    reader.onload = async (event: any) => {
+      const image = await resizeFile(file);
+      setImage(image as string);
       console.log(`Post: ${event.target.result}`);
     };
     reader.readAsDataURL(file);
@@ -33,7 +50,7 @@ const PostModeBtns: React.FC<PostModeBtnsProps> = ({
     onDrop,
     accept: {
       "image/png": [],
-      "image/jpeg": [],
+      "image/jpeg": [], 
     },
   });
 

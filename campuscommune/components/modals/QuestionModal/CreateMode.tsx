@@ -8,13 +8,13 @@ interface CreateModeProps {
   setMode: React.Dispatch<React.SetStateAction<"question" | "post">>;
   step: number;
   text: string;
-  setText: (text: string) => void;
-  image: File | undefined;
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+  image: string;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
   title: string;
-  setTitle: (title: string) => void;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
   description: string;
-  setDescription: (description: string) => void;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 
 

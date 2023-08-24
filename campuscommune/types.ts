@@ -54,3 +54,21 @@ export type QuestionType = {
     type: string;
 }
 
+
+export type currentUserType = {
+    about_me: string;
+    answers_given: number;
+    batch_year: number;
+    email: string;
+    followers: string[];
+    followings: string[];
+    full_name: string;
+    major: string;
+    join_date: Date;
+    level: number;
+    profile_pic: string;
+    questions_asked: number;
+    location: string;
+    topics_followed: string[];
+    username: string;
+};

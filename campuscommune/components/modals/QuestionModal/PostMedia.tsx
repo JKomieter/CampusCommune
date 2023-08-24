@@ -3,8 +3,8 @@ import Image from 'next/image'
 import { IoClose } from 'react-icons/io5'
 
 interface PostMediaProps {
-  image: File | undefined
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>
+  image: string
+  setImage: React.Dispatch<React.SetStateAction<string>>
 }
 
 const PostMedia: React.FC<PostMediaProps> = ({ image, setImage }) => {
@@ -13,13 +13,13 @@ const PostMedia: React.FC<PostMediaProps> = ({ image, setImage }) => {
       {image && (
         <div className='h-full shadow-inner overflow-y-scroll'>
           <span
-            onClick={() => setImage(undefined)}
+            onClick={() => setImage("")}
             className='rounded-full p-1 bg-black text-neutral-200 absolute flex items-center justify-center z-10 cursor-pointer'
           >
             <IoClose size={18} className='text-neutral-200' />
           </span>
           <Image
-            src={URL.createObjectURL(image)}
+            src={image}
             objectFit='cover'
             className='object-cover'
             width={500}

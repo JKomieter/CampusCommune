@@ -1,30 +1,45 @@
 "use client";
 import { useAskModalStore } from "@/store/askModalPopupStore";
 import { motion } from "framer-motion";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { db, auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import BottomActions from "./Buttons/BottomActions";
 import CreateMode from "./CreateMode";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { usePostLoadingStore } from "@/store/postLoading";
+import { currentUserType } from "@/types";
+
+
 
 // component for the modal that pops up when the user clicks on the "Ask a question" button
 const AskModal = () => {
   const { isOpen, setOpen } = useAskModalStore();
   const [user] = useAuthState(auth);
   const [mode, setMode] = useState<"question" | "post">("question");
-  const [ step, setStep ] = useState<number>(1);
+  const [step, setStep] = useState<number>(1);
   const [text, setText] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [image, setImage] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState<string>("");
+  const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
   const questionsCollectionRef = collection(db, "questions");
   const postsCollectionRef = collection(db, "posts");
-
+  const usersCollectionRef = collection(db, "user");
   const { setPostLoading } = usePostLoadingStore();
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const userRef = query(usersCollectionRef, where("email", "==", user?.email));
+      const querySnapshot = await getDocs(userRef);
+      setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
+    };
+
+    getCurrentUser();
+  }, [user]);
+
 
   const handleAddQuestion = useCallback(async () => {
     if (text.length === 0) return;
@@ -32,8 +47,9 @@ const AskModal = () => {
 
     const Question = {
       text,
-      author_id: user?.uid || "",
-      author_name: user?.displayName || "",
+      author_id: currentUser.email,
+      author_name: currentUser.username,
+      author_email: currentUser.email,
       created_at: new Date(),
       type: "question",
     };
@@ -48,22 +64,25 @@ const AskModal = () => {
     }, 2000);
 
     toast.success("Question added successfully!");
-    
+
   }, [text]);
 
+
+  console.log(`Post: ${title}`)
+  console.log(`Post: ${description}`)
   const handleAddPost = useCallback(async () => {
-    if (title.length === 0 && description.length) return;
+    if (title.length < 1 && description.length < 1) return;
     setPostLoading(true);
 
     const Post = {
-      title,
+      title: title,
       body: description,
-      author_email: user?.email || "",
-      author_major: "Computer Science",
-      author_name: user?.displayName || "",
+      author_email: currentUser.email,
+      author_major: currentUser.major,
+      author_name: currentUser.username,
       created_at: new Date(),
       type: "post",
-      image: ,
+      image: image as string,
     };
 
     await addDoc(postsCollectionRef, Post);

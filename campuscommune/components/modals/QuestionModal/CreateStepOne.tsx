@@ -4,15 +4,15 @@ import QuestionMode from "./QuestionMode";
 
 interface CreateStepOneProps {
   text: string;
-  setText: (text: string) => void;
+  setText: React.Dispatch<React.SetStateAction<string>>;
   mode: string;
   setMode: React.Dispatch<React.SetStateAction<"question" | "post">>;
-  image: File | undefined;
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  image: string;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
   title: string;
-  setTitle: (title: string) => void;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
   description: string;
-  setDescription: (description: string) => void;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const modeStyles = {
@@ -33,6 +33,7 @@ const CreateStepOne: React.FC<CreateStepOneProps> = ({
   description,
   setDescription,
 }) => {
+
   return (
     <>
       <div

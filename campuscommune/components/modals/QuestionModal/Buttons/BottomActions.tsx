@@ -8,8 +8,8 @@ interface BottomActionsProps {
   handleAddQuestion: () => void;
   setStep: (step: number) => void;
   setText: (text: string) => void;
-  image: File | undefined;
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  image: string;
+  setImage: React.Dispatch<React.SetStateAction<string>>;
   handleAddPost: () => void;
 }
 
