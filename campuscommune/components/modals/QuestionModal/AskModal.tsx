@@ -18,11 +18,13 @@ const AskModal = () => {
   const [mode, setMode] = useState<"question" | "post">("question");
   const [ step, setStep ] = useState<number>(1);
   const [text, setText] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [image, setImage] = useState<File | undefined>(undefined);
   const questionsCollectionRef = collection(db, "questions");
+  const postsCollectionRef = collection(db, "posts");
 
   const { setPostLoading } = usePostLoadingStore();
-
-  console.log("user", user);
 
   const handleAddQuestion = useCallback(async () => {
     if (text.length === 0) return;
@@ -48,6 +50,33 @@ const AskModal = () => {
     toast.success("Question added successfully!");
     
   }, [text]);
+
+  const handleAddPost = useCallback(async () => {
+    if (title.length === 0 && description.length) return;
+    setPostLoading(true);
+
+    const Post = {
+      title,
+      body: description,
+      author_email: user?.email || "",
+      author_major: "Computer Science",
+      author_name: user?.displayName || "",
+      created_at: new Date(),
+      type: "post",
+      image: image || "",
+    };
+
+    await addDoc(postsCollectionRef, Post);
+    setOpen(false);
+    setStep(1);
+    setText("");
+
+    setTimeout(() => {
+      setPostLoading(false);
+    }, 2000);
+
+    toast.success("Post added successfully!");
+  }, []);
 
   const handleChangeStep = useCallback(() => {
     if (text.length === 0) return;
@@ -85,8 +114,14 @@ const AskModal = () => {
           step={step}
           text={text}
           setText={setText}
+          image={image}
+          setImage={setImage}
+          title={title}
+          setTitle={setTitle}
+          description={description}
+          setDescription={setDescription}
         />
-        <div className="w-full h-full flex items-end justify-end">
+        <div className="w-full flex items-end justify-end">
           <div
             className="py-3 px-3 w-full border-t-neutral-700 flex items-end justify-end gap-3"
             style={{ borderTopWidth: "0.5px" }}
@@ -98,6 +133,9 @@ const AskModal = () => {
               handleAddQuestion={handleAddQuestion}
               setStep={setStep}
               setText={setText}
+              image={image}
+              setImage={setImage}
+              handleAddPost={handleAddPost}
             />
           </div>
         </div>

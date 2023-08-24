@@ -8,6 +8,9 @@ interface BottomActionsProps {
   handleAddQuestion: () => void;
   setStep: (step: number) => void;
   setText: (text: string) => void;
+  image: File | undefined;
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  handleAddPost: () => void;
 }
 
 const BottomActions: React.FC<BottomActionsProps> = ({
@@ -15,8 +18,11 @@ const BottomActions: React.FC<BottomActionsProps> = ({
   handleChangeStep,
   step,
   handleAddQuestion,
+  handleAddPost,
   setStep,
   setText,
+  image,
+  setImage,
 }) => {
   return (
     <>
@@ -29,7 +35,11 @@ const BottomActions: React.FC<BottomActionsProps> = ({
           setText={setText}
         />
       ) : (
-        <PostModeBtns />
+        <PostModeBtns
+          setImage={setImage}
+          image={image}
+          handleAddPost={handleAddPost}
+        />
       )}
     </>
   );

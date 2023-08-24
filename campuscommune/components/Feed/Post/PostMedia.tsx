@@ -5,7 +5,7 @@ const PostMedia = ({image}: {image: string}) => {
     return (
         <div className="w-full">
             <Image
-                src={"/images/CodingSetup.jpeg"}
+                src={image || "/images/CodingSetup.jpeg"}
                 alt="Coding Setup"
                 width={500}
                 height={500}

@@ -47,13 +47,12 @@ const QuestionMode: React.FC<QuestionModeProps> = ({
             <IoIosArrowDown size={15} className="text-neutral-700" />
           </div>
         </div>
-        <div className="p-3 w-full">
-          <input
+        <div className="p-3 w-full h-full">
+          <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder='Start your question with "What", "How", "Why", etc.'
-            className="outline-none py-2 border-b-neutral-700 focus:outline-none md:text-lg text-sm bg-neutral-100 w-full "
-            style={{ borderBottomWidth: "0.5px" }}
+            className="outline-none py-2 h-full focus:outline-none md:text-lg text-sm bg-neutral-100 w-full "
           />
         </div>
       </>

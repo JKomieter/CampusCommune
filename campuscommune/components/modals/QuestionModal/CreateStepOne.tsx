@@ -2,13 +2,17 @@ import { text } from "stream/consumers";
 import PostMode from "./PostMode";
 import QuestionMode from "./QuestionMode";
 
-
-
 interface CreateStepOneProps {
-    text: string;
-    setText: (text: string) => void;
-    mode: string;
-    setMode: React.Dispatch<React.SetStateAction<"question" | "post">>;
+  text: string;
+  setText: (text: string) => void;
+  mode: string;
+  setMode: React.Dispatch<React.SetStateAction<"question" | "post">>;
+  image: File | undefined;
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  title: string;
+  setTitle: (title: string) => void;
+  description: string;
+  setDescription: (description: string) => void;
 }
 
 const modeStyles = {
@@ -18,40 +22,52 @@ const modeStyles = {
 };
 
 const CreateStepOne: React.FC<CreateStepOneProps> = ({
-    text,
-    setText,
-    mode,
-    setMode
+  text,
+  setText,
+  mode,
+  setMode,
+  image,
+  setImage,
+  title,
+  setTitle,
+  description,
+  setDescription,
 }) => {
-
-    return (
-      <>
+  return (
+    <>
+      <div
+        className="w-full flex flex-row items-center border-b-neutral-400"
+        style={{ borderBottomWidth: "0.6px" }}
+      >
         <div
-          className="w-full flex flex-row items-center border-b-neutral-400"
-          style={{ borderBottomWidth: "0.6px" }}
+          className="w-full text-center text-sm font-medium text-neutral-700 border-blue-600 cursor-pointer py-2"
+          style={mode === "question" ? modeStyles : {}}
+          onClick={() => setMode("question")}
         >
-          <div
-            className="w-full text-center text-sm font-medium text-neutral-700 border-blue-600 cursor-pointer py-2"
-            style={mode === "question" ? modeStyles : {}}
-            onClick={() => setMode("question")}
-          >
-            Add Question
-          </div>
-          <div
-            onClick={() => setMode("post")}
-            className="w-full text-center text-sm font-medium text-neutral-700 border-blue-600 cursor-pointer py-2"
-            style={mode === "post" ? modeStyles : {}}
-          >
-            Create Post
-          </div>
+          Add Question
         </div>
-        {mode === "question" ? (
-          <QuestionMode text={text} setText={setText} />
-        ) : (
-          <PostMode />
-        )}
-      </>
-    );
-}
+        <div
+          onClick={() => setMode("post")}
+          className="w-full text-center text-sm font-medium text-neutral-700 border-blue-600 cursor-pointer py-2"
+          style={mode === "post" ? modeStyles : {}}
+        >
+          Create Post
+        </div>
+      </div>
+      {mode === "question" ? (
+        <QuestionMode text={text} setText={setText} />
+      ) : (
+        <PostMode 
+        image={image} 
+        setImage={setImage} 
+        title={title} 
+        setTitle={setTitle} 
+        description={description}
+        setDescription={setDescription}
+        />
+      )}
+    </>
+  );
+};
 
 export default CreateStepOne;

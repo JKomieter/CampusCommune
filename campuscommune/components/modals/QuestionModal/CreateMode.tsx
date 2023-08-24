@@ -9,10 +9,16 @@ interface CreateModeProps {
   step: number;
   text: string;
   setText: (text: string) => void;
+  image: File | undefined;
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  title: string;
+  setTitle: (title: string) => void;
+  description: string;
+  setDescription: (description: string) => void;
 }
 
 
-const CreateMode: React.FC<CreateModeProps> = ({ mode, setMode, step, text, setText }) => {
+const CreateMode: React.FC<CreateModeProps> = ({ mode, setMode, step, text, setText, image, setImage, title, setTitle, description, setDescription }) => {
 
   const Step = {
     1: (
@@ -21,6 +27,12 @@ const CreateMode: React.FC<CreateModeProps> = ({ mode, setMode, step, text, setT
         setText={setText}
         mode={mode}
         setMode={setMode}
+        image={image}
+        setImage={setImage}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
       />
     ),
     2: <LoadingMode />,
