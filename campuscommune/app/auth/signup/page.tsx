@@ -35,7 +35,7 @@ export default function SignupPage() {
       const { userCredential, error } = await signup(email, password);
 
       if (!userCredential) {
-        setErrorMsg(error?.message as string);
+        setErrorMsg("Something went wrong. Please try again later.");
       }
       console.log(user);
       // Store user in database
