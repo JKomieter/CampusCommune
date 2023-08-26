@@ -1,12 +1,12 @@
 "use client";
 
-import Posts from "../Feed/Feed";
+import Feed from "../Feed/Feed";
 
 
 const Content = () => {
     return (
         <div className="w-full">
-            <Posts />
+            <Feed />
         </div>
     )
 }

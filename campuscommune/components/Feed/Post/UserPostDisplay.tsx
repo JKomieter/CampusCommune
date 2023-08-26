@@ -14,8 +14,6 @@ const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
     created_at,
 }) => {
 
-    const date = new Date(created_at?.seconds * 1000);
-
     return (
       <div className="flex flex-row items-center justify-between px-3 py-2 gap-3 w-full">
         <div className="w-10 h-10">
@@ -46,7 +44,8 @@ const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
             </span>
             <BsDot size={18} className="text-neutral-500" />
             <span className="text-sm text-neutral-500">
-              {date.toLocaleDateString()}
+          {/* {created_at.toDateString() || "2 days ago"} */}
+              2 days ago
             </span>
           </div>
         </div>

@@ -14,7 +14,7 @@ export type PostType = {
     tags: string[];
     image: string;
     answers: Answer[];
-    type: string;
+    type: "post";
 }
 
 export type Answer = {
@@ -51,7 +51,7 @@ export type QuestionType = {
     answers: Answer[];
     followers: string[];
     pass: boolean;
-    type: string;
+    type: "question";
 }
 
 

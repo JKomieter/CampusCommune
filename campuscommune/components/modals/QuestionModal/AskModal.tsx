@@ -1,13 +1,13 @@
 "use client";
 import { useAskModalStore } from "@/store/askModalPopupStore";
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { db, auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import BottomActions from "./Buttons/BottomActions";
 import CreateMode from "./CreateMode";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { usePostLoadingStore } from "@/store/postLoading";
 import { currentUserType } from "@/types";
@@ -32,7 +32,7 @@ const AskModal = () => {
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      const userRef = query(usersCollectionRef, where("email", "==", user?.email));
+      const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
       const querySnapshot = await getDocs(userRef);
       setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
     };
@@ -65,12 +65,11 @@ const AskModal = () => {
 
     toast.success("Question added successfully!");
 
+
   }, [text]);
 
-
-  console.log(`Post: ${title}`)
-  console.log(`Post: ${description}`)
   const handleAddPost = useCallback(async () => {
+    console.log("handleAddPost");
     if (title.length < 1 && description.length < 1) return;
     setPostLoading(true);
 
