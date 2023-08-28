@@ -2,7 +2,7 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import HeaderIcons from "./HeaderIcons";
 import HeaderSearchBar from "./HeaderSearchBar";
-import { Button } from "@nextui-org/react";
+import { Avatar, Button } from "@nextui-org/react";
 
 const Header = () => {
   return (
@@ -17,6 +17,13 @@ const Header = () => {
         </div>
         <HeaderIcons />
         <HeaderSearchBar />
+        <span className="md:flex hidden">
+          <Avatar
+            src="https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"
+            size="md"
+            className="z-0"
+          />
+        </span>
         <Button className="rounded-xl bg-neutral-700 md:flex hidden items-center justify-center px-2 py-2">
           <p className="text-neutral-100 font-bold text-lg">Ask</p>
         </Button>

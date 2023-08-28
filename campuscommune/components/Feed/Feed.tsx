@@ -10,46 +10,43 @@ import QuestionItem from "./Question/QuestionItem";
 const Feed = () => {
   const [posts, setPosts] = useState<FeedType[]>([]);
   const { postLoading } = usePostLoadingStore();
-
   const postsCollectionRef = collection(db, "posts");
   const questionsCollectionRef = collection(db, "questions");
 
-  // const unsubQuestions = onSnapshot(questionsCollectionRef, { includeMetadataChanges: true }, (snapshot) => {
-  //   setPosts((prev) => [...prev, ...snapshot.docs.map((doc) => doc.data() as QuestionType)]);
-  // });
-
-  // const unsubPosts = onSnapshot(postsCollectionRef, { includeMetadataChanges: true }, (snapshot) => {
-  //   setPosts((prev) => [...prev, ...snapshot.docs.map((doc) => doc.data() as PostType)].sort(() => Math.random() - 0.5));
-  // });
-
-
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const dataPosts = await getDocs(postsCollectionRef);
-        const dataQuestions = await getDocs(questionsCollectionRef);
+    const unsubQuestions = onSnapshot(questionsCollectionRef, (snapshot) => {
+      const newQuestions = snapshot.docChanges().map((change) => {
+        if (change.type === "added") {
+          return change.doc.data() as QuestionType;
+        }
+        return null;
+      }).filter(Boolean) as QuestionType[];
 
-        const Feed = [
-          ...dataPosts.docs.map((doc) => doc.data() as PostType),
-          ...dataQuestions.docs.map((doc) => doc.data() as QuestionType),
-        ].sort(() => Math.random() - 0.5);
+      setPosts((prev) => [...prev, ...newQuestions].sort(() => Math.random() - 0.5));
+    });
 
-        // setPosts(dataPosts.docs.map((doc) => doc.data() as Post));
-        setPosts(Feed);
-      } catch (error) {
-        console.log(error);
-        setPosts([]);
-      }
+    const unsubPosts = onSnapshot(postsCollectionRef, (snapshot) => {
+      const newPosts = snapshot.docChanges().map((change) => {
+        if (change.type === "added") {
+          return change.doc.data() as PostType;
+        }
+        return null;
+      }).filter(Boolean) as PostType[];
+
+      setPosts((prev) => [...prev, ...newPosts].sort(() => Math.random() - 0.5));
+    });
+
+    return () => {
+      unsubQuestions();
+      unsubPosts();
     };
-
-    getPosts();
   }, []);
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
       <PostProgress postLoading={postLoading} />
       {posts.map((post) =>
-        <div key={post.author_id} className="w-full">
+        <div key={post.author_id + post.created_at} className="w-full">
           {post.type === "post" ? (
             <PostItem
               author_id={post.author_id}

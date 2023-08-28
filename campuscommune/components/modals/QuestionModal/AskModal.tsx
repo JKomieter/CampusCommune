@@ -70,7 +70,7 @@ const AskModal = () => {
 
   const handleAddPost = useCallback(async () => {
     console.log("handleAddPost");
-    if (title.length < 1 && description.length < 1) return;
+    if (title.split("").length < 1 && description.split("").length < 1) return;
     setPostLoading(true);
 
     const Post = {

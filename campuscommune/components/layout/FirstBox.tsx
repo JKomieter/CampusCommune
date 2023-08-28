@@ -24,9 +24,6 @@ const FirstBox = () => {
   return (
     <div className="w-full py-1 px-1 rounded-md shadow-lg bg-white flex flex-col item-center gap-2">
       <div className="w-full flex flex-row items-center gap-3">
-        {/* <span className="p-2 rounded-full bg-neutral-800 w-10 h-10 flex items-center justify-center">
-          <p className="text-lg text-neutral-200 ">{getCurrentUserEmailFirstChar}</p>
-        </span> */}
         <span className="pr-0.5">
           <Avatar
             src="https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"
