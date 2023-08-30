@@ -8,6 +8,8 @@ const PostActions: React.FC<PostActionProps> = ({
   upvotes,
   downvotes,
   answers,
+  handleUpvote,
+  title,
 }) => {
   return (
     <div className="w-full px-3 flex flex-row items-center justify-between pb-3">
@@ -16,6 +18,8 @@ const PostActions: React.FC<PostActionProps> = ({
           upvotes={upvotes}
           downvotes={downvotes}
           answers={answers}
+          handleUpvote={handleUpvote}
+          title={title}
         />
         <div className="flex flex-row items-center gap-1 rounded-3xl p-1">
           <TbMessageCircle size={20} className="text-neutral-500" />

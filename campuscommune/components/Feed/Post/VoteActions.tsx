@@ -5,18 +5,22 @@ import { TbArrowBigUpFilled, TbArrowBigDown } from "react-icons/tb";
 const VoteActions: React.FC<PostActionProps> = ({
     upvotes,
     downvotes,
+    handleUpvote,
+    title
 }) => {
     return (
       <div
         className="rounded-3xl flex flex-row gap-1 justify-between border-neutral-300 bg-neutral-100"
         style={{ borderWidth: "0.4px" }}
       >
-        <div className="flex flex-row gap-1 px-2 py-1 items-center justify-between">
+        <div 
+        onClick={() => handleUpvote(title)}
+        className="flex flex-row gap-1 px-2 py-1 items-center justify-between cursor-pointer">
           <TbArrowBigUpFilled size={22} color="#FF725E" className="font-bold" />
           <span className="flex flex-row gap-1 item-center ">
             <p className="text-blue-700 text-sm">Upvote</p>
             <BsDot size={16} className="text-blue-700" />
-            <p className="text-blue-700 text-sm">{upvotes}</p>
+            <p className="text-blue-700 text-sm">{upvotes?.length || 0}</p>
           </span>
         </div>
         <div className="h-full w-[1px] bg-neutral-300"></div>

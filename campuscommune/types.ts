@@ -1,6 +1,7 @@
 export type FeedType = PostType | QuestionType;
 
 export type PostType = {
+    id: string;
     author_id: string;
     author_name: string;
     author_major: string;
@@ -9,7 +10,7 @@ export type PostType = {
     title: string;
     body: string;
     created_at: Date;
-    upvotes: number;
+    upvotes: Record<string, any>[];
     downvotes: number;
     tags: string[];
     image: string;
@@ -38,9 +39,11 @@ export interface PostInfoProps {
 }
 
 export interface PostActionProps {
-    upvotes: number;
+    upvotes: Record<string, any>[];
     downvotes: number;
     answers: Answer[];
+    handleUpvote: (post_title: string) => void;
+    title: string;
 }
 
 export type QuestionType = {
@@ -56,6 +59,7 @@ export type QuestionType = {
 
 
 export type currentUserType = {
+    id: string;
     about_me: string;
     answers_given: number;
     batch_year: number;

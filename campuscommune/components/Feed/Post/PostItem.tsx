@@ -5,8 +5,13 @@ import UserPostDisplay from "@/components/Feed/Post/UserPostDisplay";
 import { PostType } from "@/types"
 
 
+interface PostItemProps extends PostType {
+    handleUpvote: (post_id: string) => void;
+ }
 
-const PostItem: React.FC<PostType> = ({
+
+const PostItem: React.FC<PostItemProps> = ({
+    id,
     author_id,
     author_name,
     author_photo,
@@ -20,6 +25,7 @@ const PostItem: React.FC<PostType> = ({
     downvotes,
     image,
     answers,
+    handleUpvote,
 }) => {
 
     return (
@@ -44,6 +50,8 @@ const PostItem: React.FC<PostType> = ({
                     upvotes={upvotes}
                     downvotes={downvotes}
                     answers={answers}
+                    handleUpvote={handleUpvote}
+                    title={title}
                 />
             </div>
         </div>

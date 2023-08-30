@@ -53,7 +53,6 @@ const Desktop = () => {
                 </h3>
                 <GiHamburgerMenu size={25} />
             </div>
-            {/* <FaRegBell size={50} className="text-neutral-600 lg:flex hidden" /> */}
             <div className="lg:flex hidden flex-row items-center gap-2 text-neutral-600 justify-center">
                 <p className="lowercase">
                     {currentUser?.username}

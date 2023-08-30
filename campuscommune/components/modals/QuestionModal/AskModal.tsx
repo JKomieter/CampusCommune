@@ -43,57 +43,66 @@ const AskModal = () => {
 
   const handleAddQuestion = useCallback(async () => {
     if (text.length === 0) return;
-    setPostLoading(true);
+    try {
+      setPostLoading(true);
 
-    const Question = {
-      text,
-      author_id: currentUser.email,
-      author_name: currentUser.username,
-      author_email: currentUser.email,
-      created_at: new Date(),
-      type: "question",
-    };
+      const Question = {
+        text,
+        author_id: currentUser.email,
+        author_name: currentUser.username,
+        author_email: currentUser.email,
+        created_at: new Date(),
+        type: "question",
+      };
 
-    await addDoc(questionsCollectionRef, Question);
-    setOpen(false);
-    setStep(1);
-    setText("");
+      await addDoc(questionsCollectionRef, Question);
+      setOpen(false);
+      setStep(1);
+      setText("");
 
-    setTimeout(() => {
-      setPostLoading(false);
-    }, 2000);
+      setTimeout(() => {
+        setPostLoading(false);
+      }, 2000);
 
-    toast.success("Question added successfully!");
-
+      toast.success("Question added successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error adding question");
+    }
 
   }, [text]);
 
   const handleAddPost = useCallback(async () => {
-    console.log("handleAddPost");
     if (title.split("").length < 1 && description.split("").length < 1) return;
-    setPostLoading(true);
+    try {
+      setPostLoading(true);
 
-    const Post = {
-      title: title,
-      body: description,
-      author_email: currentUser.email,
-      author_major: currentUser.major,
-      author_name: currentUser.username,
-      created_at: new Date(),
-      type: "post",
-      image: image as string,
-    };
+      const Post = {
+        title: title,
+        body: description,
+        author_email: currentUser.email,
+        author_major: currentUser.major,
+        author_name: currentUser.username,
+        created_at: new Date(),
+        type: "post",
+        image: image as string,
+      };
 
-    await addDoc(postsCollectionRef, Post);
-    setOpen(false);
-    setStep(1);
-    setText("");
+      await addDoc(postsCollectionRef, Post);
+      setOpen(false);
+      setStep(1);
+      setText("");
 
-    setTimeout(() => {
-      setPostLoading(false);
-    }, 2000);
+      setTimeout(() => {
+        setPostLoading(false);
+      }, 2000);
 
-    toast.success("Post added successfully!");
+      toast.success("Post added successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error adding post");
+    }
+    
   }, []);
 
   const handleChangeStep = useCallback(() => {

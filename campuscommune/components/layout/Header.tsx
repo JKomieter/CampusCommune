@@ -3,12 +3,18 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import HeaderIcons from "./HeaderIcons";
 import HeaderSearchBar from "./HeaderSearchBar";
 import { Avatar, Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+
+  const router = useRouter();
+
   return (
     <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 z-50 shadow-lg bg-white">
       <div className="flex items-center justify-between gap-4 w-full ">
-        <div className="font-sans font-semibold lg:text-2xl md:text-xl text-lg text-neutral-700  hidden md:flex">
+        <div 
+        onClick={() => router.push("/")}
+        className="font-sans font-semibold lg:text-2xl md:text-xl text-lg text-neutral-700 hidden md:flex cursor-pointer">
           Camp<span className=" text-[#FF725E]">Comm</span>
         </div>
         <div className="flex md:hidden font-semibold lg:text-2xl md:text-xl text-lg">

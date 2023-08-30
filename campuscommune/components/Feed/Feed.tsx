@@ -1,17 +1,60 @@
-import { db } from "@/firebase/config";
-import { useState, useEffect } from "react";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { db, auth } from "@/firebase/config";
+import { useState, useEffect, use, useCallback } from "react";
+import { addDoc, arrayUnion, collection, doc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { PostType, FeedType, QuestionType } from "@/types";
 import PostItem from "./Post/PostItem";
 import PostProgress from "./Post/PostProgress";
 import { usePostLoadingStore } from "@/store/postLoading";
 import QuestionItem from "./Question/QuestionItem";
+import { currentUserType } from "@/types";
+import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
+
+
 
 const Feed = () => {
   const [posts, setPosts] = useState<FeedType[]>([]);
   const { postLoading } = usePostLoadingStore();
   const postsCollectionRef = collection(db, "posts");
   const questionsCollectionRef = collection(db, "questions");
+  const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
+  const [post_id, setPost_id] = useState<string>("");
+  const usersCollectionRef = collection(db, "user");
+  const [user] = useAuthState(auth);
+
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
+      const querySnapshot = await getDocs(userRef);
+      setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
+    };
+    
+    getCurrentUser();
+  }, [user]);
+
+
+  const handleUpvote = useCallback(async (post_title: string) => {
+    try {
+      const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
+      const postSnapshot = await getDocs(postRefQuery);
+      postSnapshot.forEach((doc) => {
+        setPost_id(doc.id);
+      });
+
+      console.log(post_id);
+
+      const postRef = doc(db, "posts", post_id);
+
+      await updateDoc(postRef, {
+        upvotes: arrayUnion(currentUser?.email),
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error upvoting post");
+    }
+  }, []);
+
 
   useEffect(() => {
     const unsubQuestions = onSnapshot(questionsCollectionRef, (snapshot) => {
@@ -42,6 +85,7 @@ const Feed = () => {
     };
   }, []);
 
+
   return (
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
       <PostProgress postLoading={postLoading} />
@@ -49,6 +93,7 @@ const Feed = () => {
         <div key={post.author_id + post.created_at} className="w-full">
           {post.type === "post" ? (
             <PostItem
+              id={post.id}
               author_id={post.author_id}
               author_name={post.author_name}
               author_photo={(post as PostType).author_photo}
@@ -63,6 +108,7 @@ const Feed = () => {
               author_year={(post as PostType).author_year}
               answers={post.answers}
               type={post.type}
+              handleUpvote={handleUpvote}
             />
           ) : (
             <QuestionItem
