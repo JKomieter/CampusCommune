@@ -122,7 +122,7 @@ const AskModal = () => {
         animate={{ scale: 1 }}
         transition={{ duration: 0.2 }}
         className={`md:rounded-md rounded-2xl xl:w-[50%]
-            lg:w-[65%] md:w-[80%] sm:w-[90%] w-[100%] bg-neutral-100 md:h-[78%] h-[99%] flex flex-col gap-2`}
+            lg:w-[65%] md:w-[80%] sm:w-[90%] w-[100%] bg-neutral-100 md:h-[78%] h-[80%] flex flex-col gap-2`}
       >
         <div className="w-full flex item-center justify-between p-3">
           <IoClose

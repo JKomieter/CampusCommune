@@ -8,13 +8,14 @@ const VoteActions: React.FC<PostActionProps> = ({
     handleUpvote,
     title
 }) => {
+    
     return (
       <div
         className="rounded-3xl flex flex-row gap-1 justify-between border-neutral-300 bg-neutral-100"
         style={{ borderWidth: "0.4px" }}
       >
         <div 
-        onClick={() => handleUpvote(title)}
+        onClick={(e) => handleUpvote(title)}
         className="flex flex-row gap-1 px-2 py-1 items-center justify-between cursor-pointer">
           <TbArrowBigUpFilled size={22} color="#FF725E" className="font-bold" />
           <span className="flex flex-row gap-1 item-center ">

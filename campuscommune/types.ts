@@ -10,7 +10,7 @@ export type PostType = {
     title: string;
     body: string;
     created_at: Date;
-    upvotes: Record<string, any>[];
+    upvotes: string[];
     downvotes: number;
     tags: string[];
     image: string;
@@ -39,7 +39,7 @@ export interface PostInfoProps {
 }
 
 export interface PostActionProps {
-    upvotes: Record<string, any>[];
+    upvotes: string[];
     downvotes: number;
     answers: Answer[];
     handleUpvote: (post_title: string) => void;

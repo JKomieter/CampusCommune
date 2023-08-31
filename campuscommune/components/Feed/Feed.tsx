@@ -1,6 +1,6 @@
 import { db, auth } from "@/firebase/config";
-import { useState, useEffect, use, useCallback } from "react";
-import { addDoc, arrayUnion, collection, doc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from "firebase/firestore";
+import { useState, useEffect, useCallback } from "react";
+import { arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { PostType, FeedType, QuestionType } from "@/types";
 import PostItem from "./Post/PostItem";
 import PostProgress from "./Post/PostProgress";
@@ -35,6 +35,7 @@ const Feed = () => {
 
 
   const handleUpvote = useCallback(async (post_title: string) => {
+    console.log(currentUser?.email);
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
@@ -42,13 +43,23 @@ const Feed = () => {
         setPost_id(doc.id);
       });
 
-      console.log(post_id);
-
       const postRef = doc(db, "posts", post_id);
 
       await updateDoc(postRef, {
-        upvotes: arrayUnion(currentUser?.email),
+        upvotes: arrayUnion("currentUser?.email as string"),
       });
+
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          (post as PostType).title === post_title && post.type === "post"
+            ? {
+              ...post,
+              upvotes: [...post.upvotes, currentUser?.email], // Update the upvotes array
+            }
+            : post
+        )
+      );
+      toast.success("Upvoted post");
     } catch (error) {
       console.log(error);
       toast.error("Error upvoting post");
