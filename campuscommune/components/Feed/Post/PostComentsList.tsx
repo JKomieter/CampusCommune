@@ -1,6 +1,7 @@
 import React from 'react';
 import { Comment } from '@/types';
 import { BeatLoader } from 'react-spinners';
+import CommentItem from './CommentItem';
 
 
 const PostCommentsList = ({
@@ -18,9 +19,12 @@ const PostCommentsList = ({
     )
     
     return (
-        <div className="w-full px-3">
+        <div className="w-full  flex flex-col gap-1">
             {comments.map((comment) => (
-                <div className="">{comment.body}</div>
+                <CommentItem 
+                    key={comment.post_title}
+                    {...comment}
+                />
             ))}
         </div>
     )

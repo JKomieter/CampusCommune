@@ -1,12 +1,11 @@
 import { db, auth } from "@/firebase/config";
 import { useState, useEffect, useCallback } from "react";
 import { arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore";
-import { PostType, FeedType, QuestionType } from "@/types";
+import { PostType, FeedType, QuestionType, currentUserType } from "@/types";
 import PostItem from "./Post/PostItem";
 import PostProgress from "./Post/PostProgress";
 import { usePostLoadingStore } from "@/store/postLoading";
 import QuestionItem from "./Question/QuestionItem";
-import { currentUserType } from "@/types";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 
@@ -33,9 +32,9 @@ const Feed = () => {
     getCurrentUser();
   }, [user]);
 
-
+  
   const handleUpvote = useCallback(async (post_title: string) => {
-    console.log(currentUser?.email);
+    console.log(currentUser, post_title);
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
@@ -46,7 +45,7 @@ const Feed = () => {
       const postRef = doc(db, "posts", post_id);
 
       await updateDoc(postRef, {
-        upvotes: arrayUnion("currentUser?.email as string"),
+        upvotes: arrayUnion(currentUser.email),
       });
 
       setPosts((prevPosts) =>
@@ -104,7 +103,7 @@ const Feed = () => {
         <div key={post.author_id + post.created_at} className="w-full">
           {post.type === "post" ? (
             <PostItem
-              id={post.id}
+              author_email={post.author_email}
               author_id={post.author_id}
               author_name={post.author_name}
               author_photo={(post as PostType).author_photo}
@@ -119,10 +118,15 @@ const Feed = () => {
               author_year={(post as PostType).author_year}
               answers={post.answers}
               type={post.type}
-              handleUpvote={handleUpvote}
+              handleUpvote={handleUpvote} 
+              id={""} 
+              currentUserEmail={currentUser.email}
+              currentUserPhoto={currentUser.profile_pic}
+              currentUserFullname={currentUser.full_name}
             />
           ) : (
             <QuestionItem
+              author_email={(post as QuestionType).author_email}
               author_id={(post as QuestionType).author_id}
               author_name={(post as QuestionType).author_name}
               text={(post as QuestionType).text}

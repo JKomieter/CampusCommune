@@ -3,6 +3,11 @@ import { PostActionProps } from "@/types";
 import { TbMessageCircle } from "react-icons/tb";
 import { PiShareFatBold } from "react-icons/pi";
 import { BsThreeDots } from "react-icons/bs";
+import { useState } from "react";
+import ToolTipContent from "./ToolTipContent";
+import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
+
+
 
 interface PostActionPropsII extends PostActionProps {
   setOpenComments: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,23 +37,32 @@ const PostActions: React.FC<PostActionPropsII> = ({
           handleUpvote={handleUpvote}
           title={title}
         />
-        <div 
-        onClick={() => {
-          handleOpenComments(title)
-          setOpenComments(!openComments)
-        }}
-        className="flex flex-row items-center gap-1 rounded-3xl py-1 px-2 cursor-pointer hover:bg-neutral-200">
+        <div
+          onClick={() => {
+            handleOpenComments(title)
+            setOpenComments(!openComments)
+          }}
+          className="flex flex-row items-center gap-1 rounded-3xl py-1 px-2 cursor-pointer hover:bg-neutral-200">
           <TbMessageCircle size={20} className="text-neutral-500" />
-          <p className="text-neutral-500 text-sm">{comments?.length || 0}</p>
+          <p className="text-neutral-500 text-sm">{comments.length || 0}</p>
         </div>
         <div className="flex flex-row items-center gap-1 rounded-3xl py-1 px-2 cursor-pointer hover:bg-neutral-200">
           <PiShareFatBold size={20} className="text-neutral-500" />
           <p className="text-neutral-500 text-sm">3</p>
         </div>
       </div>
-      <span className="cursor-pointer">
-        <BsThreeDots size={20} className="text-neutral-500" />
-      </span>
+      <div className="cursor-pointer">
+        <Popover placement="top" color="default">
+          <PopoverTrigger>
+            <button className="p-0">
+              <BsThreeDots size={20} className="text-neutral-500" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <ToolTipContent />
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   );
 };

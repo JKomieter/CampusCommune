@@ -7,6 +7,7 @@ export type PostType = {
     author_id: string;
     author_name: string;
     author_major: string;
+    author_email: string;
     author_year: number;
     author_photo: string;
     title: string;
@@ -23,7 +24,7 @@ export type PostType = {
 export type Comment = {
     author_name: string;
     body: string;
-    created_at: Date;
+    created_at: any;
     author_photo: string;
     author_email: string;
     downvotes: Array<string>;
@@ -65,6 +66,7 @@ export interface PostActionProps {
 export type QuestionType = {
     author_id: string;
     author_name: string;
+    author_email: string;
     created_at: Date;
     text: string;
     answers: Answer[];
