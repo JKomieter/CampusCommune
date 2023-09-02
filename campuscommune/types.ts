@@ -1,3 +1,5 @@
+import React from "react";
+
 export type FeedType = PostType | QuestionType;
 
 export type PostType = {
@@ -17,6 +19,19 @@ export type PostType = {
     answers: Answer[];
     type: "post";
 }
+
+export type Comment = {
+    author_name: string;
+    body: string;
+    created_at: Date;
+    author_photo: string;
+    author_email: string;
+    downvotes: Array<string>;
+    upvotes: Array<string>;
+    replies: Array<Comment>;
+    post_title: string;
+}
+    
 
 export type Answer = {
     author_name: string;
@@ -44,6 +59,7 @@ export interface PostActionProps {
     answers: Answer[];
     handleUpvote: (post_title: string) => void;
     title: string;
+    comments: Comment[];
 }
 
 export type QuestionType = {

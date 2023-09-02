@@ -29,7 +29,7 @@ const Feed = () => {
       const querySnapshot = await getDocs(userRef);
       setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
     };
-    
+
     getCurrentUser();
   }, [user]);
 

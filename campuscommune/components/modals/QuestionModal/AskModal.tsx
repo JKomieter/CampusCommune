@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { db, auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import BottomActions from "./Buttons/BottomActions";
+import BottomActions from "../Buttons/BottomActions";
 import CreateMode from "./CreateMode";
 import { addDoc, collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -124,7 +124,8 @@ const AskModal = () => {
         className={`md:rounded-md rounded-2xl xl:w-[50%]
             lg:w-[65%] md:w-[80%] sm:w-[90%] w-[100%] bg-neutral-100 md:h-[78%] h-[80%] flex flex-col gap-2`}
       >
-        <div className="w-full flex item-center justify-between p-3">
+        <div data-testid="close-icon"
+        className="w-full flex item-center justify-between p-3">
           <IoClose
             size={25}
             className="cursor-pointer"
