@@ -37,6 +37,7 @@ const CommentItem: React.FC<Comment> = ({
                 <span className="text-sm text-neutral-600">
                     {body}
                 </span>
+                
             </div>
         </div>
     )

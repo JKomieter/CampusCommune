@@ -8,6 +8,7 @@ import { usePostLoadingStore } from "@/store/postLoading";
 import QuestionItem from "./Question/QuestionItem";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
+import FeedSkeleton from "./FeedSkeleton";
 
 
 
@@ -34,7 +35,7 @@ const Feed = () => {
 
   
   const handleUpvote = useCallback(async (post_title: string) => {
-    console.log(currentUser, post_title);
+    console.log(currentUser?.email, post_title);
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
@@ -95,6 +96,7 @@ const Feed = () => {
     };
   }, []);
 
+  if (posts.length === 0) return <FeedSkeleton />;
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
@@ -120,9 +122,9 @@ const Feed = () => {
               type={post.type}
               handleUpvote={handleUpvote} 
               id={""} 
-              currentUserEmail={currentUser.email}
-              currentUserPhoto={currentUser.profile_pic}
-              currentUserFullname={currentUser.full_name}
+              currentUserEmail={currentUser?.email}
+              currentUserPhoto={currentUser?.profile_pic}
+              currentUserFullname={currentUser?.full_name}
             />
           ) : (
             <QuestionItem

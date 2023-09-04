@@ -3,11 +3,10 @@ import PostInfo from "@/components/Feed/Post/PostInfo";
 import PostMedia from "@/components/Feed/Post/PostMedia";
 import UserPostDisplay from "@/components/Feed/Post/UserPostDisplay";
 import { PostType } from "@/types"
-import React, { use, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PostComments from "./PostComments";
 import { db } from "@/firebase/config";
-import { collection, query, where, getDocs, onSnapshot } from "firebase/firestore";
-import toast from "react-hot-toast";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { Comment } from "@/types";
 
 

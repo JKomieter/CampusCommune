@@ -3,9 +3,8 @@ import { PostActionProps } from "@/types";
 import { TbMessageCircle } from "react-icons/tb";
 import { PiShareFatBold } from "react-icons/pi";
 import { BsThreeDots } from "react-icons/bs";
-import { useState } from "react";
 import ToolTipContent from "./ToolTipContent";
-import { Popover, PopoverTrigger, PopoverContent, Button } from "@nextui-org/react";
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 
 
 
