@@ -9,7 +9,6 @@ import News from "@/components/News/News";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
-  const router = useRouter();
 
   useEffect(() => {
     // if (!user) {

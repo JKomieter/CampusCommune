@@ -6,7 +6,7 @@ import { Badge } from "@nextui-org/react";
 
 const HeaderIcons = () => {
   return (
-    <div className="md:flex flex-row items-center gap-6 hidden">
+    <div className="md:flex flex-row items-center gap-6 hidden w-full md:w-auto">
       <span>
         <RiHome2Line size={28} className="text-neutral-600" />
       </span>

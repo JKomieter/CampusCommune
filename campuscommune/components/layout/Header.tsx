@@ -14,6 +14,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { currentUserType } from "@/types";
 import AvatarPopoverContent from "./AvatarPopoverContent";
 
+
 const Header = () => {
 
   const router = useRouter();
@@ -31,6 +32,14 @@ const Header = () => {
 
     getCurrentUser();
   }, [user]);
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/auth/signin");
+    }
+  }, []);
+
+  if (!currentUser) return null;
 
   return (
     <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 z-50 shadow-lg bg-white">

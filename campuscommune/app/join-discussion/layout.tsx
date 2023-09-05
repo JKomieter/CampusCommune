@@ -1,4 +1,4 @@
-import DiscussionPageHeader from "@/components/Discussion/DiscussionPageHeader"
+import DiscussionHeader from "@/components/Discussion/DiscussionHeader"
 
 
 
@@ -9,7 +9,7 @@ export default function RootLayout({
 }) {
     return (
         <div className="w-full h-full overflow-x-hidden">
-            <DiscussionPageHeader />
+            <DiscussionHeader />
             {children}
         </div>
     )

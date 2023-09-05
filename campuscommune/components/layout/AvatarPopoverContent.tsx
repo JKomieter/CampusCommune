@@ -1,4 +1,4 @@
-import { Avatar } from "@nextui-org/react"
+import { Avatar, user } from "@nextui-org/react"
 import { BiBookmarks } from "react-icons/bi";
 import { BsStars } from "react-icons/bs";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
@@ -80,10 +80,12 @@ const AvatarPopoverContent: React.FC<AvatarPopoverContentProps> = ({
 }) => {
 
     const router = useRouter();
+    console.log(user_name)
 
     return (
         <div className="flex flex-col justify-start">
             <div
+                onClick={() => router.push(`/profile/${user_name.split(" ").join("-")}`)}
                 style={{ borderBottomWidth: "0.4px" }}
                 className="flex flex-col gap-2 px-3 py-5 cursor-pointer duration-200 transition-all hover:opacity-60 border-neutral-600 w-full">
                 <span>

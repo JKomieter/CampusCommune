@@ -10,7 +10,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { LuMessageSquarePlus } from "react-icons/lu";
 
 
-const Desktop = () => {
+const DiscussionHeader = () => {
     const [currentUser, setCurrentUser] = useState<currentUserType | null>(null);
     const [user] = useAuthState(auth);
     const usersCollectionRef = collection(db, "user");
@@ -26,7 +26,7 @@ const Desktop = () => {
     }, [user]);
 
     return (
-        <div className="flex w-full items-center justify-between gap-6">
+        <div className="flex w-full items-center justify-between gap-6 mt-16 lg:px-36 md:px-16 sm:px-12 px-3 py-2">
             <div className="lg:hidden flex w-full">
                 <GiHamburgerMenu size={25}/>
             </div>
@@ -69,4 +69,4 @@ const Desktop = () => {
     )
 }
 
-export default Desktop;
+export default DiscussionHeader;

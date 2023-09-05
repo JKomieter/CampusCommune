@@ -127,8 +127,8 @@ const AskModal = () => {
         <div data-testid="close-icon"
         className="w-full flex item-center justify-between p-3">
           <IoClose
-            size={25}
-            className="cursor-pointer"
+            size={28}
+            className="cursor-pointer hover:bg-neutral-200 rounded-full p-1"
             onClick={() => {
               setOpen(false);
               setStep(1);
