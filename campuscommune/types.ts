@@ -1,4 +1,4 @@
-import React from "react";
+// Type definitions for Campus Commune
 
 export type FeedType = PostType | QuestionType;
 
@@ -94,3 +94,42 @@ export type currentUserType = {
     topics_followed: string[];
     username: string;
 };
+
+type Participants = {
+    user_name: string;
+    user_email: string;
+    user_photo: string;
+}
+
+type Message = {
+    sender_name: string;
+    sender_email: string;
+    sender_photo: string;
+    text: string;
+    created_at: Date;
+    image: string;
+    video: string;
+    audio: string;
+}
+
+export interface DiscussionType {
+    title: string;
+    description: string;
+    category: string[];
+    admin: {
+        user_name: string;
+        user_email: string;
+        user_photo: string;
+    },
+    participants: Participants[];
+    messages: Message[];
+    views: number;
+}
+
+export interface DiscussionListType {
+    title: string;
+    description: string;
+    category: string[];
+    participants: Participants[];
+    views: number;
+}

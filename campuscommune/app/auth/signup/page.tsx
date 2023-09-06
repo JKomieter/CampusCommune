@@ -1,7 +1,7 @@
 "use client";
 import signup from "@/firebase/auth/signup";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CollegeStudents, Logo } from "@/components/svgs";
 import { addDoc, collection } from "firebase/firestore";
@@ -21,7 +21,7 @@ export default function SignupPage() {
   const [user] = useAuthState(auth);
   const userCollectionRef = collection(db, "user");
 
-  const onSubmit = async (data: Record<string, string>) => {
+  const onSubmit = useCallback(async (data: Record<string, string>) => {
     try {
       const { email, password, confirmedPassword, major, firstName, lastName } =
         data;
@@ -40,11 +40,12 @@ export default function SignupPage() {
       console.log(user);
       // Store user in database
       await createUserInDB(email, major, firstName, lastName);
+      router.push("/");
     } catch (error) {
       console.log(error);
       setErrorMsg("Something went wrong. Please try again later.");
     }
-  };
+  }, []);
 
   const createUserInDB = async (
     email: string,
@@ -80,7 +81,7 @@ export default function SignupPage() {
               Campus <span className="text-neutral-700">Commune</span>
             </p>
           </span>
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full">
+          <form onSubmit={() => handleSubmit(onSubmit)} className="w-full h-full">
             <div className="flex flex-col gap-4 w-full">
               <div className="flex flex-row gap-3 w-full">
                 <div className="flex flex-col gap-1 w-full">
