@@ -3,7 +3,7 @@ import { RiSuitcaseLine } from "react-icons/ri";
 import { TbPlayerPlayFilled } from "react-icons/tb";
 
 
-export const categoryColor = {
+const categoryColor = {
     "general": "#FFB100",
     "academics": "#FFB100",
     "admissions": "#FFB100",
@@ -38,7 +38,10 @@ export const categoryColor = {
     "Technology": "#FFB100",
 };
 
-export const categoryIcon = {
+const categoryIcon = {
     "entertainment": TbPlayerPlayFilled,
     "internships": RiSuitcaseLine,
 } as Record<string, IconType>;
+
+
+export { categoryColor, categoryIcon };

@@ -24,6 +24,8 @@ import { arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "f
 import { currentUserType } from "@/types";
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+
 
 interface DiscussionItemProps extends DiscussionListType {
   index: number
@@ -45,6 +47,7 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
   const [discussion_id, setDiscussion_id] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -57,7 +60,7 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
     getCurrentUser();
   }, []);
 
-
+  
   const onSubmit = useCallback(async (data: Record<string, any>) => {
     // add user to discussion participants
     try {
@@ -71,7 +74,8 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
 
       setTimeout(() => setIsLoading(false), 5000);
 
-      toast.success("Adding you to discussion");
+      toast.success("Successfully joined discussion");
+      router.push(`/join-discussion/${title}`);
     } catch (error) {
       console.log(error);
       toast.error("Error joining discussion");
@@ -79,6 +83,7 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
     }
   }, []);
 
+  
   const addUserToDiscussion = async () => {
     // add user to discussion participants
     const discussionRefQuery = query(discussionsCollectionRef, where("title", "==", title));
@@ -90,14 +95,14 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
     const discussionRef = doc(db, "discussions", discussion_id);
 
     await updateDoc(discussionRef, {
-      participants: arrayUnion(currentUser.email),
+      participants: arrayUnion(currentUser?.email),
     });
   };
 
 
+  console.log(currentUser?.email); 
   const addDiscussionToUserDatabase = async () => {
     // add discussion to user database
-    console.log(currentUser?.email);
     const userRefQuery = query(usersCollectionRef, where("email", "==", currentUser?.email || ""));
     const userSnapshot = await getDocs(userRefQuery);
     userSnapshot.forEach((doc) => {
@@ -112,9 +117,9 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
   }
 
 
-  let multipleOfTwo = index % 2 === 0
+  let isEven = index % 2 === 0
   let color = 'bg-slate-300' || 'bg-slate-500'
-  if (multipleOfTwo) {
+  if (isEven) {
     color = 'bg-slate-300'
   } else {
     color = 'bg-slate-500'
@@ -141,7 +146,7 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
           <div className='flex flex-row w-full items-center justify-between gap-4'>
             <h3
               className={`md:text-sm text-xs lg:text-base 
-                    ${multipleOfTwo ? 'text-neutral-700' : 'text-neutral-100'
+                    ${isEven ? 'text-neutral-700' : 'text-neutral-100'
                 } min-w-[50%]`}
             >
               {title}
@@ -154,7 +159,7 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
               />
               <p
                 className={`text-xs md:text-sm capitalize 
-                        md:flex hidden ${multipleOfTwo
+                        md:flex hidden ${isEven
                     ? 'text-neutral-700'
                     : 'text-neutral-100'
                   }`}
@@ -163,13 +168,13 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
               </p>
               <CatIcon
                 size={18}
-                className={`${multipleOfTwo ? 'text-neutral-700' : 'text-neutral-100'
+                className={`${isEven ? 'text-neutral-700' : 'text-neutral-100'
                   } md:hidden flex`}
               />
             </div>
             <p
               className={`text-xs md:text-sm capitalize 
-                         ${multipleOfTwo
+                         ${isEven
                   ? 'text-neutral-700'
                   : 'text-neutral-100'
                 }`}
