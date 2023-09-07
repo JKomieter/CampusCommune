@@ -1,24 +1,23 @@
 "use client";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react"
-import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { Spinner } from "@nextui-org/react";
+import AddUserLoader from "./AddUserLoader";
 
 
 const DiscussionModal = ({
     isOpen,
-    onOpenChange
+    onOpenChange,
+    onSubmit,
+    isLoading,
+    setIsLoading
 }: {
-    isOpen: boolean
-    onOpenChange: () => void
+    isOpen: boolean;
+    onOpenChange: () => void;
+    onSubmit: (data: Record<string, any>) => void;
+    isLoading: boolean;
+    setIsLoading: (value: boolean) => void;
 }) => {
-    const onSubmit = useCallback(async (data: Record<string, string>) => {
-        try {
-            const { email, fullName, agree } = data;
-            console.log(email, fullName, agree);
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
 
     const {
         register,
@@ -35,6 +34,10 @@ const DiscussionModal = ({
                         <ModalHeader className='flex flex-col gap-1'>
                             Join Discussion
                         </ModalHeader>
+                    {    
+                    isLoading ? 
+                        <AddUserLoader /> 
+                            :
                         <ModalBody>
                             <ul className='text-[10px] md:text-[12px] text-neutral-500'>
                                 <li>
@@ -75,6 +78,8 @@ const DiscussionModal = ({
                             </form>
 
                         </ModalBody>
+                        
+                        }
                         <ModalFooter>
                             <Button color='danger' variant='light' onPress={onClose}>
                                 Close

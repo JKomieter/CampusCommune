@@ -1,19 +1,16 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, {
+import {
   Navigation,
   Pagination,
   Scrollbar,
-  A11y,
-  EffectFade
-} from 'swiper/modules'
+  A11y} from 'swiper/modules'
 import 'swiper/css'
 
 const ProfileNav = () => {
   return (
     <div className='w-full md:w-[60%] mt-4 md:text-sm text-xs font-semibold text-neutral-500'>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y, EffectFade]}
-        effect='fade'
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={10}
         slidesPerView={5}
         className='border-b-2 border-neutral-400'

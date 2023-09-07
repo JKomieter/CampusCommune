@@ -21,9 +21,9 @@ export default function SignInPage() {
   const onSubmit = useCallback(async (data: Record<string, string>) => {
     try {
       const { email, password } = data;
-      const results = await signin(email, password);
+      await signin(email, password);
 
-      console.log(results);   
+      router.push("/")
       console.log(user?.email);   
     } catch (error) {
       console.log(error);

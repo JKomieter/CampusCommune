@@ -33,7 +33,7 @@ const Feed = () => {
     getCurrentUser();
   }, [user]);
 
-  console.log(currentUser?.email);
+  console.log(currentUser);
   const handleUpvote = useCallback(async (post_title: string) => {
     console.log(currentUser?.email, post_title);
     try {

@@ -1,3 +1,4 @@
+"use client";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GrNotes } from "react-icons/gr";
 import { RiDiscussLine } from "react-icons/ri";
