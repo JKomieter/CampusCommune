@@ -101,15 +101,17 @@ type Participants = {
     user_photo: string;
 }
 
-type Message = {
+export type DiscussionMessage = {
     sender_name: string;
     sender_email: string;
     sender_photo: string;
     text: string;
     created_at: Date;
-    image: string;
-    video: string;
-    audio: string;
+    multimedia: {
+        image: string;
+        video: string;
+        audio: string;
+    };
 }
 
 export interface DiscussionType {
@@ -122,8 +124,8 @@ export interface DiscussionType {
         user_photo: string;
     },
     participants: Participants[];
-    messages: Message[];
     views: number;
+    code: string;
 }
 
 export interface DiscussionListType {
@@ -132,4 +134,5 @@ export interface DiscussionListType {
     category: string[];
     participants: Participants[];
     views: number;
+    code: string;
 }

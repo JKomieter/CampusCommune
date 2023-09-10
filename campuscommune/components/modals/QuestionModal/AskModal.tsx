@@ -1,5 +1,5 @@
 "use client";
-import { useAskModalStore } from "@/store/askModalPopupStore";
+import { useAskModalStore } from "@/store/useAskModalPopupStore";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -9,7 +9,7 @@ import BottomActions from "../Buttons/BottomActions";
 import CreateMode from "./CreateMode";
 import { addDoc, collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { usePostLoadingStore } from "@/store/postLoading";
+import { usePostLoadingStore } from "@/store/usePostLoading";
 import { currentUserType } from "@/types";
 
 

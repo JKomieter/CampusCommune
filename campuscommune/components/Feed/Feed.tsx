@@ -4,7 +4,7 @@ import { arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, whe
 import { PostType, FeedType, QuestionType, currentUserType } from "@/types";
 import PostItem from "./Post/PostItem";
 import PostProgress from "./Post/PostProgress";
-import { usePostLoadingStore } from "@/store/postLoading";
+import { usePostLoadingStore } from "@/store/usePostLoading";
 import QuestionItem from "./Question/QuestionItem";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
@@ -18,7 +18,6 @@ const Feed = () => {
   const postsCollectionRef = collection(db, "posts");
   const questionsCollectionRef = collection(db, "questions");
   const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
-  const [post_id, setPost_id] = useState<string>("");
   const usersCollectionRef = collection(db, "user");
   const [user] = useAuthState(auth);
 
@@ -33,20 +32,22 @@ const Feed = () => {
     getCurrentUser();
   }, [user]);
 
-  console.log(currentUser);
+
   const handleUpvote = useCallback(async (post_title: string) => {
-    console.log(currentUser?.email, post_title);
+    
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
+      let post_id = "";
       postSnapshot.forEach((doc) => {
-        setPost_id(doc.id);
+        post_id = doc.id;
       });
 
+      const userEmail = currentUser?.email;
       const postRef = doc(db, "posts", post_id);
 
       await updateDoc(postRef, {
-        upvotes: arrayUnion(currentUser.email),
+        upvotes: arrayUnion(userEmail),
       });
 
       setPosts((prevPosts) =>
@@ -54,7 +55,7 @@ const Feed = () => {
           (post as PostType).title === post_title && post.type === "post"
             ? {
               ...post,
-              upvotes: [...post.upvotes, currentUser?.email], // Update the upvotes array
+              upvotes: [...post.upvotes, userEmail], // Update the upvotes array
             }
             : post
         )

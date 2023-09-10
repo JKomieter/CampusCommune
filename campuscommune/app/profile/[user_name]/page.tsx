@@ -1,6 +1,6 @@
 "use client";
-import ProfileHero from "@/components/profile/ProfileHero";
-import ProfileNav from "@/components/profile/ProfileNav";
+import ProfileHero from "@/components/Profile/ProfileHero";
+import ProfileNav from "@/components/Profile/ProfileNav";
 import { db } from "@/firebase/config";
 import { currentUserType } from "@/types";
 import { user } from "@nextui-org/react";

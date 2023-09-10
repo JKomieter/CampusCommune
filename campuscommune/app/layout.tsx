@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from '../components/layout/Header'
 import { Providers } from '@/themeProvider/Provider'
-import AskModal from '@/components/modals/QuestionModal/AskModal'
+import AskModal from '@/components/Modals/QuestionModal/AskModal'
 import { Toaster } from "react-hot-toast";
 import SideBar from '@/components/layout/SideBar'
 

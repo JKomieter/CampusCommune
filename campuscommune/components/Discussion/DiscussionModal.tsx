@@ -1,29 +1,103 @@
 "use client";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react"
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, user } from "@nextui-org/react"
 import { useForm } from "react-hook-form";
-import { Spinner } from "@nextui-org/react";
 import AddUserLoader from "./AddUserLoader";
+import { auth, db } from "@/firebase/config";
+import { query, where, getDocs, doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
+import router from "next/router";
+import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/navigation";
+import { currentUserType } from "@/types";
 
 
 const DiscussionModal = ({
     isOpen,
     onOpenChange,
-    onSubmit,
     isLoading,
-    setIsLoading
+    setIsLoading,
+    title,
+    currentUser,
+    code
 }: {
     isOpen: boolean;
     onOpenChange: () => void;
-    onSubmit: (data: Record<string, any>) => void;
     isLoading: boolean;
     setIsLoading: (value: boolean) => void;
+    title: string;
+    currentUser: currentUserType;
+    code: string;
 }) => {
-
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm();
+
+    const discussionsCollectionRef = collection(db, "discussions");
+    const usersCollectionRef = collection(db, "user");
+    const [discussion_id, setDiscussion_id] = useState<string>("");
+    const [userId, setUserId] = useState<string>("");
+    const router = useRouter();
+
+
+    const addUserToDiscussion = async () => {
+        // add user to discussion participants
+        
+        const discussionRefQuery = query(discussionsCollectionRef, where("title", "==", title));
+        const discussionSnapshot = await getDocs(discussionRefQuery);
+        let discussion_id = "";
+        discussionSnapshot.forEach((doc) => {
+            discussion_id = doc.id;
+        });
+        console.log(discussion_id);
+        const discussionRef = doc(db, "discussions", discussion_id);
+
+        await updateDoc(discussionRef, {
+            participants: arrayUnion(currentUser?.email),
+        });
+    };
+
+
+    const addDiscussionToUserDatabase = async () => {
+        // add discussion to user database
+   
+        const userRefQuery = query(usersCollectionRef, where("email", "==", currentUser?.email));
+        const userSnapshot = await getDocs(userRefQuery);
+        let userId = "";
+        userSnapshot.forEach((doc) => {
+            userId = doc.id;
+        });
+        console.log(userId);
+        const userRef = doc(db, "user", userId);
+
+        await updateDoc(userRef, {
+            discussions: arrayUnion(title),
+        });
+    }
+
+
+    const onSubmit = useCallback(async (data: Record<string, any>) => {
+        // add user to discussion participants
+        const { agree, email } = data;
+        if (!agree) return;
+        setIsLoading(true);
+
+        try {
+
+            await addDiscussionToUserDatabase();
+            await addUserToDiscussion();
+
+            toast.success("Successfully joined discussion");
+            setIsLoading(false)
+            router.push(`/join-discussion/${title}`);
+        } catch (error) {
+            console.log(error);
+            toast.error("Error joining discussion. Try again.");
+            setIsLoading(false);
+        }
+    }, []);
     
 
     return (

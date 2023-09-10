@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom"
 import FirstBox from "@/components/layout/FirstBox";
-import AskModal from "@/components/modals/QuestionModal/AskModal";
+import AskModal from "@/components/Modals/QuestionModal/AskModal";
 
 
 describe("renders FirstBox", () => {

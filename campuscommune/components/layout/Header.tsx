@@ -5,7 +5,7 @@ import HeaderSearchBar from "./HeaderSearchBar";
 import { Avatar, Badge, Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { FaRegBell } from "react-icons/fa";
-import { useSidebarStore } from "@/store/sidebarControlStore";
+import { useSidebarStore } from "@/store/useSidebarControlStore";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { auth, db } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -13,11 +13,13 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { currentUserType } from "@/types";
 import AvatarPopoverContent from "./AvatarPopoverContent";
+import { usePathname } from "next/navigation";
 
 
 const Header = () => {
 
   const router = useRouter();
+  const pathname = usePathname();
   const { toggleSidebar, isSidebarOpen } = useSidebarStore();
   const [user] = useAuthState(auth);
   const usersCollectionRef = collection(db, "user")
@@ -33,13 +35,13 @@ const Header = () => {
     getCurrentUser();
   }, [user]);
 
-  useEffect(() => {
-    if (!currentUser) {
-      router.push("/auth/signin");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Object.keys(currentUser).length === 0) {
+  //     router.push("/auth/signin");
+  //   }
+  // }, []);
 
-  if (!currentUser) return null;
+  if (pathname.includes("auth") || Object.keys(currentUser).length === 0) return null;
 
   return (
     <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 z-50 shadow-lg bg-white">
@@ -66,7 +68,7 @@ const Header = () => {
           placement="bottom" color="default">
             <PopoverTrigger>
               <Avatar
-                src="https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"
+                src={currentUser?.profile_pic || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"}
                 size="md"
                 className="z-0"
               />

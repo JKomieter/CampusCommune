@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom"
-import CreateStepOne from "@/components/modals/QuestionModal/CreateStepOne";
+import CreateStepOne from "@/components/Modals/QuestionModal/CreateStepOne";
 
 
 describe("CreateStepOne", () => {

@@ -23,7 +23,7 @@ const DiscussionsList = () => {
 
 
     return (
-        <div className="w-full flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-3 overflow-y-scroll">
             {
                 discussions.map((discussion, index = 0) => (
                     <DiscussionItem
@@ -34,6 +34,7 @@ const DiscussionsList = () => {
                         description={discussion.description}
                         participants={discussion.participants}
                         category={discussion.category}
+                        code={discussion.code}
                     />
                 ))
             }

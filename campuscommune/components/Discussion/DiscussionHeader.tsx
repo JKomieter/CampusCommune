@@ -8,12 +8,15 @@ import { currentUserType } from "@/types";
 import { query, where, getDocs, collection } from "firebase/firestore";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuMessageSquarePlus } from "react-icons/lu";
+import { useDiscussionSidebarStore } from "@/store/useDiscussionSidebarStore";
 
 
 const DiscussionHeader = () => {
     const [currentUser, setCurrentUser] = useState<currentUserType | null>(null);
     const [user] = useAuthState(auth);
     const usersCollectionRef = collection(db, "user");
+    const { isSidebarOpen, toggleSidebar } = useDiscussionSidebarStore();
+
 
     useEffect(() => {
         const getCurrentUser = async () => {
@@ -27,16 +30,18 @@ const DiscussionHeader = () => {
 
     return (
         <div className="flex w-full items-center justify-between gap-6 mt-16 lg:px-36 md:px-16 sm:px-12 px-3 py-2">
-            <div className="lg:hidden flex w-full">
-                <GiHamburgerMenu size={25}/>
-            </div>
-            <div className="flex flex-row gap-1 items-center cursor-pointer w-full">
-                <FiMessageSquare size={25} />
+            <span onClick={() => toggleSidebar(true)} className="lg:hidden flex w-full">
+                <GiHamburgerMenu size={24}/>
+            </span>
+            <div className="flex flex-row gap-2 items-center cursor-pointer justify-center">
+                <span onClick={() => toggleSidebar(true)} className="hidden lg:flex w-full">
+                    <GiHamburgerMenu size={25} />
+                </span>
                 <span className="md:text-lg font-semibold">Comm<span className="text-[#FF725E] md:text-xl text-lg">X</span></span>
             </div>
-            <div className="lg:hidden flex w-full justify-end">
+            <span className="lg:hidden flex w-full justify-end">
                 <FiSearch size={24} className="text-neutral-400 " />
-            </div>  
+            </span>  
             <div
                 className="lg:flex hidden flex-row py-2 min-w-[380px] w-full gap-1 items-center"
             >

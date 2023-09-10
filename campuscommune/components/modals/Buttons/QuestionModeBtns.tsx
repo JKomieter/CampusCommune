@@ -1,4 +1,4 @@
-import { useAskModalStore } from "@/store/askModalPopupStore";
+import { useAskModalStore } from "@/store/useAskModalPopupStore";
 
 interface QuestionModeBtnsProps {
   handleChangeStep: () => void;

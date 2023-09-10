@@ -3,7 +3,7 @@ import DiscussionsList from "./DiscussionsList";
 
 const Discussion = () => {
     return (
-        <div className="w-full">
+        <div className="w-full overflow-y-hidden">
             <DiscussionCategory />
             <DiscussionsList />
         </div>

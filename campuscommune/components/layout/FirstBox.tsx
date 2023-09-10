@@ -1,7 +1,7 @@
 "use client";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { HiOutlinePencil, HiOutlinePencilAlt } from "react-icons/hi";
-import { useAskModalStore } from "@/store/askModalPopupStore";
+import { useAskModalStore } from "@/store/useAskModalPopupStore";
 import { Avatar, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import AvatarPopoverContent from "./AvatarPopoverContent";
 import { currentUserType } from "@/types";
@@ -39,7 +39,7 @@ const FirstBox = () => {
             placement="bottom" color="default">
             <PopoverTrigger>
               <Avatar
-                src="https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"
+                src={currentUser?.profile_pic || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"} 
                 size="md"
                 className="z-0"
               />
