@@ -1,63 +1,70 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import DiscussionItem from "@/components/Discussion/DiscussionItem";
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import LiveDiscussionActions from '@/components/Discussion/DiscussionTitle/LiveDiscussionActions';
+import { currentUserType } from '@/types';
 
-const discussion = {
-    title: "Sample Discussion",
-    description: "Sample description",
-    participants: [],
-    category: ["Sample Category"],
-    index: 0,
-    views: 100,
+// Mock the toast notification library
+jest.mock('react-hot-toast', () => ({
+    error: jest.fn(),
+}));
+
+// Mock Firebase
+const mockFirebase = {
+    firestore: jest.fn(() => ({
+        collection: jest.fn(() => ({
+            addDoc: jest.fn(),
+        })),
+    })),
 };
 
-describe("DiscussionItem", () => {
-    it("renders DiscussionItem component", () => {
-        // Mock any necessary dependencies or props
+// Mock the current user data
+const currentUser = {
+    email: 'test@example.com',
+    full_name: 'Test User',
+    profile_pic: 'profile.jpg',
+} as currentUserType;
 
-        // Render the component with the mocked data
-        render(
-            <DiscussionItem
-                title={discussion.title}
-                description={discussion.description}
-                participants={discussion.participants}
-                category={discussion.category}
-                index={discussion.index}
-                views={discussion.views}
-            />
-        );
+beforeEach(() => {
+    (global as any).firebase = mockFirebase;
+});
 
-        // Assert that the component renders correctly
-        expect(screen.getByText("Sample Discussion")).toBeInTheDocument();
-        expect(screen.getByText("Sample Category")).toBeInTheDocument();
-        expect(screen.getByText("100 views")).toBeInTheDocument();
+afterEach(() => {
+    delete (global as any).firebase;
+});
 
-        // You can add more assertions as needed
+describe('LiveDiscussionActions', () => {
+    it('should allow users to send a message', async () => {
+        render(<LiveDiscussionActions title="Discussion Title" currentUser={currentUser} />);
+
+        // Fill in the message input
+        const messageInput = screen.getByPlaceholderText('Type a message...');
+        fireEvent.change(messageInput, { target: { value: 'Hello, World!' } });
+
+        // Click the Send button
+        const sendButton = screen.getByText('Send');
+        fireEvent.click(sendButton);
+
+        // Wait for Firestore to be called
+        await waitFor(() => {
+            expect(mockFirebase.firestore().collection().addDoc).toHaveBeenCalledWith(expect.any(Function));
+        });
+
+        // Check if the input is cleared after sending
+        expect(messageInput).toHaveValue('');
+
+        // Check if the Firestore addDoc function was called with the correct data
+        expect(mockFirebase.firestore().collection().addDoc).toHaveBeenCalledWith({
+            text: 'Hello, World!',
+            created_at: expect.any(Date),
+            sender_email: 'test@example.com',
+            sender_name: 'Test User',
+            sender_photo: 'profile.jpg',
+            multimedia: {
+                image: '',
+                video: '',
+                audio: '',
+            },
+            title: 'Discussion Title',
+        });
     });
-
-    it("opens the DiscussionModal when clicked", () => {
-        // Mock any necessary dependencies or props
-
-        // Render the component with the mocked data
-        render(
-            <DiscussionItem
-                title={discussion.title}
-                description={discussion.description}
-                participants={discussion.participants}
-                category={discussion.category}
-                index={discussion.index}
-                views={discussion.views}
-            />
-        );
-
-        // Click on the component to open the modal
-        fireEvent.click(screen.getByText("Sample Discussion"));
-
-        // Assert that the DiscussionModal is opened
-        expect(screen.getByText("Discussion Modal Content")).toBeInTheDocument();
-        // You can add more assertions related to the modal content if needed
-    });
-
-    // Add more test cases as needed
 });

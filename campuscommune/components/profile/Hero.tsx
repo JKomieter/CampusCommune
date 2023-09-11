@@ -20,27 +20,21 @@ const Hero: React.FC<currentUserType> = ({
     level,
 }) => {
 
+    const levels = {
+        1: "Freshman",
+        2: "Sophomore",
+        3: "Junior",
+        4: "Senior",
+    } as Record<number, string>;
 
-    const getUseraLevel = useMemo(() => {
-        if (level === 1) {
-            return "Freshman"
-        } else if (level === 2) {
-            return "Sophomore"
-        }
-        else if (level === 3) {
-            return "Junior"
-        }
-        else if (level === 4) {
-            return "Senior"
-        }
-    }, [level]);
+
 
     return (
         <div className="flex flex-col gap-4 w-full md:basis-2/3">
             <div className="flex flex-row gap-2 items-start w-full">
                 <div className="pr-2">
                     <Avatar
-                        src="https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"
+                        src={profile_pic || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"} 
                         size="lg"
                         className="md:w-48 md:h-48 sm:w-32 sm:h-32 w-24 h-24"
                     />
@@ -50,7 +44,7 @@ const Hero: React.FC<currentUserType> = ({
                         {full_name}
                     </h2>
                     <div className="italic md:text-sm text-xs">
-                        {major}, {getUseraLevel}
+                    {major}, {levels[level]}
                     </div>
                     <div className="flex flex-row items-center gap-1">
                         <p className="md:text-sm text-xs text-neutral-500">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import QuestionTagsSelect from "./QuestionTagsSelect";
+import QuestionTags from "./QuestionTags";
+
 
 
 interface FinalStepProps {
@@ -13,7 +14,7 @@ const FinalStep: React.FC<FinalStepProps> = ({
 }) => {
 
     const [ mode, setMode ] = useState<number>(0);
-
+ 
     const modeStyles = {
       color: "#FF725E",
       borderBottomWidth: "2px",
@@ -54,7 +55,7 @@ const FinalStep: React.FC<FinalStepProps> = ({
             </div>
           </div>
         </div>
-        <QuestionTagsSelect />
+        <QuestionTags />
       </>
     );
 }
