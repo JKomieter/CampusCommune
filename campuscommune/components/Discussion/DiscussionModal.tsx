@@ -37,8 +37,6 @@ const DiscussionModal = ({
 
     const discussionsCollectionRef = collection(db, "discussions");
     const usersCollectionRef = collection(db, "user");
-    const [discussion_id, setDiscussion_id] = useState<string>("");
-    const [userId, setUserId] = useState<string>("");
     const router = useRouter();
 
 

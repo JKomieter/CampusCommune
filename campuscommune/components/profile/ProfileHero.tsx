@@ -1,7 +1,6 @@
 import { currentUserType } from "@/types";
 import Hero from "./Hero";
 import HeroCredentials from "./HeroCredentials";
-import ProfilePosts from "./ProfilePosts";
 
 
 const ProfileHero: React.FC<currentUserType> = ({

@@ -34,7 +34,7 @@ const Feed = () => {
 
 
   const handleUpvote = useCallback(async (post_title: string) => {
-    
+    const userEmail = currentUser?.email;
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
@@ -42,8 +42,7 @@ const Feed = () => {
       postSnapshot.forEach((doc) => {
         post_id = doc.id;
       });
-
-      const userEmail = currentUser?.email;
+      
       const postRef = doc(db, "posts", post_id);
 
       await updateDoc(postRef, {
