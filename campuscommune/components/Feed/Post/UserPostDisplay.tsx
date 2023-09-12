@@ -13,7 +13,6 @@ const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
     author_year,
     created_at,
 }) => {
-
     return (
       <div className="flex flex-row items-center justify-between px-3 py-2 gap-3 w-full">
         <div className="w-10 h-10">

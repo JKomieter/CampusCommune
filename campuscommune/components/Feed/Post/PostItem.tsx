@@ -66,7 +66,6 @@ const PostItem: React.FC<PostItemProps> = ({
         }
     }, []);
 
-
     return (
         <div className="w-full bg-white shadow-lg rounded-md overflow-y-visible">
             <div className="w-full flex flex-col gap-4 items-start">

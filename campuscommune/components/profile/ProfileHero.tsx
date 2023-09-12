@@ -3,6 +3,7 @@ import Hero from "./Hero";
 import HeroCredentials from "./HeroCredentials";
 
 
+
 const ProfileHero: React.FC<currentUserType> = ({
     full_name,
     email,

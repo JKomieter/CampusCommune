@@ -9,32 +9,20 @@ import FeedSkeleton from "./FeedSkeleton";
 import PostItem from "./post/PostItem";
 import PostProgress from "./post/PostProgress";
 import QuestionItem from "./question/QuestionItem";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 
 
 
 const Feed = () => {
   const [posts, setPosts] = useState<FeedType[]>([]);
+  const [user] = useAuthState(auth);
   const { postLoading } = usePostLoadingStore();
   const postsCollectionRef = collection(db, "posts");
   const questionsCollectionRef = collection(db, "questions");
-  const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
-  const usersCollectionRef = collection(db, "user");
-  const [user] = useAuthState(auth);
-
-
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-      const querySnapshot = await getDocs(userRef);
-      setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-    };
-
-    getCurrentUser();
-  }, [user]);
+  const { currentUser } = useGetCurrentUser();
 
 
   const handleUpvote = useCallback(async (post_title: string) => {
-    const userEmail = currentUser?.email;
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
@@ -42,11 +30,11 @@ const Feed = () => {
       postSnapshot.forEach((doc) => {
         post_id = doc.id;
       });
-      console.log(post_id) 
+
       const postRef = doc(db, "posts", post_id);
 
       await updateDoc(postRef, {
-        upvotes: arrayUnion(userEmail),
+        upvotes: arrayUnion(user?.email),
       });
 
       setPosts((prevPosts) =>
@@ -54,7 +42,7 @@ const Feed = () => {
           (post as PostType).title === post_title && post.type === "post"
             ? {
               ...post,
-              upvotes: [...post.upvotes, userEmail], // Update the upvotes array
+              upvotes: [...post.upvotes, currentUser?.email], // Update the upvotes array
             }
             : post
         )

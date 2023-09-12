@@ -1,7 +1,6 @@
 import { AvatarGroup, Avatar } from "@nextui-org/react"
 
 
-
 const AvatarCluster = () => {
     return (
         <div className = "md:flex flex-row items-center gap-0 hidden" >

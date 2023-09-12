@@ -1,12 +1,15 @@
 import { DiscussionType } from "@/types"
 import { IconType } from "react-icons";
-import { categoryIcon, categoryColor } from "../CategoryColor";
 import { useRouter } from "next/navigation";
+import { RiSuitcaseLine } from "react-icons/ri";
+import { TbPlayerPlayFilled } from "react-icons/tb";
+import { categoryIcon, categoryColor } from "../categorycolor";
+
 
 const CatIconWrapper = ({ category, size }: { category: string[], size: number }) => {
     const CatIcon = categoryIcon[category[0] as keyof typeof categoryIcon] as IconType;
     const catColor = categoryColor[category[0] as keyof typeof categoryColor] as string;
-    
+
 
     return <CatIcon size={size} color={catColor} />;
 };

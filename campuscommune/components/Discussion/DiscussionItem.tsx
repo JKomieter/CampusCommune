@@ -9,17 +9,17 @@ import {
 } from 'swiper/modules'
 import 'swiper/css'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { categoryColor, categoryIcon } from './CategoryColor'
 import { BsDot } from 'react-icons/bs'
-import AvatarCluster from './AvatarCluster'
 import { IconType } from 'react-icons'
 import formatNumber from '@/utils/formatNumber'
 import {
   useDisclosure
 } from '@nextui-org/react'
-import DiscussionModal from './DiscussionModal'
 import { useState } from 'react'
 import useGetCurrentUser from '@/hooks/useGetCurrentUser'
+import AvatarCluster from './AvatarCluster'
+import DiscussionModal from './DiscussionModal'
+import { categoryIcon, categoryColor } from './categorycolor'
 
 
 interface DiscussionItemProps extends DiscussionListType {
