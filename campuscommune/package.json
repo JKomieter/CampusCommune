@@ -49,10 +49,6 @@
     "jest": "^29.6.4",
     "jest-dom": "^4.0.0",
     "jest-environment-jsdom": "^29.6.4",
-    "npm": "^9.8.1",
-    "@babel/plugin-transform-typescript": "7.19.3"
-  }, 
-  "resolutions": {
-    "@babel/plugin-transform-typescript": "7.19.3"
+    "npm": "^9.8.1"
   }
 }
