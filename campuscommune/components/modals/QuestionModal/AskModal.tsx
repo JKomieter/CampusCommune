@@ -11,6 +11,7 @@ import { addDoc, collection, getDocs, onSnapshot, query, where } from "firebase/
 import toast from "react-hot-toast";
 import { usePostLoadingStore } from "@/store/usePostLoading";
 import { currentUserType } from "@/types";
+import useGetCurrentUser from "@/services/useGetCurrentUser";
 
 
 
@@ -24,21 +25,22 @@ const AskModal = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<string>("");
-  const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
+  // const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
   const questionsCollectionRef = collection(db, "questions");
   const postsCollectionRef = collection(db, "posts");
   const usersCollectionRef = collection(db, "user");
   const { setPostLoading } = usePostLoadingStore();
+  const { currentUser } = useGetCurrentUser();
 
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-      const querySnapshot = await getDocs(userRef);
-      setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-    };
+  // useEffect(() => {
+  //   const getCurrentUser = async () => {
+  //     const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
+  //     const querySnapshot = await getDocs(userRef);
+  //     setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
+  //   };
 
-    getCurrentUser();
-  }, [user]);
+  //   getCurrentUser();
+  // }, [user]);
 
 
   const handleAddQuestion = useCallback(async () => {

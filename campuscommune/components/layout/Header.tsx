@@ -35,11 +35,6 @@ const Header = () => {
     getCurrentUser();
   }, [user]);
 
-  // useEffect(() => {
-  //   if (Object.keys(currentUser).length === 0) {
-  //     router.push("/auth/signin");
-  //   }
-  // }, []);
 
   if (pathname.includes("auth") || Object.keys(currentUser).length === 0) return null;
 

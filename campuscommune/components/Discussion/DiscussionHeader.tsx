@@ -1,32 +1,16 @@
 "use client";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FiMessageSquare, FiSearch } from "react-icons/fi";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "@/firebase/config";
-import { useEffect, useState } from "react";
-import { currentUserType } from "@/types";
-import { query, where, getDocs, collection } from "firebase/firestore";
+import { FiSearch } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import { useDiscussionSidebarStore } from "@/store/useDiscussionSidebarStore";
+import useGetCurrentUser from "@/services/useGetCurrentUser";
 
 
 const DiscussionHeader = () => {
-    const [currentUser, setCurrentUser] = useState<currentUserType | null>(null);
-    const [user] = useAuthState(auth);
-    const usersCollectionRef = collection(db, "user");
-    const { isSidebarOpen, toggleSidebar } = useDiscussionSidebarStore();
+    const { toggleSidebar } = useDiscussionSidebarStore();
+    const { currentUser } = useGetCurrentUser();
 
-
-    useEffect(() => {
-        const getCurrentUser = async () => {
-            const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-            const querySnapshot = await getDocs(userRef);
-            setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-        };
-
-        getCurrentUser();
-    }, [user]);
 
     return (
         <div className="flex w-full items-center justify-between gap-6 mt-16 lg:px-36 md:px-16 sm:px-12 px-3 py-2">

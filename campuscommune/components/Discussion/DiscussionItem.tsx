@@ -18,18 +18,14 @@ import {
   useDisclosure
 } from '@nextui-org/react'
 import DiscussionModal from './DiscussionModal'
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "@/firebase/config";
-import { arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
-import { currentUserType } from "@/types";
-import { use, useCallback, useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import useGetCurrentUser from '@/services/useGetCurrentUser'
 
 
 interface DiscussionItemProps extends DiscussionListType {
   index: number
 }
+
 
 const DiscussionItem: React.FC<DiscussionItemProps> = ({
   title,
@@ -41,21 +37,8 @@ const DiscussionItem: React.FC<DiscussionItemProps> = ({
   code
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
-  const [user] = useAuthState(auth);
-  const usersCollectionRef = collection(db, "user");
-
+  const { currentUser } = useGetCurrentUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-      const querySnapshot = await getDocs(userRef);
-      setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-    }; 
-    getCurrentUser()
-  }, []);
   
 
   let isEven = index % 2 === 0

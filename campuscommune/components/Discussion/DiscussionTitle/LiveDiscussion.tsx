@@ -39,7 +39,6 @@ const LiveDiscussion = ({
         const discussionMessagesQuery = query(discussionMessagesCollectionRef, where("title", "==", full_title));
         const unsubscribe = onSnapshot(discussionMessagesQuery, (querySnapshot) => {
             const messages = querySnapshot.docs.map((doc) => doc.data()) as DiscussionMessage[];
-            console.log(messages);
             setDiscussionMessages(messages);
         });
 
