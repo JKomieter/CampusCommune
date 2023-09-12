@@ -1,4 +1,4 @@
-import Discussion from "@/components/Discussion/Discussion";
+import Discussion from "@/components/discussion/Discussion";
 
 
 

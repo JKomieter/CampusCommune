@@ -2,13 +2,13 @@ import { db, auth } from "@/firebase/config";
 import { useState, useEffect, useCallback } from "react";
 import { arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { PostType, FeedType, QuestionType, currentUserType } from "@/types";
-import PostItem from "./Post/PostItem";
-import PostProgress from "./Post/PostProgress";
 import { usePostLoadingStore } from "@/store/usePostLoading";
-import QuestionItem from "./Question/QuestionItem";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import FeedSkeleton from "./FeedSkeleton";
+import PostItem from "./post/PostItem";
+import PostProgress from "./post/PostProgress";
+import QuestionItem from "./question/QuestionItem";
 
 
 
@@ -42,7 +42,7 @@ const Feed = () => {
       postSnapshot.forEach((doc) => {
         post_id = doc.id;
       });
-      
+      console.log(post_id) 
       const postRef = doc(db, "posts", post_id);
 
       await updateDoc(postRef, {

@@ -1,35 +1,14 @@
 "use client";
 import ProfileHero from "@/components/Profile/ProfileHero";
 import ProfileNav from "@/components/Profile/ProfileNav";
-import { db } from "@/firebase/config";
-import queryUser from "@/services/queryUser";
-import { currentUserType } from "@/types";
-import { user } from "@nextui-org/react";
-import { query, where, getDocs, collection } from "firebase/firestore";
+import queryUser from "@/hooks/queryUser";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 
 export default function Profile() {
-    // const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
     const params = useParams();
-    // const usersCollectionRef = collection(db, "user");
-
-    // useEffect(() => {
-    //     const username = params.user_name as string;
-    //     const full_name = username.split("-").join(" ")
-
-    //     const getCurrentUser = async () => {
-    //         const userRef = query(usersCollectionRef, where("full_name", "==", full_name || ""));
-    //         const querySnapshot = await getDocs(userRef);
-    //         setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-    //     };
-
-    //     getCurrentUser();
-    // }, [user]);
 
     const { currentUser } = queryUser(params.user_name as string);
-
 
     return (
         <div className="w-full h-screen bg-neutral-100 overflow-x-hidden ">
@@ -46,11 +25,11 @@ export default function Profile() {
                     questions_asked={currentUser?.questions_asked}
                     level={currentUser?.level}
                     id={""}
-                    about_me={""} 
+                    about_me={currentUser?.about_me} 
                     batch_year={0} 
                     location={""} 
                     topics_followed={[]} 
-                    username={""} 
+                    username={currentUser?.username} 
                 />
                 <ProfileNav />
             </div>

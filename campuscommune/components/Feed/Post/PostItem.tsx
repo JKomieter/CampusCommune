@@ -1,7 +1,7 @@
-import PostActions from "@/components/Feed/Post/PostActions";
-import PostInfo from "@/components/Feed/Post/PostInfo";
-import PostMedia from "@/components/Feed/Post/PostMedia";
-import UserPostDisplay from "@/components/Feed/Post/UserPostDisplay";
+import PostActions from "@/components/feed/post/PostActions";
+import PostInfo from "@/components/feed/post/PostInfo";
+import PostMedia from "@/components/feed/post/PostMedia";
+import UserPostDisplay from "@/components/feed/post/UserPostDisplay";
 import { PostType } from "@/types"
 import React, { useCallback, useEffect, useState } from "react";
 import PostComments from "./PostComments";

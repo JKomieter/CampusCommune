@@ -1,5 +1,5 @@
 "use client";
-import LiveDiscussion from "@/components/Discussion/DiscussionTitle/LiveDiscussion";
+import LiveDiscussion from "@/components/discussion/DiscussionTitle/LiveDiscussion";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 

@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import { useDiscussionSidebarStore } from "@/store/useDiscussionSidebarStore";
-import useGetCurrentUser from "@/services/useGetCurrentUser";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 
 
 const DiscussionHeader = () => {

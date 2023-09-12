@@ -1,46 +1,31 @@
 "use client";
 import { useAskModalStore } from "@/store/useAskModalPopupStore";
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { db, auth } from "@/firebase/config";
-import { useAuthState } from "react-firebase-hooks/auth";
-import BottomActions from "../Buttons/BottomActions";
-import CreateMode from "./CreateMode";
-import { addDoc, collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "@/firebase/config";
+import { addDoc, collection } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { usePostLoadingStore } from "@/store/usePostLoading";
-import { currentUserType } from "@/types";
-import useGetCurrentUser from "@/services/useGetCurrentUser";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
+import BottomActions from "../buttons/BottomActions";
+import CreateMode from "./CreateMode";
 
 
 
 // component for the modal that pops up when the user clicks on the "Ask a question" button
 const AskModal = () => {
   const { isOpen, setOpen } = useAskModalStore();
-  const [user] = useAuthState(auth);
   const [mode, setMode] = useState<"question" | "post">("question");
   const [step, setStep] = useState<number>(1);
   const [text, setText] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<string>("");
-  // const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
   const questionsCollectionRef = collection(db, "questions");
   const postsCollectionRef = collection(db, "posts");
-  const usersCollectionRef = collection(db, "user");
   const { setPostLoading } = usePostLoadingStore();
   const { currentUser } = useGetCurrentUser();
-
-  // useEffect(() => {
-  //   const getCurrentUser = async () => {
-  //     const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-  //     const querySnapshot = await getDocs(userRef);
-  //     setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-  //   };
-
-  //   getCurrentUser();
-  // }, [user]);
 
 
   const handleAddQuestion = useCallback(async () => {

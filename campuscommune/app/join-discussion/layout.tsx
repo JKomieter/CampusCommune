@@ -1,5 +1,5 @@
-import DiscussionHeader from "@/components/Discussion/DiscussionHeader"
-import DiscussionSidebar from "@/components/Discussion/DiscussionTitle/DiscussionSidebar"
+import DiscussionHeader from "@/components/discussion/DiscussionHeader"
+import DiscussionSidebar from "@/components/discussion/DiscussionTitle/DiscussionSidebar"
 
 
 

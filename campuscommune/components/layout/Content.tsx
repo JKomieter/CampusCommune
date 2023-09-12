@@ -1,6 +1,6 @@
 "use client";
 
-import Feed from "../Feed/Feed";
+import Feed from "../feed/Feed";
 
 
 const Content = () => {

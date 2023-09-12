@@ -19,7 +19,7 @@ import {
 } from '@nextui-org/react'
 import DiscussionModal from './DiscussionModal'
 import { useState } from 'react'
-import useGetCurrentUser from '@/services/useGetCurrentUser'
+import useGetCurrentUser from '@/hooks/useGetCurrentUser'
 
 
 interface DiscussionItemProps extends DiscussionListType {
