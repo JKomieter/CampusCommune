@@ -15,7 +15,10 @@ const ProfileHero: React.FC<currentUserType> = ({
     answers_given,
     questions_asked,
     level,
+    about_me,
 }) => {
+
+
     return (
         <div className="flex md:flex-row flex-col items-start justify-between md:gap-5 gap-2">
             <Hero
@@ -30,7 +33,7 @@ const ProfileHero: React.FC<currentUserType> = ({
                 questions_asked={questions_asked}
                 level={level} 
                 id={""} 
-                about_me={""} 
+                about_me={about_me} 
                 batch_year={1} 
                 location={""} 
                 topics_followed={[]} 

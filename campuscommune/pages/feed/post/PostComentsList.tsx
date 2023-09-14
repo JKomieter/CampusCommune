@@ -1,7 +1,7 @@
 import React from 'react';
 import { Comment } from '@/types';
 import { BeatLoader } from 'react-spinners';
-import CommentItem from './CommentItem';
+import CommentItem from '../../../components/CommentItem';
 
 
 const PostCommentsList = ({

@@ -3,7 +3,7 @@ import { FaRegQuestionCircle } from "react-icons/fa";
 import { HiOutlinePencil, HiOutlinePencilAlt } from "react-icons/hi";
 import { useAskModalStore } from "@/store/useAskModalPopupStore";
 import { Avatar, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
-import AvatarPopoverContent from "./AvatarPopoverContent";
+import AvatarPopoverContent from "../../components/AvatarPopoverContent";
 import { currentUserType } from "@/types";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db, auth } from "@/firebase/config";

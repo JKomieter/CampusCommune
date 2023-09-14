@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 
 const queryUser = (user_name: string) => {
-    const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
+    const [user, setUser] = useState<currentUserType>({} as currentUserType);
 
     const usersCollectionRef = collection(db, "user");
 
@@ -18,14 +18,13 @@ const queryUser = (user_name: string) => {
         const getCurrentUser = async () => {
             const userRef = query(usersCollectionRef, where("full_name", "==", full_name || ""));
             const querySnapshot = await getDocs(userRef);
-            setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
+            setUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
         };
 
         getCurrentUser();
     }, [user]);
 
-    console.log("query called")
-    return { currentUser };
+    return { user };
 };
 
 

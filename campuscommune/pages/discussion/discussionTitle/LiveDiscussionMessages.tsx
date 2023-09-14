@@ -1,6 +1,6 @@
 import { DiscussionMessage } from "@/types";
-import MessageItem from "./MessageItem";
-import MessageSkeleton from "./MessageSkeleton";
+import MessageItem from "../../../components/MessageItem";
+import MessageSkeleton from "../../../components/MessageSkeleton";
 
 
 

@@ -1,10 +1,10 @@
-import PostActions from "@/components/feed/post/PostActions";
-import PostInfo from "@/components/feed/post/PostInfo";
-import PostMedia from "@/components/feed/post/PostMedia";
-import UserPostDisplay from "@/components/feed/post/UserPostDisplay";
+import PostActions from "@/pages/feed/post/PostActions";
+import PostInfo from "@/pages/feed/post/PostInfo";
+import PostMedia from "@/components/PostMedia";
+import UserPostDisplay from "@/pages/feed/post/UserPostDisplay";
 import { PostType } from "@/types"
 import React, { useCallback, useEffect, useState } from "react";
-import PostComments from "./PostComments";
+import PostComments from "../pages/feed/post/PostComments";
 import { db } from "@/firebase/config";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { Comment } from "@/types";
@@ -43,6 +43,7 @@ const PostItem: React.FC<PostItemProps> = ({
     const [openComments, setOpenComments] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    
     const handleOpenComments = useCallback(async (post_title: string) => {
         setIsLoading(true);
 
@@ -52,6 +53,7 @@ const PostItem: React.FC<PostItemProps> = ({
 
         setOpenComments(!openComments);
     }, []);
+
 
     useEffect(() => {
         const getComments = async () => {
@@ -65,6 +67,7 @@ const PostItem: React.FC<PostItemProps> = ({
             getComments();
         }
     }, []);
+
 
     return (
         <div className="w-full bg-white shadow-lg rounded-md overflow-y-visible">

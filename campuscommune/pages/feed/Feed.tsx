@@ -5,10 +5,10 @@ import { PostType, FeedType, QuestionType, currentUserType } from "@/types";
 import { usePostLoadingStore } from "@/store/usePostLoading";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
-import FeedSkeleton from "./FeedSkeleton";
-import PostItem from "./post/PostItem";
-import PostProgress from "./post/PostProgress";
-import QuestionItem from "./question/QuestionItem";
+import FeedSkeleton from "../../components/FeedSkeleton";
+import PostItem from "../../components/PostItem";
+import PostProgress from "../../components/PostProgress";
+import QuestionItem from "../../components/QuestionItem";
 import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 
 

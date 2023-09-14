@@ -12,7 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { currentUserType } from "@/types";
-import AvatarPopoverContent from "./AvatarPopoverContent";
+import AvatarPopoverContent from "../../components/AvatarPopoverContent";
 import { usePathname } from "next/navigation";
 
 
@@ -36,7 +36,7 @@ const Header = () => {
   }, [user]);
 
 
-  if (pathname.includes("auth") || Object.keys(currentUser)?.length === 0) return null;
+  if (pathname?.includes("auth")) return null;
 
   return (
     <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 z-50 shadow-lg bg-white">

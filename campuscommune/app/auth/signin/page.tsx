@@ -3,7 +3,7 @@ import signin from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CollegeStudents2 } from "@/components/svgs";
+import { CollegeStudents2 } from "@/svgs";
 import { auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 

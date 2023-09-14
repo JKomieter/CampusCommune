@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import LiveDiscussionActions from '@/components/discussion/discussionTitle/LiveDiscussionActions';
+import LiveDiscussionActions from '@/pages/discussion/discussionTitle/LiveDiscussionActions';
 import { currentUserType } from '@/types';
 
 // Mock the toast notification library

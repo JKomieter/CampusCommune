@@ -3,7 +3,7 @@ import signup from "@/firebase/auth/signup";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { CollegeStudents, Logo } from "@/components/svgs";
+import { CollegeStudents, Logo } from "@/svgs";
 import { addDoc, collection } from "firebase/firestore";
 import { auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";

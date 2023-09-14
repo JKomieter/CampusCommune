@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { DiscussionListType } from "@/types";
 import { db } from "@/firebase/config";
 import { collection, onSnapshot } from "firebase/firestore";
-import DiscussionItem from "./DiscussionItem";
+import DiscussionItem from "../../components/DiscussionItem";
 
 
 const DiscussionsList = () => {

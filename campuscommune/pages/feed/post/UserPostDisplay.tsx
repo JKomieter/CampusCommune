@@ -1,7 +1,7 @@
 import { UserPostDisplayProps } from '@/types';
 import { BsDot } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
-import { BadgesLvlOne } from '../../svgs';
+import { BadgesLvlOne } from '../../../svgs';
 import { Avatar } from '@nextui-org/react';
 
 

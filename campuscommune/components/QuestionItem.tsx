@@ -1,5 +1,5 @@
 import { QuestionType } from "@/types";
-import { QuestionBulb } from "@/components/svgs";
+import { QuestionBulb } from "@/svgs";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { BsDot } from "react-icons/bs";

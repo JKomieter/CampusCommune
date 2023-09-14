@@ -1,7 +1,7 @@
 "use client";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { RiArrowDownSLine } from "react-icons/ri";
-import CategoriesPopover from "./CategoriesPopover";
+import CategoriesPopover from "../../components/CategoriesPopover";
 
 
 const DiscussionCategory = () => {

@@ -1,37 +1,39 @@
 "use client";
-import ProfileHero from "@/components/profile/ProfileHero";
-import ProfileNav from "@/components/profile/ProfileNav";
+import ProfileFeed from "@/pages/profile/ProfileFeed";
+import ProfileHero from "@/pages/profile/ProfileHero";
+import ProfileNav from "@/components/ProfileNav";
 import queryUser from "@/hooks/queryUser";
 import { useParams } from "next/navigation";
 
 
 export default function Profile() {
-    const params = useParams();
+    const params = useParams() as { user_name: string };
+    const { user } = queryUser(params.user_name);
 
-    const { currentUser } = queryUser(params.user_name as string);
 
     return (
         <div className="w-full h-screen bg-neutral-100 overflow-x-hidden ">
             <div className="lg:px-36 h-full md:px-16 sm:px-12 px-3 w-full overflow-x-hidden mt-20">
                 <ProfileHero
-                    full_name={currentUser?.full_name}
-                    email={currentUser?.email}
-                    profile_pic={currentUser?.profile_pic}
-                    followers={currentUser?.followers}
-                    followings={currentUser?.followings}
-                    join_date={currentUser?.join_date}
-                    major={currentUser?.major}
-                    answers_given={currentUser?.answers_given}
-                    questions_asked={currentUser?.questions_asked}
-                    level={currentUser?.level}
+                    full_name={user?.full_name}
+                    email={user?.email}
+                    profile_pic={user?.profile_pic}
+                    followers={user?.followers}
+                    followings={user?.followings}
+                    join_date={user?.join_date}
+                    major={user?.major}
+                    answers_given={user?.answers_given}
+                    questions_asked={user?.questions_asked}
+                    level={user?.level}
                     id={""}
-                    about_me={currentUser?.about_me} 
+                    about_me={user?.about_me} 
                     batch_year={0} 
                     location={""} 
                     topics_followed={[]} 
-                    username={currentUser?.username} 
+                    username={user?.username} 
                 />
                 <ProfileNav />
+                <ProfileFeed user_email={user?.email} />
             </div>
         </div>
     )

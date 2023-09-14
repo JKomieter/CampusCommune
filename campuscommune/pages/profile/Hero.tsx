@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { BiPencil } from "react-icons/bi";
 import { BsDot } from "react-icons/bs";
 import { TbShare2 } from "react-icons/tb";
+import ProfileAbout from "./ProfileAbout";
+import ProfileBtns from "./ProfileBtns";
 
 
 
@@ -18,6 +20,7 @@ const Hero: React.FC<currentUserType> = ({
     answers_given,
     questions_asked,
     level,
+    about_me,
 }) => {
 
     const levels = {
@@ -26,7 +29,6 @@ const Hero: React.FC<currentUserType> = ({
         3: "Junior",
         4: "Senior",
     } as Record<number, string>;
-
 
 
     return (
@@ -55,8 +57,10 @@ const Hero: React.FC<currentUserType> = ({
                             {followings?.length || 0} following
                         </p>
                     </div>
+                   <ProfileBtns email={email} />
                 </div>
             </div>
+            <ProfileAbout about_me={about_me} />
             <div className="flex flex-row gap-3 items-center justify-between w-full">
                 <span
                     style={{ borderWidth: "1px" }}
