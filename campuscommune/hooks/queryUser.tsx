@@ -1,8 +1,7 @@
 import { db } from "@/firebase/config";
 import { currentUserType } from "@/types";
-import { user } from "@nextui-org/react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -21,8 +20,10 @@ const queryUser = (user_name: string) => {
             setUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
         };
 
-        getCurrentUser();
-    }, [user]);
+        return () => {
+            getCurrentUser();
+        }
+    }, [user_name]);
 
     return { user };
 };

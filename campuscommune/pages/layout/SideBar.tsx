@@ -13,7 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 const SideBar = () => {
 
     const { isSidebarOpen } = useSidebarStore();
-    const pathname = usePathname();
+    const pathname = usePathname() as string;
     const router = useRouter();
 
     if (pathname.includes("auth")) return null;

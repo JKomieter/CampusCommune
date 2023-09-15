@@ -1,8 +1,6 @@
 "use client";
 import { useAskModalStore } from "@/store/useAskModalPopupStore";
-import { motion } from "framer-motion";
 import { useCallback, useState } from "react";
-import { IoClose } from "react-icons/io5";
 import { db } from "@/firebase/config";
 import { addDoc, collection } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -10,6 +8,7 @@ import { usePostLoadingStore } from "@/store/usePostLoading";
 import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 import BottomActions from "../buttons/BottomActions";
 import CreateMode from "./CreateMode";
+import { ModalFooter } from "@nextui-org/react";
 
 
 
@@ -100,29 +99,11 @@ const AskModal = () => {
     }, 3000);
   }, [text]);
 
-  if (!isOpen) return null;
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-black bg-opacity-80 z-50 fixed ">
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.2 }}
-        className={`md:rounded-md rounded-2xl xl:w-[50%]
-            lg:w-[65%] md:w-[80%] sm:w-[90%] w-[100%] bg-neutral-100 md:h-[78%] h-[80%] flex flex-col gap-2`}
+      <div
+        className={`flex flex-col gap-2 overflow-y-scroll `}
       >
-        <div data-testid="close-icon"
-        className="w-full flex item-center justify-between p-3">
-          <IoClose
-            size={28}
-            className="cursor-pointer hover:bg-neutral-200 rounded-full p-1"
-            onClick={() => {
-              setOpen(false);
-              setStep(1);
-              setText("");
-            }}
-          />
-        </div>
         <CreateMode
           mode={mode}
           setMode={setMode}
@@ -136,7 +117,7 @@ const AskModal = () => {
           description={description}
           setDescription={setDescription}
         />
-        <div className="w-full flex items-end justify-end">
+        <ModalFooter className="w-full flex items-end justify-end">
           <div
             className="py-3 px-3 w-full border-t-neutral-700 flex items-end justify-end gap-3"
             style={{ borderTopWidth: "0.5px" }}
@@ -153,9 +134,8 @@ const AskModal = () => {
               handleAddPost={handleAddPost}
             />
           </div>
-        </div>
-      </motion.div>
-    </div>
+        </ModalFooter>
+      </div>
   );
 };
 

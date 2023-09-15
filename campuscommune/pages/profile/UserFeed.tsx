@@ -12,7 +12,7 @@ const UserFeed = ({
 }) => {
 
     if (feed.length === 0) return (
-        <div className="md:w-[65%] mt-4">
+        <div className="md:w-[60%] mt-4">
             <FeedSkeleton />
         </div>
     );
@@ -22,7 +22,7 @@ const UserFeed = ({
     });
 
     return (
-        <div className="w-full h-full md:w-[65%] flex flex-col gap-4 mt-4">
+        <div className="w-full h-full md:w-[60%] flex flex-col gap-4 mt-4">
             {feed.map((post) =>
                 <div key={post.author_id + post.created_at} className="w-full">
                     {post.type === "post" ? (

@@ -14,7 +14,7 @@ const ProfileBtns = ({
 }) => {
     const [user] = useAuthState(auth);
 
-    if (user?.email === email) return false;
+    // if (user?.email === email) return false;
 
     return (
         <div className="w-full flex flex-row gap-2 mt-4">
@@ -23,7 +23,7 @@ const ProfileBtns = ({
                 <span className="text-sm text-white">Follow</span>
             </button>
             <button
-                style={{ borderWidth: "0.7px" }}
+                style={{ borderWidth: "0.9px" }}
                 className="lg:flex hidden flex-row gap-1 justify-center items-center rounded-3xl px-3 border-neutral-500" >
                 <FaRegBell size={15} className="text-neutral-700" />
                 <span className="text-sm text-neutral-700">Notify me</span>
@@ -32,7 +32,7 @@ const ProfileBtns = ({
                 style={{ borderWidth: "0.7px" }}
                 className="flex flex-row gap-1 justify-center items-center rounded-3xl px-3 border-neutral-500" >
                 <FaRegQuestionCircle size={15} color="black" />
-                <span className="text-xs">Ask</span>
+                <span className="text-sm">Ask</span>
             </button>
             <div className="">
                 <Popover showArrow>

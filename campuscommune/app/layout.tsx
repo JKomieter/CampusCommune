@@ -5,7 +5,6 @@ import Header from '../pages/layout/Header'
 import { Providers } from '@/themeProvider/Provider'
 import { Toaster } from "react-hot-toast";
 import SideBar from '@/pages/layout/SideBar'
-import AskModal from '@/pages/modals/questionModal/AskModal'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,7 +24,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Toaster position="top-center" reverseOrder={false} />
-          <AskModal />
           <Header />
           <SideBar />
           {children}

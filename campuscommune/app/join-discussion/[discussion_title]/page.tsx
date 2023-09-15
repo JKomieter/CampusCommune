@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 
 
 export default function Discussion() {
-    const params = useParams();
+    const params = useParams() as { discussion_title: string };
     const discussion_title = params.discussion_title as string;
     const full_title = discussion_title.split("%20").join(" ");
     

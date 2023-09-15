@@ -2,22 +2,23 @@
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { HiOutlinePencil, HiOutlinePencilAlt } from "react-icons/hi";
 import { useAskModalStore } from "@/store/useAskModalPopupStore";
-import { Avatar, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import { Avatar, Popover, PopoverContent, PopoverTrigger, useDisclosure } from "@nextui-org/react";
 import AvatarPopoverContent from "../../components/AvatarPopoverContent";
 import { currentUserType } from "@/types";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db, auth } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
+import AskModal from "@/modals/questionModal/AskModal";
 
 
 const FirstBox = () => {
 
   const [user] = useAuthState(auth);
-  const { setOpen } = useAskModalStore();
   const usersCollectionRef = collection(db, "user")
   const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   useEffect(() => {
     const getCurrentUser = async () => {
@@ -54,11 +55,24 @@ const FirstBox = () => {
           </Popover>
         </div>
         <input
-          onClick={() => setOpen(true)}
+          onClick={() => onOpen()}
           type="text"
           placeholder="What's on your mind?"
           className="w-full px-2 py-1 rounded-2xl focus:outline-none bg-neutral-200"
         />
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} >
+          <ModalContent className="rounded-md xl:w-[50%]
+        lg:w-[65%] md:w-[80%] sm:w-[90%] w-[100%] bg-neutral-100 md:h-[78%] h-[80%] overflow-y-scroll">
+              {
+                (onClose) => (
+                  <ModalBody>
+                    <ModalHeader>Make an impact!</ModalHeader>
+                    <AskModal  />
+                  </ModalBody>
+                )
+              }
+            </ModalContent>
+        </Modal>
       </div>
       <div className="flex items-center justify-evenly w-full">
         <div

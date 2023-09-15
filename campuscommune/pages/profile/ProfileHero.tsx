@@ -20,7 +20,7 @@ const ProfileHero: React.FC<currentUserType> = ({
 
 
     return (
-        <div className="flex md:flex-row flex-col items-start justify-between md:gap-5 gap-2">
+        <div className="flex md:flex-row flex-col items-start justify-between md:gap-14 gap-2">
             <Hero
                 full_name={full_name}
                 email={email}

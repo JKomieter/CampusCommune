@@ -1,12 +1,13 @@
 import { currentUserType } from "@/types";
 import { Avatar } from "@nextui-org/react";
-import { useMemo } from "react";
 import { BiPencil } from "react-icons/bi";
 import { BsDot } from "react-icons/bs";
 import { TbShare2 } from "react-icons/tb";
+import { SiFacebook } from "react-icons/si";
 import ProfileAbout from "./ProfileAbout";
 import ProfileBtns from "./ProfileBtns";
-
+import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { FaTwitter } from "react-icons/fa";
 
 
 const Hero: React.FC<currentUserType> = ({
@@ -71,12 +72,32 @@ const Hero: React.FC<currentUserType> = ({
                         Edit Profile
                     </p>
                 </span>
-                <span 
-                style={{ borderWidth: "1px" }}
-                className="rounded-full p-2 border-neutral-400 cursor-pointer flex 
-                items-center justify-center hover:bg-neutral-200 duration-200 transition-all">
-                    <TbShare2 size={22} className="text-neutral-600" />
-                </span>
+                <Popover>
+                    <PopoverTrigger>
+                        <span
+                            style={{ borderWidth: "1px" }}
+                            className="rounded-full p-2 border-neutral-400 cursor-pointer flex 
+                            items-center justify-center hover:bg-neutral-200 duration-200 transition-all">
+                            <TbShare2 size={22} className="text-neutral-600" />
+                        </span>
+                    </PopoverTrigger>
+                    <PopoverContent className="rounded-md">
+                        <div className="flex flex-col ">
+                            <div className="flex flex-row gap-1 items-center p-2 w-full hover:underline cursor-pointer">
+                                <SiFacebook size={10} className="text-[#4267B2]" />
+                                <p className="md:text-xs text-[10px] text-neutral-600">
+                                    Facebook
+                                </p>
+                            </div>
+                            <div className="flex flex-row gap-1 items-center p-2 w-full hover:underline cursor-pointer">
+                                <FaTwitter size={10} className="text-[#26a7de ]" />
+                                <p className="md:text-xs text-[10px] text-neutral-600">
+                                    Twitter
+                                </p>
+                            </div>
+                        </div>
+                    </PopoverContent>
+                </Popover>
             </div>
         </div>
     )

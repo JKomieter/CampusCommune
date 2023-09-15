@@ -3,6 +3,7 @@ import "firebase/auth";
 import { getAuth } from "firebase/auth";
 import "firebase/firestore";
 import { getFirestore } from "@firebase/firestore";
+import { getStorage } from "@firebase/storage";
 
 
 const firebaseConfig = {
@@ -18,9 +19,12 @@ const firebaseConfig = {
 const firebase_app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Firestore and get a reference to the service
-export const db = getFirestore(firebase_app);
+const db = getFirestore(firebase_app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(firebase_app);
 
-export {firebase_app, auth};
+// Initialize Firebase Storage and get a reference to the service
+const storage = getStorage(firebase_app);
+
+export {firebase_app, auth, db, storage};
