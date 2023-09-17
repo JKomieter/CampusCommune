@@ -1,7 +1,7 @@
 "use client";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, user } from "@nextui-org/react"
 import { useForm } from "react-hook-form";
-import AddUserLoader from "../pages/discussion/AddUserLoader";
+import AddUserLoader from "../mypages/discussion/AddUserLoader";
 import { auth, db } from "@/firebase/config";
 import { query, where, getDocs, doc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import router from "next/router";

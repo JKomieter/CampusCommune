@@ -19,7 +19,7 @@ import { useState } from 'react'
 import useGetCurrentUser from '@/hooks/useGetCurrentUser'
 import AvatarCluster from './AvatarCluster'
 import DiscussionModal from './DiscussionModal'
-import { categoryIcon, categoryColor } from '../pages/discussion/categorycolor'
+import { categoryIcon, categoryColor } from '../categorycolor'
 
 
 interface DiscussionItemProps extends DiscussionListType {

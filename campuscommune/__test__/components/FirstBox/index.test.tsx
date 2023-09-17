@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom"
-import FirstBox from "@/pages/layout/FirstBox";
+import FirstBox from "@/mypages/layout/FirstBox";
 import AskModal from "@/modals/questionModal/AskModal";
 
 

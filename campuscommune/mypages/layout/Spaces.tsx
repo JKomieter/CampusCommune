@@ -17,7 +17,7 @@ const Spaces = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return (
-      <div className="md:flex hidden basis-1/5">
+      <div className="lg:flex hidden basis-1/5">
         <div className="flex flex-col gap-6 items-start bg-white fixed shadow-lg px-4 py-3 rounded-md">
           <div className="cursor-pointer hover:bg-neutral-300 p-2 rounded-md w-full flex items-center gap-2">
             <AiOutlinePlus size={20} className="text-neutral-800" />

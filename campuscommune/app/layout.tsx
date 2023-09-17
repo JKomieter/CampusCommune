@@ -1,10 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Header from '../pages/layout/Header'
+import Header from '../mypages/layout/Header'
 import { Providers } from '@/themeProvider/Provider'
 import { Toaster } from "react-hot-toast";
-import SideBar from '@/pages/layout/SideBar'
+import SideBar from '@/mypages/layout/SideBar'
 
 
 const inter = Inter({ subsets: ['latin'] })

@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 import { useRouter } from "next/navigation";
 import { RiSuitcaseLine } from "react-icons/ri";
 import { TbPlayerPlayFilled } from "react-icons/tb";
-import { categoryIcon, categoryColor } from "../categorycolor";
+import { categoryIcon, categoryColor } from "../../../categorycolor";
 
 
 const CatIconWrapper = ({ category, size }: { category: string[], size: number }) => {

@@ -1,6 +1,6 @@
 "use client";
-import ProfileFeed from "@/pages/profile/ProfileFeed";
-import ProfileHero from "@/pages/profile/ProfileHero";
+import ProfileFeed from "@/mypages/profile/ProfileFeed";
+import ProfileHero from "@/mypages/profile/ProfileHero";
 import ProfileNav from "@/components/ProfileNav";
 import queryUser from "@/hooks/queryUser";
 import { useParams } from "next/navigation";

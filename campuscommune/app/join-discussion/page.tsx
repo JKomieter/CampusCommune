@@ -1,4 +1,4 @@
-import Discussion from "@/pages/discussion/Discussion";
+import Discussion from "@/mypages/discussion/Discussion";
 
 
 

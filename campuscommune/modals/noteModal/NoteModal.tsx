@@ -17,6 +17,7 @@ import {
 } from "@nextui-org/react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { coursesList } from "@/courses";
+import NoteMedia from "@/components/NoteMedia";
 
 
 const longStyleString = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -33,27 +34,26 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
     const { currentUser } = useGetCurrentUser();
     const notesCollectionRef = collection(db, "notes");
     const [postLoading, setPostLoading] = useState<boolean>(false);
-    const [media, setMedia] = useState<File | null>(null);
+    const [media, setMedia] = useState<Blob | Uint8Array | ArrayBuffer>(new Blob());
     const [course, setCourse] = useState<string>("");
 
 
-    const onSubmit = useCallback(async (data: Record<string, any>) => {
+    const onSubmit = useCallback(async (data: Record<string, string>) => {
+        const { title, description } = data;
+        console.log(course, user?.email)
         try {
-            const { title, description, image } = data;
             const storageRef = ref(storage, `notes/${course}/${user?.email}`);
-            await uploadBytes(storageRef, image[0]);
+            await uploadBytes(storageRef, media);
             const url = await getDownloadURL(storageRef);
 
 
             const Note = {
-                title,
-                description,
-                media: url,
+                title: title,
+                description: description,
                 author_id: currentUser.email,
                 author_name: currentUser.username,
                 author_email: currentUser.email,
                 created_at: new Date(),
-                type: "note",
             };
 
             await addDoc(notesCollectionRef, Note);
@@ -63,6 +63,7 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
             }, 2000);
 
             toast.success("Note added successfully!");
+            onClose();
         } catch (error) {
             console.log(error);
             toast.error("Error adding note");
@@ -101,20 +102,18 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
                             />
                             {errors.description && <span>This field is required</span>}
                         </div>
-                        <div className="w-full">
-                            <Dropdown>
-                                <DropdownTrigger>
-                                    
+                        <div className="w-full h-full">
+                            <Dropdown className="overflow-y-scroll">
+                                <DropdownTrigger>    
                                     <label 
                                     style={{display: "flex", flexDirection: "row", justifyItems: "between", alignItems: "center"}} 
-                                    htmlFor="course" className={longStyleString}>
+                                    htmlFor="course" className={longStyleString} >
                                         <p className="w-full">{course || "Course"}</p>
                                         <MdKeyboardArrowDown size={20} className="text-blue-600" />
                                     </label>
-                        
                                 </DropdownTrigger>
-                                <DropdownMenu>
-                                    <DropdownSection className="overflow-y-scroll">
+                                <DropdownMenu className="overflow-y-scroll">
+                                    <DropdownSection>
                                         {
                                             Object.entries(coursesList).map(([key, c]) => (
                                                 <DropdownItem onClick={() => setCourse(coursesList[key])} key={key}>
@@ -125,27 +124,21 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
                                     </DropdownSection>
                                 </DropdownMenu>
                             </Dropdown>
-                            {errors.course && <span>This field is required</span>}
                         </div>
-                        <div className="w-full">
-                            <label htmlFor="image" className="text-neutral-800 ">
-                                Image
-                            </label>
-                            <input
-                                type="file"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                style={{ borderWidth: "1px" }}
-                                onChange={(e) => {}}
-                            />
-                            {errors.image && <span>This field is required</span>}
-                        </div>
-                        <div className="w-full">
+                        <NoteMedia media={media} setMedia={setMedia} /> 
+                        <div className="w-full flex flex-row gap-3 items-center">
                             <Button
                                 type="submit"
                                 color="primary"
                             >
                                 {postLoading ? "Posting..." : "Post"}
                             </Button>
+                            <span
+                                className="text-red-500 cursor-pointer"
+                                onClick={() => onClose()}
+                            >
+                                Cancel
+                            </span>
                         </div>
                     </div>
                 </form>

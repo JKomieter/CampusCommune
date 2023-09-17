@@ -1,5 +1,5 @@
 "use client";
-import LiveDiscussion from "@/pages/discussion/discussionTitle/LiveDiscussion";
+import LiveDiscussion from "@/mypages/discussion/discussionTitle/LiveDiscussion";
 import { useParams } from "next/navigation";
 
 

@@ -1,10 +1,10 @@
-import PostActions from "@/pages/feed/post/PostActions";
-import PostInfo from "@/pages/feed/post/PostInfo";
+import PostActions from "@/mypages/feed/post/PostActions";
+import PostInfo from "@/mypages/feed/post/PostInfo";
 import PostMedia from "@/components/PostMedia";
-import UserPostDisplay from "@/pages/feed/post/UserPostDisplay";
+import UserPostDisplay from "@/mypages/feed/post/UserPostDisplay";
 import { PostType } from "@/types"
 import React, { useCallback, useEffect, useState } from "react";
-import PostComments from "../pages/feed/post/PostComments";
+import PostComments from "../mypages/feed/post/PostComments";
 import { db } from "@/firebase/config";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { Comment } from "@/types";

@@ -1,6 +1,6 @@
-import Spaces from "../pages/layout/Spaces";
-import MainContent from "../pages/layout/MainContent";
-import News from "@/pages/news/News";
+import Spaces from "../mypages/layout/Spaces";
+import MainContent from "../mypages/layout/MainContent";
+import News from "@/mypages/news/News";
 
 export default function Home() {
   return (
