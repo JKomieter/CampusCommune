@@ -14,7 +14,7 @@ Welcome to the Campus Commune app! This documentation provides an overview of th
 ## Features
 Campus Commune is a platform designed for students to connect, collaborate, and share their thoughts. Some of its key features include:
 
-<img src="" alt="" width="100%" height="400px" />
+<img src="Screenshot 2023-09-20 at 9.01.13 AM.png" alt="" width="100%" height="auto" />
 
 - Discussion Boards: Create and join discussions on various topics.
 - Real-time Messaging: Chat with other students in your discussions.
