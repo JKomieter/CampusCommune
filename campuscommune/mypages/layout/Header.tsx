@@ -43,7 +43,7 @@ const Header = () => {
       <div className="flex items-center justify-between gap-4 w-full ">
         <div 
         onClick={() => router.push("/")}
-        className="font-sans font-semibold lg:text-2xl md:text-xl text-lg text-neutral-700 hidden md:flex cursor-pointer">
+        className="font-sans font-semibold md:text-2xl sm:text-xl text-lg text-neutral-700 hidden md:flex cursor-pointer">
           Camp<span className=" text-[#FF725E]">Comm</span>
         </div>
         <div className="flex md:hidden font-semibold lg:text-2xl md:text-xl text-lg">
@@ -77,7 +77,7 @@ const Header = () => {
             </PopoverContent>
           </Popover>
         </div>
-        <Button className="rounded-xl bg-neutral-700 md:flex hidden items-center justify-center px-2 py-2">
+        <Button className="rounded-2xl bg-blue-700 md:flex hidden items-center justify-center px-2 py-2">
           <p className="text-neutral-100 font-bold text-lg">Ask</p>
         </Button>
         <span 

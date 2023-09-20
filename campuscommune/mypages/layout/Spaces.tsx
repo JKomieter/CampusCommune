@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { ModalContent, useDisclosure } from "@nextui-org/react";
 import NoteModal from "@/modals/noteModal/NoteModal";
 import { Modal } from "@nextui-org/react";
+import SpacesCollection from "./SpacesCollection";
 
 
 // component for Sidebar quick access buttons
@@ -17,8 +18,8 @@ const Spaces = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return (
-      <div className="lg:flex hidden basis-1/5">
-        <div className="flex flex-col gap-6 items-start bg-white fixed shadow-lg px-4 py-3 rounded-md">
+      <div className="md:flex hidden basis-1/5  flex-col gap-5" style={{minWidth: "200px"}}>
+        <div className="flex flex-col gap-3 items-start bg-white shadow-lg px-4 py-3 rounded-md overflow-x-hidden">
           <div className="cursor-pointer hover:bg-neutral-300 p-2 rounded-md w-full flex items-center gap-2">
             <AiOutlinePlus size={20} className="text-neutral-800" />
             <p className="text-sm">Create Space</p>
@@ -51,6 +52,7 @@ const Spaces = () => {
             <p className="text-sm">Find Tutors</p>
           </div>
         </div>
+        <SpacesCollection />
       </div>
     );
 }

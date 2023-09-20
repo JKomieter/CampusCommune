@@ -61,8 +61,8 @@ const FirstBox = () => {
           className="w-full px-2 py-1 rounded-2xl focus:outline-none bg-neutral-200"
         />
         <Modal isOpen={isOpen} onOpenChange={onOpenChange} >
-          <ModalContent className="rounded-md xl:w-[50%]
-        lg:w-[65%] md:w-[80%] sm:w-[90%] w-[100%] bg-neutral-100 md:h-[78%] h-[80%] overflow-y-scroll">
+          <ModalContent className="rounded-md xl:min-w-[50%]
+        lg:min-w-[65%] md:min-w-[80%] sm:min-w-[90%] min-w-[100%] bg-neutral-100 md:min-h-[78%] min-h-[80%] overflow-y-scroll">
               {
                 (onClose) => (
                   <ModalBody>

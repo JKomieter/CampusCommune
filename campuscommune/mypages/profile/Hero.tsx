@@ -8,6 +8,7 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileBtns from "./ProfileBtns";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { FaTwitter } from "react-icons/fa";
+import Image from "next/image";
 
 
 const Hero: React.FC<currentUserType> = ({
@@ -37,9 +38,10 @@ const Hero: React.FC<currentUserType> = ({
             <div className="flex flex-row gap-2 items-start w-full">
                 <div className="pr-2">
                     <Avatar
-                        src={profile_pic || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"} 
+                        src={profile_pic || "https://collegelifemadeeasy.com/wp-content/uploads/2023/01/black-women-scholarships.jpg"} 
                         size="lg"
-                        className="md:w-48 md:h-48 sm:w-32 sm:h-32 w-24 h-24"
+                        alt="Profile Picture"                      
+                        className="md:w-48 md:h-48 sm:w-20 sm:h-20 w-16 h-16"
                     />
                 </div>
                 <div className="flex flex-col gap-2">

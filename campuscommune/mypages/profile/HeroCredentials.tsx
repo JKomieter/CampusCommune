@@ -47,7 +47,7 @@ const HeroCredentials = ({
                     key={item.name}
                     className="w-full flex flex-row gap-1 py-1.5 cursor-pointer">
                         <item.icon size={18} className="text-neutral-600" />
-                        <p className="md:text-sm text-xs text-blue-600 hover:underline">
+                        <p className="md:text-sm text-xs text-blue-700 hover:underline">
                             {item.name}
                         </p>
                     </div>

@@ -75,7 +75,7 @@ const PostModeBtns: React.FC<PostModeBtnsProps> = ({
       </div>
       <button 
       onClick={handleAddPost}
-      className="flex items-center justify-center bg-blue-600 rounded-3xl">
+      className="flex items-center justify-center bg-blue-700 rounded-3xl">
         <p className="text-neutral-100 text-sm font-semibold px-3 py-2">Post</p>
       </button>
     </div>
