@@ -52,7 +52,7 @@ const Feed = () => {
       console.log(error);
       toast.error("Error upvoting post");
     }
-  }, []);
+  }, [user?.email]);
 
 
   useEffect(() => {

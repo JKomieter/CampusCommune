@@ -141,12 +141,13 @@ export type SpaceType = {
     name: string;
     description: string;
     category: string[];
-    admin: {
+    admin: Participants;
+    contributors: {
         user_name: string;
         user_email: string;
         user_photo: string;
-    },
-    contributors: Participants[];
+        user_role: string;
+    }[];
     space_photo: string;
     created_at: Date;
     icon: string;
