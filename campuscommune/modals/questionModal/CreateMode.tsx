@@ -18,7 +18,19 @@ interface CreateModeProps {
 }
 
 
-const CreateMode: React.FC<CreateModeProps> = ({ mode, setMode, step, text, setText, image, setImage, title, setTitle, description, setDescription }) => {
+const CreateMode: React.FC<CreateModeProps> = ({
+  mode,
+  setMode, 
+  step, 
+  text, 
+  setText, 
+  image, 
+  setImage, 
+  title, 
+  setTitle, 
+  description, 
+  setDescription
+}) => {
 
   const Step = {
     1: (

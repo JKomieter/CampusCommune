@@ -136,3 +136,20 @@ export interface DiscussionListType {
     views: number;
     code: string;
 }
+
+export type SpaceType = {
+    name: string;
+    description: string;
+    category: string[];
+    admin: Participants;
+    contributors: {
+        user_name: string;
+        user_email: string;
+        user_photo: string;
+        user_role: string;
+    }[];
+    space_photo: string;
+    created_at: Date;
+    icon: string;
+    members: string[];
+}

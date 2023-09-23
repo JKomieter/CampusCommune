@@ -17,11 +17,12 @@ const QuestionModeBtns: React.FC<QuestionModeBtnsProps> = ({
 }) => {
   const { setOpen } = useAskModalStore();
 
+
   const ButtonSteps = {
     1: (
       <button
         onClick={handleChangeStep}
-        className="flex items-center justify-center bg-blue-600 rounded-3xl"
+        className="flex items-center justify-center bg-blue-700 rounded-3xl"
       >
         <p className="text-neutral-100 text-sm font-semibold px-3 py-2">
           Add question
@@ -31,12 +32,13 @@ const QuestionModeBtns: React.FC<QuestionModeBtnsProps> = ({
     3: (
       <button
         onClick={handleAddQuestion}
-        className="flex items-center justify-center bg-blue-600 rounded-3xl"
+        className="flex items-center justify-center bg-blue-700 rounded-3xl"
       >
         <p className="text-neutral-100 text-sm font-semibold px-3 py-2">Done</p>
       </button>
     ),
   } as Record<number, JSX.Element>;
+
 
   return (
     <div className="flex items-center gap-3">

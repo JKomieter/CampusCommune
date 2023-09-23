@@ -34,7 +34,7 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
     const { currentUser } = useGetCurrentUser();
     const notesCollectionRef = collection(db, "notes");
     const [postLoading, setPostLoading] = useState<boolean>(false);
-    const [media, setMedia] = useState<Blob | Uint8Array | ArrayBuffer>(new Blob());
+    const [media, setMedia] = useState<Blob>(new Blob());
     const [course, setCourse] = useState<string>("");
 
 
@@ -46,7 +46,6 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
             await uploadBytes(storageRef, media);
             const url = await getDownloadURL(storageRef);
 
-
             const Note = {
                 title: title,
                 description: description,
@@ -54,6 +53,10 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
                 author_name: currentUser.username,
                 author_email: currentUser.email,
                 created_at: new Date(),
+                course: course,
+                media_name: media.name,
+                type: media.type,
+                media_path: `notes/${course}/${user?.email}`
             };
 
             await addDoc(notesCollectionRef, Note);
