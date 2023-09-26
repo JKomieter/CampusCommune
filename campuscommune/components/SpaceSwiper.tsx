@@ -26,7 +26,7 @@ const SpaceSwiper = ({
                 <SwiperSlide className='flex flex-col'>
                     {
                         contributors?.slice(0, 4).map((contributor) => (
-                            <div className="flex flex-row gap-1 items-center mt-2">
+                            <div key={contributor.user_email} className="flex flex-row gap-1 items-center mt-2">
                                 <Avatar
                                     src={contributor.user_photo}
                                     alt=""

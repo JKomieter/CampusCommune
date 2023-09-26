@@ -14,7 +14,7 @@ const LiveDiscussionMessages = ({
 
 
     return (
-        <div className="h-[70vh] w-full overflow-y-scroll flex flex-col">
+        <div style={{ height: "70vh", backgroundColor: "#f0f7ff"}} className="w-full overflow-y-scroll flex flex-col ">
             {
                 messages?.length > 0 ? messages?.map((message) => (
                     <MessageItem

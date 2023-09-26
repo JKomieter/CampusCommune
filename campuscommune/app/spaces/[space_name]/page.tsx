@@ -1,5 +1,6 @@
 "use client";
 import { db } from "@/firebase/config";
+import SpaceContent from "@/mypages/spaces/SpaceContent";
 import SpaceHero from "@/mypages/spaces/SpaceHero";
 import { SpaceType } from "@/types";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -38,8 +39,9 @@ export default function SpacePage() {
 
 
     return (
-        <div className="w-full h-full mt-14">
+        <div className="w-full h-full mt-14 bg-neutral-100">
             <SpaceHero space={space} />
+            <SpaceContent space={space} />
         </div>
     )
 };

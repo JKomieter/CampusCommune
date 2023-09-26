@@ -3,14 +3,19 @@ import { FaRegBell, FaRegListAlt } from "react-icons/fa";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { BiGroup } from "react-icons/bi";
 import { Badge } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+
 
 const HeaderIcons = () => {
+  const router = useRouter();
+
+
   return (
-    <div className="md:flex flex-row items-center gap-6 hidden w-full justify-between">
+    <div className="md:flex flex-row items-center gap-3 hidden w-full justify-between">
       <span className="cursor-pointer">
         <RiHome2Line size={28} className="text-neutral-600" />
       </span>
-      <span className="cursor-pointer">
+      <span onClick={() => router.push("/notes")} className="cursor-pointer">
         <Badge color="primary" shape="circle" content="3">
           <FaRegListAlt size={26} className="text-neutral-600" />
         </Badge>

@@ -4,7 +4,7 @@ const HeaderSearchBar = () => {
   return (
     <div
       className="flex flex-row rounded-md p-2 border-neutral-400 min-w-[200px] w-full gap-1"
-      style={{ borderWidth: "0.5px" }}
+      style={{ borderWidth: "0.5px", maxWidth: "700px" }}
     >
       <FiSearch size={24} className="text-neutral-400" />
       <input
