@@ -1,7 +1,7 @@
 import { currentUserType } from "@/types";
 import Hero from "./Hero";
 import HeroCredentials from "./HeroCredentials";
-
+import { useMediaQuery } from "@mui/material";
 
 
 const ProfileHero: React.FC<currentUserType> = ({
@@ -17,10 +17,12 @@ const ProfileHero: React.FC<currentUserType> = ({
     level,
     about_me,
 }) => {
-
+    const isWideScreen = useMediaQuery('(min-width: 768px)')
 
     return (
-        <div className="flex flex-row md:flex-col items-start justify-between md:gap-14 gap-2 w-full">
+        <div style={{display: "flex"}} className={`${
+        isWideScreen ? "flex-row" : "flex-col"
+      } gap-14 justify-between items-start`}>
             <Hero
                 full_name={full_name}
                 email={email}

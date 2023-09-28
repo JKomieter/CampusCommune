@@ -27,7 +27,7 @@ const HeroCredentials = ({
     join_date: any;
 }) => {
     return (
-        <div className="w-full flex flex-col gap-4 md:basis-1/3">
+        <div className="w-full flex flex-col gap-4 ">
             <div 
             style={{ borderBottomWidth: "1px" }}
             className="flex flex-row items-center justify-between border-neutral-400 pb-2">
