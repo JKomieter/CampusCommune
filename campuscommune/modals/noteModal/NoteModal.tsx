@@ -129,7 +129,7 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
                             </Dropdown>
                         </div>
                         <NoteMedia media={media} setMedia={setMedia} /> 
-                        <div className="w-full flex flex-row gap-3 items-center">
+                        <ModalFooter className="w-full flex flex-row gap-3 items-center">
                             <Button
                                 type="submit"
                                 color="primary"
@@ -142,7 +142,7 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
                             >
                                 Cancel
                             </span>
-                        </div>
+                        </ModalFooter>
                     </div>
                 </form>
             </ModalBody>

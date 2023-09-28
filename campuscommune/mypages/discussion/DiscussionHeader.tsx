@@ -50,7 +50,7 @@ const DiscussionHeader = () => {
             </div>
             <div className="w-full text-right md:flex hidden gap-1 items-center justify-end cursor-pointer ">
                 <LuMessageSquarePlus size={29}  />
-                <p className="text-neutral-600 text-sm xl:flex hidden">
+                <p className="text-neutral-600 text-sm md:flex hidden">
                     Start a discussion
                 </p>
             </div>

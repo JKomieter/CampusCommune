@@ -22,7 +22,7 @@ const PostCommentsList = ({
         <div className="w-full  flex flex-col gap-1">
             {comments.map((comment) => (
                 <CommentItem 
-                    key={comment.post_title}
+                    key={comment.author_email}
                     {...comment}
                 />
             ))}

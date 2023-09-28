@@ -4,15 +4,11 @@ import QuestionTags from "./QuestionTags";
 
 
 
-interface FinalStepProps {
-    text: string;
-}
-
-
-const FinalStep: React.FC<FinalStepProps> = ({
+const FinalStep = ({
     text,
+}: {
+    text: string;
 }) => {
-
     const [ mode, setMode ] = useState<number>(0);
  
     const modeStyles = {

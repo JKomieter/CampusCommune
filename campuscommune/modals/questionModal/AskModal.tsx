@@ -117,11 +117,9 @@ const AskModal = () => {
           description={description}
           setDescription={setDescription}
         />
-        <ModalFooter className="w-full flex items-end justify-end">
-          <div
-            className="py-3 px-3 w-full border-t-neutral-700 flex items-end justify-end gap-3"
-            style={{ borderTopWidth: "0.5px" }}
-          >
+        <ModalFooter 
+        style={{ borderTopWidth: "0.5px" }}
+        className="w-full py-3 px-3 border-t-neutral-700 flex items-end justify-end gap-3">
             <BottomActions
               mode={mode}
               step={step}
@@ -133,7 +131,6 @@ const AskModal = () => {
               setImage={setImage}
               handleAddPost={handleAddPost}
             />
-          </div>
         </ModalFooter>
       </div>
   );

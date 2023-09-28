@@ -5,7 +5,7 @@ const SpaceHeroDetails = ({ space }: { space: SpaceType }) => {
   return (
     <div className='w-full flex flex-col justify-between md:items-end'>
       <div>
-        <h1 style={{color: "#f7f7f7"}} className='md:text-2xl sm:text-xl text-lg font-bold'>
+        <h1 style={{ color: "#f7f7f7" }} className='md:text-2xl sm:text-xl text-lg font-bold'>
           {space.name}
         </h1>
         <p style={{ color: "#e5e4e4" }} className="md:text-sm sm:text-xs text-[10px]">

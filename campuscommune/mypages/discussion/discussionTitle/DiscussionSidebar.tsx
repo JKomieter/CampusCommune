@@ -44,10 +44,10 @@ const DiscussionSidebar = () => {
             animate={{ x: isSidebarOpen ? 0 : -1000 }}
             transition={{ duration: 0.5 }}
             id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0">
-            <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 mt-14">
+            <div style={{ backgroundColor: "#ffffff"}} className="h-full px-3 py-4 overflow-y-auto dark:bg-gray-800 mt-14 shadow-xl">
                 <div className="mb-6 flex flex-row items-center justify-between">
                     <span className="text-lg font-semibold p-2  text-neutral-700 dark:text-white">Your Discussions</span>
-                    <span onClick={() => toggleSidebar(false)} className="rounded-full p-2 bg-slate-100 hover:bg-slate-300 cursor-pointer">
+                    <span onClick={() => toggleSidebar(false)} className="rounded-full p-2 bg-neutral-100 hover:bg-neutral-400 cursor-pointer">
                         <IoClose size={22} className="text-neutral-700" />
                     </span>
                 </div>

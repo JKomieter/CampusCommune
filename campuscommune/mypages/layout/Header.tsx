@@ -77,7 +77,7 @@ const Header = () => {
             </PopoverContent>
           </Popover>
         </div>
-        <Button className="rounded-2xl bg-blue-700 md:flex hidden items-center justify-center px-2 py-2">
+        <Button className="rounded-3xl bg-blue-700 md:flex hidden items-center justify-center px-2 py-2">
           <p className="text-neutral-100 font-bold text-lg">Ask</p>
         </Button>
         <span 
