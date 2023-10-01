@@ -9,7 +9,7 @@ const SpaceStepOne = ({
   setSpaceDescription
 }: {
   onClose: () => void
-  setStep: React.Dispatch<React.SetStateAction<1 | 2>>
+  setStep: React.Dispatch<React.SetStateAction<1 | 2 | 3>>
   spaceName: string
   setSpaceName: React.Dispatch<React.SetStateAction<string>>
   spaceDescription: string
@@ -57,7 +57,12 @@ const SpaceStepOne = ({
         <ModalFooter className='w-full items-center justify-end flex flex-row'>
           <button
             disabled={spaceName.length === 0}
-            onClick={() => setStep(2)}
+            onClick={() => {
+              setStep(3);
+              setTimeout(() => {
+                setStep(2);
+              }, 2000);
+            }}
             className='text-sm md:text-base text-white bg-blue-500 rounded-2xl px-4 py-2'
           >
             Create Space

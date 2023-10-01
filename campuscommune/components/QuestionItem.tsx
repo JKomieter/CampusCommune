@@ -28,6 +28,7 @@ const QuestionItem: React.FC<QuestionType> = ({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [answer, setAnswer] = useState<string>("");
   const answersCollectionRef = collection(db, "answers");
+  const [answerCount, setAnswerCount] = useState<number>(answers?.length || 0);
 
   const handleSubmit = useCallback(async () => {
     if (answer.length === 0) return;
@@ -43,13 +44,14 @@ const QuestionItem: React.FC<QuestionType> = ({
 
     try {
       await addDoc(answersCollectionRef, answerObj);
+      setAnswerCount((prev) => prev + 1);
       toast.success("Answer added successfully");
       onOpenChange();
     } catch (error) {
       console.log(error);
       toast.error("Error adding answer");
     }
-  }, []);
+  }, [answer, author_name, author_email, text, answersCollectionRef, onOpenChange]);
 
 
   return (
@@ -74,7 +76,7 @@ const QuestionItem: React.FC<QuestionType> = ({
       </div>
       <div className="w-full flex flex-row gap-1 px-3 items-center">
         <p className="text-neutral-500 font-semibold md:text-[13px] text-[11px]">
-          {answers?.length || 0} answers
+          {answerCount} answers
         </p>
         <BsDot size={18} className="text-neutral-400" />
         <p className="text-neutral-400 md:text-[13px] text-[11px]">

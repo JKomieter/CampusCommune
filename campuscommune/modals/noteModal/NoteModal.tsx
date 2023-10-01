@@ -20,8 +20,8 @@ import { coursesList } from "@/courses";
 import NoteMedia from "@/components/NoteMedia";
 
 
-const longStyleString = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
+const longStyleString = 
+"bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
 
 const NoteModal = ({onClose}: {onClose: () => void}) => {
@@ -40,7 +40,6 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
 
     const onSubmit = useCallback(async (data: Record<string, string>) => {
         const { title, description } = data;
-        console.log(course, user?.email)
         try {
             const storageRef = ref(storage, `notes/${course}/${user?.email}`);
             await uploadBytes(storageRef, media);
@@ -49,7 +48,6 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
             const Note = {
                 title: title,
                 description: description,
-                author_id: currentUser.email,
                 author_name: currentUser.username,
                 author_email: currentUser.email,
                 created_at: new Date(),

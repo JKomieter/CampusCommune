@@ -13,34 +13,39 @@ const SpacesCollection = () => {
     const [spaces, setSpaces] = useState<SpaceType[]>([] as SpaceType[]);
     const spacesCollectionRef = collection(db, "spaces");
     const router = useRouter();
-    
+
 
     useEffect(() => {
-        const userEmail = user?.email;
+        let userEmail = user?.email;
+        const getSpaces = async () => {
+            try {
+                if (userEmail) {
+                    const spacesSnapshot = query(
+                        spacesCollectionRef,
+                        where('contributors', 'array-contains', { user_email: userEmail })
+                    );
+                    const spacesSnapshotData = await getDocs(spacesSnapshot);
+                    const spacesData = spacesSnapshotData.docs.map(doc => ({
+                        ...doc.data()
+                    })) as SpaceType[];
+                    setSpaces(spacesData);
+                }
+            } catch (error) {
+                console.error("Error fetching spaces:", error);
+            }
+        };
 
-        // Check if user email is defined before making the query
-        if (userEmail) {
-            const getSpaces = async () => {
-                const spacesSnapshot = query(spacesCollectionRef, where("members", "array-contains", userEmail));
-                const spacesSnapshotData = await getDocs(spacesSnapshot);
-                const spacesData = spacesSnapshotData.docs.map((doc) => ({
-                    ...doc.data()
-                })) as SpaceType[];
-                setSpaces(spacesData);
-            };
-
-            getSpaces();
-        }
+        getSpaces();
     }, [user?.email]);
-    
+
 
     return (
         <div className="flex flex-col w-full">
             {
                 spaces.map((space) => (
-                    <div key={space.description} 
-                    onClick={() => router.push(`/spaces/${space.name}`)}
-                    className="flex flex-row items-start gap-3 p-3 cursor-pointer duration-200 transition-all hover:bg-neutral-200">
+                    <div key={space.description}
+                        onClick={() => router.push(`/spaces/${space.name}`)}
+                        className="flex flex-row items-start gap-3 p-3 cursor-pointer duration-200 transition-all hover:bg-neutral-200">
                         <Badge content="2" size="sm" color="primary">
                             <Avatar
                                 radius="lg"

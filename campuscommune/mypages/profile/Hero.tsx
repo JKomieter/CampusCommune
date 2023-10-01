@@ -46,7 +46,7 @@ const Hero: React.FC<currentUserType> = ({
                 <div className="flex flex-col gap-2">
                     <h2 className="text-neutral-700 font-bold text-lg md:text-xl lg:text-2xl">
                         {full_name}
-                    </h2>9
+                    </h2>
                     <div className="italic md:text-sm text-xs">
                     {major}, {levels[level]}
                     </div>

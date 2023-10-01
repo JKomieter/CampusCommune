@@ -151,5 +151,4 @@ export type SpaceType = {
     space_photo: string;
     created_at: Date;
     icon: string;
-    members: string[];
 }
