@@ -1,11 +1,14 @@
-import Image from "next/image";
+import { Image } from "@nextui-org/react";
 import { useMemo } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 
 
 const NoteType = ({
     media,
+    preview,
 }: {
     media: Blob,
+    preview: string,
 }) => {
     const type = useMemo(() => {
         switch (media.type) {
@@ -28,17 +31,16 @@ const NoteType = ({
         <div className="w-full max-h-[200px] overflow-y-scroll">
             {
                 type === "image" ?
-                (<Image
-                    src={URL.createObjectURL(new Blob([media]))}
-                    alt="media"
-                    layout="responsive"
-                    width={800}
+                (
+                <Image
+                    src={preview}
+                    alt="preview"
+                    width={400}
                     height={400}
-                    className="object-contain"
-                    blurDataURL="https://img.freepik.com/premium-photo/black-background-dark-wallpaper-blackboard-studio-backgorund-blur-background-gradient_14349-510.jpg"
+                    className="object-cover w-full h-full"
                     loading="lazy"
-                />) : (
-                    // <PdfViewerComponent media={media} />
+                />
+                )  : (
                     <p className="text-lg font-semibold text-neutral-600">
                         {media.name}
                     </p>

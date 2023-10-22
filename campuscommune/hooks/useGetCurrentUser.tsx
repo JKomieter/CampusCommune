@@ -21,7 +21,6 @@ const useGetCurrentUser = () => {
         getCurrentUser();
     }, []);
     
-    
     return { currentUser };
 }
 

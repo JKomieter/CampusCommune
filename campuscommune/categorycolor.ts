@@ -36,7 +36,35 @@ const categoryColor = {
     "jee": "#900C3F",
     "entertainment": "#581845",
     "technology": "#C70039",
+    "campus gossip": "#FF5733",
+    "programming": "#FFD700",
+    "music": "#900C3F",
+    "food": "#581845",
+    "health": "#C70039",
+    "books": "#FF5733",
+    "travel": "#FFD700",
+    "art": "#FFB100",
+    "science": "#FF5733",
+    "history": "#FFD700",
+    "mathematics": "#900C3F",
+    "business": "#C70039",
+    "finance": "#581845",
+    "language": "#FFB100",
+    "culture": "#FF5733",
+    "politics": "#900C3F",
+    "environment": "#581845",
+    "gaming": "#C70039",
+    "movies": "#FF5733",
+    "TV shows": "#FFB100",
+    "celebrities": "#581845",
+    "fitness": "#C70039",
+    "cooking": "#900C3F",
+    "DIY": "#FF5733",
+    "gardening": "#FFB100",
 };
+
+// You can continue adding more categories and colors as needed
+
 
 
 const categoryIcon = {

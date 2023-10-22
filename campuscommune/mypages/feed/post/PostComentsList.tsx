@@ -14,7 +14,7 @@ const PostCommentsList = ({
 
     if (isLoading) return (
         <div className="w-full h-full flex items-center justify-center">
-            <BeatLoader color="#333" size={15} />
+            <BeatLoader color="#0088ff" size={15} />
         </div>
     )
     
@@ -22,7 +22,7 @@ const PostCommentsList = ({
         <div className="w-full  flex flex-col gap-1">
             {comments.map((comment) => (
                 <CommentItem 
-                    key={comment.author_email}
+                    key={comment.created_at.toDate().toDateString()}
                     {...comment}
                 />
             ))}

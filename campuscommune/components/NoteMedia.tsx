@@ -13,6 +13,7 @@ const NoteMedia = ({
     media: Blob,
     setMedia: React.Dispatch<React.SetStateAction<Blob>>
 }) => {
+    const [preview, setPreview] = React.useState<string>("");
 
     const onDrop = React.useCallback((acceptedFiles: File[]) => {
         try {
@@ -22,10 +23,11 @@ const NoteMedia = ({
             reader.onload = (event: ProgressEvent<FileReader>) => {
                 if (event.target) {
                     setMedia(file);
+                    setPreview(URL.createObjectURL(file));
                 }
             };
     
-            reader.readAsArrayBuffer(file);
+            reader.readAsDataURL(file);
         } catch (error) {
             console.log(error);
             toast.error("Error uploading file. Try again later.");
@@ -49,7 +51,7 @@ const NoteMedia = ({
     return (
             <>
             { media.size !== 0 ? (
-                <NoteType media={media} />
+                <NoteType media={media} preview={preview} />
             )
             : 
             (

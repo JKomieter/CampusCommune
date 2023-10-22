@@ -13,6 +13,7 @@ interface CreateStepOneProps {
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   description: string;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const modeStyles = {
@@ -32,6 +33,7 @@ const CreateStepOne: React.FC<CreateStepOneProps> = ({
   setTitle,
   description,
   setDescription,
+  setCategories,
 }) => {
 
   return (

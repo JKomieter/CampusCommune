@@ -1,5 +1,5 @@
 import { db, storage } from "@/firebase/config";
-import { ModalHeader, ModalBody, ModalFooter, Modal, ModalContent, Button } from "@nextui-org/react";
+import { ModalHeader, ModalBody, ModalFooter, Modal, ModalContent, Button, Select, SelectItem } from "@nextui-org/react";
 import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useCallback, useState } from "react";
@@ -48,8 +48,8 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
             const Note = {
                 title: title,
                 description: description,
-                author_name: currentUser.username,
-                author_email: currentUser.email,
+                author_name: currentUser?.username,
+                author_email: currentUser?.email,
                 created_at: new Date(),
                 course: course,
                 media_name: media.name,
@@ -104,27 +104,17 @@ const NoteModal = ({onClose}: {onClose: () => void}) => {
                             {errors.description && <span>This field is required</span>}
                         </div>
                         <div className="w-full h-full">
-                            <Dropdown className="overflow-y-scroll">
-                                <DropdownTrigger>    
-                                    <label 
-                                    style={{display: "flex", flexDirection: "row", justifyItems: "between", alignItems: "center"}} 
-                                    htmlFor="course" className={longStyleString} >
-                                        <p className="w-full">{course || "Course"}</p>
-                                        <MdKeyboardArrowDown size={20} className="text-blue-600" />
-                                    </label>
-                                </DropdownTrigger>
-                                <DropdownMenu className="overflow-y-scroll">
-                                    <DropdownSection>
-                                        {
-                                            Object.entries(coursesList).map(([key, c]) => (
-                                                <DropdownItem onClick={() => setCourse(coursesList[key])} key={key}>
-                                                    {c}
-                                                </DropdownItem>
-                                            ))
-                                        }
-                                    </DropdownSection>
-                                </DropdownMenu>
-                            </Dropdown>
+                            <Select
+                                variant="bordered"
+                                label="Select Course"
+                                className="w-full"
+                            >
+                                {Object.entries(coursesList).map(([key, c]) => (
+                                    <SelectItem key={key} value={c} onClick={() => setCourse(coursesList[key])}>
+                                        {c}
+                                    </SelectItem>
+                                ))}
+                            </Select>
                         </div>
                         <NoteMedia media={media} setMedia={setMedia} /> 
                         <ModalFooter className="w-full flex flex-row gap-3 items-center">

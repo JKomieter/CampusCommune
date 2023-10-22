@@ -91,7 +91,7 @@ const Hero: React.FC<currentUserType> = ({
                                 </p>
                             </div>
                             <div className="flex flex-row gap-1 items-center p-2 w-full hover:underline cursor-pointer">
-                                <FaTwitter size={10} className="text-[#26a7de ]" />
+                                <FaTwitter size={10} className="text-[#26a7de]" />
                                 <p className="md:text-xs text-[10px] text-neutral-600">
                                     Twitter
                                 </p>

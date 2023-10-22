@@ -9,6 +9,7 @@ import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 import BottomActions from "../buttons/BottomActions";
 import CreateMode from "./CreateMode";
 import { ModalFooter } from "@nextui-org/react";
+import { Answer, QuestionType } from "@/types";
 
 
 
@@ -25,13 +26,14 @@ const AskModal = () => {
   const postsCollectionRef = collection(db, "posts");
   const { setPostLoading } = usePostLoadingStore();
   const { currentUser } = useGetCurrentUser();
+  const [categories, setCategories] = useState<string[]>([]);
 
 
   const handleAddQuestion = useCallback(async () => {
     if (text.length === 0) return;
     try {
       setPostLoading(true);
-
+      console.log([...categories]);
       const Question = {
         text,
         author_id: currentUser.email,
@@ -39,7 +41,10 @@ const AskModal = () => {
         author_email: currentUser.email,
         created_at: new Date(),
         type: "question",
-      };
+        category: categories,
+        pass: false,
+        answers: [] as Answer[],
+      } as unknown as QuestionType;
 
       await addDoc(questionsCollectionRef, Question);
       setOpen(false);
@@ -116,6 +121,7 @@ const AskModal = () => {
           setTitle={setTitle}
           description={description}
           setDescription={setDescription}
+          setCategories={setCategories}
         />
         <ModalFooter 
         style={{ borderTopWidth: "0.5px" }}

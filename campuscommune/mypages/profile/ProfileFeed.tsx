@@ -16,20 +16,18 @@ const ProfileFeed = ({
     
 
     useEffect(() => {
-        
         const getUserFeed = async () => {
             const queryPosts = query(postsCollectionRef, where("author_email", "==", user_email));
             const postQuerySnapshot = await getDocs(queryPosts);
             const posts = postQuerySnapshot.docs.map(doc => doc.data() as PostType);
-            
+
             const queryQuestions = query(questionsCollectionRef, where("author_email", "==", user_email));
             const questionQuerySnapshot = await getDocs(queryQuestions);
             const questions = questionQuerySnapshot.docs.map(doc => doc.data() as QuestionType);
-            
+
             setFeed([...posts, ...questions]);
         }
-
-        getUserFeed();
+        if (user_email?.length > 0) getUserFeed();
     }, [user_email]);
 
 

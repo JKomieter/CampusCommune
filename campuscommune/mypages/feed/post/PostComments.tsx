@@ -1,4 +1,4 @@
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Button, Input } from "@nextui-org/react";
 import PostCommentsList from "./PostComentsList";
 import { Comment } from "@/types";
 import { toast } from "react-hot-toast";
@@ -34,6 +34,7 @@ const PostComments = ({
 
 
     const handleComment = useCallback(async () => {
+        if (comment.length <= 0) return;
         try {
             const newComment: Comment = {
                 author_email: currentUserEmail,
@@ -67,17 +68,18 @@ const PostComments = ({
                         className="z-0"
                     />
                 </span>
-                <textarea
+                <Input
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="w-full p-1 rounded-3xl focus:outline-none bg-white text-xs md:text-sm"
+                    className="w-full text-xs md:text-sm"
                 />
-                <button
+                <Button
+                    color="primary"
                     onClick={handleComment}
-                    className="md:w-[25%] w-[35%] flex items-center justify-center bg-blue-600 rounded-3xl">
-                    <p className="w-full text-neutral-100 lg:text-sm text-xs font-semibold px-3 py-3 ">Add</p>
-                </button>
+                >
+                    Add
+                </Button>
             </div>
             <PostCommentsList
                 isLoading={isLoading}

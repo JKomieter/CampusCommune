@@ -1,8 +1,5 @@
-import { useCallback, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/firebase/config";
-import toast from "react-hot-toast";
+import { Textarea } from "@nextui-org/react";
 
 
 const AnswerModal = ({
@@ -47,7 +44,7 @@ const AnswerModal = ({
                 {text}
             </div>
             <div>
-                <textarea
+                <Textarea
                     value={answer}
                     onChange={(e) => setAnswer(e.target.value)}
                     className="w-full h-52 rounded-md border-none py-2 focus:outline-none"

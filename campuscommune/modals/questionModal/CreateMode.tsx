@@ -15,7 +15,9 @@ interface CreateModeProps {
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   description: string;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
 
 
 const CreateMode: React.FC<CreateModeProps> = ({
@@ -29,7 +31,8 @@ const CreateMode: React.FC<CreateModeProps> = ({
   title, 
   setTitle, 
   description, 
-  setDescription
+  setDescription,
+  setCategories,
 }) => {
 
   const Step = {
@@ -45,10 +48,11 @@ const CreateMode: React.FC<CreateModeProps> = ({
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
+        setCategories={setCategories}
       />
     ),
     2: <LoadingMode />,
-    3: <FinalStep text={text} />,
+    3: <FinalStep text={text} setCategories={setCategories} />,
   } as Record<number, JSX.Element>;
 
   return (

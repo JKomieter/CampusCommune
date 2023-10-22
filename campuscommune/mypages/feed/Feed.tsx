@@ -10,10 +10,11 @@ import PostItem from "../../components/PostItem";
 import PostProgress from "../../components/PostProgress";
 import QuestionItem from "../../components/QuestionItem";
 import useGetCurrentUser from "@/hooks/useGetCurrentUser";
-
+import { useFeed } from "@/services/useFeed";
 
 
 const Feed = () => {
+  const { data, mutate } = useFeed();
   const [posts, setPosts] = useState<FeedType[]>([]);
   const [user] = useAuthState(auth);
   const { postLoading } = usePostLoadingStore();
@@ -48,6 +49,7 @@ const Feed = () => {
         )
       );
       toast.success("Upvoted post");
+      mutate();
     } catch (error) {
       console.log(error);
       toast.error("Error upvoting post");
@@ -56,40 +58,45 @@ const Feed = () => {
 
 
   useEffect(() => {
-    const unsubQuestions = onSnapshot(questionsCollectionRef, (snapshot) => {
-      const newQuestions = snapshot.docChanges().map((change) => {
-        if (change.type === "added") {
-          return change.doc.data() as QuestionType;
-        }
-        return null;
-      }).filter(Boolean) as QuestionType[];
+    setPosts(data);
+  }, [data]);
 
-      setPosts((prev) => [...prev, ...newQuestions].sort(() => Math.random() - 0.5));
-    });
+  // useEffect(() => {
+  //   const unsubQuestions = onSnapshot(questionsCollectionRef, (snapshot) => {
+  //     const newQuestions = snapshot.docChanges().map((change) => {
+  //       if (change.type === "added") {
+  //         return change.doc.data() as QuestionType;
+  //       }
+  //       return null;
+  //     }).filter(Boolean) as QuestionType[];
 
-    const unsubPosts = onSnapshot(postsCollectionRef, (snapshot) => {
-      const newPosts = snapshot.docChanges().map((change) => {
-        if (change.type === "added") {
-          return change.doc.data() as PostType;
-        }
-        return null;
-      }).filter(Boolean) as PostType[];
+  //     setPosts((prev) => [...prev, ...newQuestions].sort(() => Math.random() - 0.5));
+  //   });
 
-      setPosts((prev) => [...prev, ...newPosts].sort(() => Math.random() - 0.5));
-    });
+  //   const unsubPosts = onSnapshot(postsCollectionRef, (snapshot) => {
+  //     const newPosts = snapshot.docChanges().map((change) => {
+  //       if (change.type === "added") {
+  //         return change.doc.data() as PostType;
+  //       }
+  //       return null;
+  //     }).filter(Boolean) as PostType[];
 
-    return () => {
-      unsubQuestions();
-      unsubPosts();
-    };
-  }, []);
+  //     setPosts((prev) => [...prev, ...newPosts].sort(() => Math.random() - 0.5));
+  //   });
 
-  if (posts.length === 0) return <FeedSkeleton />;
+  //   return () => {
+  //     unsubQuestions();
+  //     unsubPosts();
+  //   };
+  // }, []);
+
+  if (posts?.length === 0) return <FeedSkeleton />;
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
       <PostProgress postLoading={postLoading} />
-      {posts.map((post) =>
+      {posts?.map((post: 
+      { author_id: string; created_at: Date; type: string; author_email: any; author_name: any; answers: any; id?: string; author_major?: string; author_year?: number; author_photo?: string; title?: string; body?: string; upvotes?: string[]; downvotes?: number; tags?: string[]; image?: string; category?: string[]; text?: string; followers?: string[]; pass?: boolean; }) =>
         <div key={post.author_id + post.created_at} className="w-full">
           {post.type === "post" ? (
             <PostItem
@@ -108,11 +115,12 @@ const Feed = () => {
               author_year={(post as PostType).author_year}
               answers={post.answers}
               type={post.type}
-              handleUpvote={handleUpvote} 
-              id={""} 
+              handleUpvote={handleUpvote}
+              id={""}
               currentUserEmail={currentUser?.email}
               currentUserPhoto={currentUser?.profile_pic}
               currentUserFullname={currentUser?.full_name}
+              category={[]}
             />
           ) : (
             <QuestionItem

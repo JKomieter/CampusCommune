@@ -31,6 +31,7 @@ export default function Profile() {
                     location={""} 
                     topics_followed={[]} 
                     username={user?.username} 
+                    interests={user?.interests}
                 />
                 <ProfileNav />
                 <ProfileFeed user_email={user?.email} />

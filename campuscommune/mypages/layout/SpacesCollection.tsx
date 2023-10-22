@@ -14,20 +14,20 @@ const SpacesCollection = () => {
     const spacesCollectionRef = collection(db, "spaces");
     const router = useRouter();
 
-
     useEffect(() => {
-        let userEmail = user?.email;
         const getSpaces = async () => {
             try {
-                if (userEmail) {
+                if (user?.email) {
+                    console.log("Fetching spaces...");
                     const spacesSnapshot = query(
                         spacesCollectionRef,
-                        where('contributors', 'array-contains', { user_email: userEmail })
+                        where('contributors', 'array-contains', { "user_email": user?.email })
                     );
                     const spacesSnapshotData = await getDocs(spacesSnapshot);
                     const spacesData = spacesSnapshotData.docs.map(doc => ({
                         ...doc.data()
                     })) as SpaceType[];
+                    console.log("Spaces fetched:", spacesData);
                     setSpaces(spacesData);
                 }
             } catch (error) {
@@ -37,7 +37,6 @@ const SpacesCollection = () => {
 
         getSpaces();
     }, [user?.email]);
-
 
     return (
         <div className="flex flex-col w-full">

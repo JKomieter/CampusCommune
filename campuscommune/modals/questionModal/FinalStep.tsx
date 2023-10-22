@@ -6,8 +6,10 @@ import QuestionTags from "./QuestionTags";
 
 const FinalStep = ({
     text,
+    setCategories,
 }: {
     text: string;
+    setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
     const [ mode, setMode ] = useState<number>(0);
  
@@ -51,7 +53,7 @@ const FinalStep = ({
             </div>
           </div>
         </div>
-        <QuestionTags />
+        <QuestionTags text={text} setCategories={setCategories} />
       </>
     );
 }

@@ -1,5 +1,6 @@
 // Type definitions for Campus Commune
 
+
 export type FeedType = PostType | QuestionType;
 
 export type PostType = {
@@ -19,6 +20,7 @@ export type PostType = {
     image: string;
     answers: Answer[];
     type: "post";
+    category: string[];
 }
 
 export type Comment = {
@@ -93,6 +95,7 @@ export type currentUserType = {
     location: string;
     topics_followed: string[];
     username: string;
+    interests: string[];
 };
 
 type Participants = {
@@ -152,3 +155,17 @@ export type SpaceType = {
     created_at: Date;
     icon: string;
 }
+
+export type NoteType = {
+    author_email: string;
+    author_name: string;
+    author_photo: string;
+    category: string[];
+    created_at: Date;
+    description: string;
+    title: string;
+    media_name: string;
+    media_path: string;
+    type: string;
+    course: string;
+};

@@ -16,6 +16,9 @@ const ProfileHero: React.FC<currentUserType> = ({
     questions_asked,
     level,
     about_me,
+    username,
+    location,
+    interests,
 }) => {
     const isWideScreen = useMediaQuery('(min-width: 768px)')
 
@@ -37,9 +40,10 @@ const ProfileHero: React.FC<currentUserType> = ({
                 id={""} 
                 about_me={about_me} 
                 batch_year={1} 
-                location={""} 
+                location={location} 
                 topics_followed={[]} 
-                username={""} 
+                username={username} 
+                interests={interests}
             />
             <HeroCredentials
                 join_date={join_date}

@@ -16,9 +16,9 @@ const CommentItem: React.FC<Comment> = ({
     replies,
 }) => {
     return (
-        <div 
-        style={{borderBottomWidth: "0.7px"}}
-        className="w-full flex flex-row gap-2 items-start px-3 border-neutral-400 py-2">
+        <div
+            style={{ borderBottomWidth: "0.7px" }}
+            className="w-full flex flex-row gap-2 items-start px-3 border-neutral-400 py-2">
             <Avatar
                 src={author_photo || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"}
                 size="md"
@@ -37,7 +37,7 @@ const CommentItem: React.FC<Comment> = ({
                 <span className="text-sm text-neutral-600">
                     {body}
                 </span>
-                
+
             </div>
         </div>
     )
