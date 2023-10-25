@@ -19,7 +19,8 @@ const LiveDiscussionMessages = ({
                 messages?.length > 0 ? messages?.map((message) => (
                     <MessageItem
                         key={message.text}
-                        message={message} currentUserEmail={currentUserEmail}
+                        message={message} 
+                        currentUserEmail={currentUserEmail}
                     />
                 )) : (
                     <MessageSkeleton />

@@ -5,7 +5,7 @@ import HeaderSearchBar from "./HeaderSearchBar";
 import { Avatar, Badge, Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { FaRegBell } from "react-icons/fa";
-import { useSidebarStore } from "@/store/useSidebarControlStore";
+import { useSidebarStore } from "@/store/useSidebarStore";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { auth, db } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";

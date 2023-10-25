@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { SpaceType } from "@/types";
 import { Avatar, Badge } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useSpaces } from "@/services/useSpaces";
 
 
 const SpacesCollection = () => {
@@ -13,30 +14,13 @@ const SpacesCollection = () => {
     const [spaces, setSpaces] = useState<SpaceType[]>([] as SpaceType[]);
     const spacesCollectionRef = collection(db, "spaces");
     const router = useRouter();
-
+    const { data, error, isLoading, mutate } = useSpaces(user?.email!);
+   
     useEffect(() => {
-        const getSpaces = async () => {
-            try {
-                if (user?.email) {
-                    console.log("Fetching spaces...");
-                    const spacesSnapshot = query(
-                        spacesCollectionRef,
-                        where('contributors', 'array-contains', { "user_email": user?.email })
-                    );
-                    const spacesSnapshotData = await getDocs(spacesSnapshot);
-                    const spacesData = spacesSnapshotData.docs.map(doc => ({
-                        ...doc.data()
-                    })) as SpaceType[];
-                    console.log("Spaces fetched:", spacesData);
-                    setSpaces(spacesData);
-                }
-            } catch (error) {
-                console.error("Error fetching spaces:", error);
-            }
-        };
-
-        getSpaces();
-    }, [user?.email]);
+        if (data) {
+            setSpaces(data);
+        }
+    }, [data]);
 
     return (
         <div className="flex flex-col w-full">

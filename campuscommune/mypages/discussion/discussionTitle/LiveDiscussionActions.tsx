@@ -26,8 +26,6 @@ const LiveDiscussionActions = ({
     const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (text.length === 0) return;
-        console.log(text);
-        // add message to discussion messages with title
         const message = {
             text: text,
             created_at: new Date(),

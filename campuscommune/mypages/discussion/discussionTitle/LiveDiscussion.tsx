@@ -1,6 +1,6 @@
 import { db, auth } from "@/firebase/config";
 import { DiscussionType, currentUserType } from "@/types";
-import { collection, doc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { DiscussionMessage } from "@/types";
@@ -36,7 +36,11 @@ const LiveDiscussion = ({
 
     useEffect(() => {
         // subscribe to discssion messages doc changes querying by title
-        const discussionMessagesQuery = query(discussionMessagesCollectionRef, where("title", "==", full_title));
+        const discussionMessagesQuery = query(
+            discussionMessagesCollectionRef, 
+            where("title", "==", full_title),
+            // orderBy("timestamp", "asc")
+        );
         const unsubscribe = onSnapshot(discussionMessagesQuery, (querySnapshot) => {
             const messages = querySnapshot.docs.map((doc) => doc.data()) as DiscussionMessage[];
             setDiscussionMessages(messages);

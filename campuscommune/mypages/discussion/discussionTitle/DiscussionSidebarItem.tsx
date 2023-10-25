@@ -23,15 +23,14 @@ const DiscussionSidebarItem = ({
 }) => {
     const router = useRouter();
 
-    const styleIndex = index % 2 === 0 ? " dark:bg-gray-700" : "bg-neutral-200 dark:bg-gray-800";
 
     return (
         <div
             onClick={() => router.push(`/join-discussion/${discussion.title}`)}
-            className={`flex items-center px-2 py-3 cursor-pointer text-gray-900 ${styleIndex}
-            dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-600`}>
-            <CatIconWrapper category={discussion.category} size={20} />
-            <span className="ml-3 md:text-[13px] text-sm">{discussion.title}</span>
+            className={`flex items-center px-2 py-3 cursor-pointer text-gray-900
+            dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-600 gap-1`}>
+            <CatIconWrapper category={discussion.category} size={24} />
+            <span className="ml-3 md:text-[13px] text-sm font-semibold">{discussion.title}</span>
         </div>
     )
 }

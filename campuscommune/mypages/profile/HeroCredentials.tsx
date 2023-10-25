@@ -30,7 +30,7 @@ const HeroCredentials = ({
         <div className="w-full flex flex-col gap-4 ">
             <div 
             style={{ borderBottomWidth: "1px" }}
-            className="flex flex-row items-center justify-between border-neutral-400 pb-2">
+            className="flex flex-row items-center justify-between border-neutral-400 pb-4">
                 <p className="text-neutral-700 font-semibold md:text-sm text-xs">
                     Credentials & Highlights
                 </p>

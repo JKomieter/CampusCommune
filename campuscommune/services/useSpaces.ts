@@ -1,14 +1,15 @@
-import { fetcher } from "@/utils/fetcher";
 import useSWR from "swr";
+import { fetcher } from "../utils/fetcher";
 
 
-export const useSpaces = () => {
-    const { data, error, isLoading, mutate } = useSWR('/api/current_user_spaces', fetcher);
+// get all spaces
+export const useSpaces = (user_email: string) => {
+    const { data, error, isLoading, mutate } = useSWR(`/api/spaces/${user_email}`, fetcher);
 
     return {
         data,
         error,
         isLoading,
         mutate
-    };
+    }
 };

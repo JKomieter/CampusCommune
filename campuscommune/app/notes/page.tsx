@@ -7,7 +7,6 @@ import DisplayNotes from "@/mypages/notes/DisplayNotes";
 export default function Notespage() {
     const [notes] = useNotes();
 
-
     return (
         <div className="w-full">
             {

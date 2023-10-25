@@ -8,67 +8,68 @@ import { MdOutlineExplore } from "react-icons/md";
 import { RiDiscussLine, RiHome2Line } from "react-icons/ri";
 import { motion } from "framer-motion"
 import { useSidebarStore } from "@/store/useSidebarStore";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import React from "react";
 
-const items = [
-    {
-        name: "Dashboard",
-        icon: RiHome2Line,
-        link: "/",
-    },
-    {
-        name: "Home",
-        icon: RiHome2Line,
-        link: "/",
-    },
-    {
-        name: "Following",
-        icon: FaRegListAlt,
-        link: "/",
-    },
-    {
-        name: "Answer",
-        icon: FaRegPenToSquare,
-        link: "/",
-    },
-    {
-        name: "Spaces",
-        icon: BiGroup,
-        link: "/",
-    },
-    {
-        name: "Sign out",
-        icon: BiLogOut,
-        link: "/",
-    },
-    {
-        name: "Create space",
-        icon: AiOutlinePlus,
-        link: "/",
-    },
-    {
-        name: "Share notes",
-        icon: GrNotes,
-        link: "/",
-    },
-    {
-        name: "Join discussions",
-        icon: RiDiscussLine,
-        link: "/join-discussion",
-    },
-    {
-        name: "Explore courses",
-        icon: MdOutlineExplore,
-        link: "/",
-    },
-    {
-        name: "Find tutors",
-        icon: FaChalkboardTeacher,
-        link: "/",
-    },
-]
 
 const SideBar = () => {
+    const items = [
+        {
+            name: "Dashboard",
+            icon: RiHome2Line,
+            link: "/",
+        },
+        {
+            name: "Home",
+            icon: RiHome2Line,
+            link: "/",
+        },
+        {
+            name: "Following",
+            icon: FaRegListAlt,
+            link: "/",
+        },
+        {
+            name: "Answer",
+            icon: FaRegPenToSquare,
+            link: "/",
+        },
+        {
+            name: "Spaces",
+            icon: BiGroup,
+            link: "/",
+        },
+        {
+            name: "Sign out",
+            icon: BiLogOut,
+            link: "/",
+        },
+        {
+            name: "Create space",
+            icon: AiOutlinePlus,
+            link: "/",
+        },
+        {
+            name: "Share notes",
+            icon: GrNotes,
+            link: "/",
+        },
+        {
+            name: "Join discussions",
+            icon: RiDiscussLine,
+            link: "/join-discussion",
+        },
+        {
+            name: "Explore courses",
+            icon: MdOutlineExplore,
+            link: "/",
+        },
+        {
+            name: "Find tutors",
+            icon: FaChalkboardTeacher,
+            link: "/",
+        },
+    ]
 
     const { isSidebarOpen } = useSidebarStore();
     const pathname = usePathname() as string;
