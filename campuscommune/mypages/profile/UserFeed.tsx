@@ -42,12 +42,11 @@ const UserFeed = ({
                             author_year={(post as PostType).author_year}
                             answers={post.answers}
                             type={post.type}
-                            handleUpvote={() => {}}
+                            handleUpvote={() => { } }
                             id={""}
                             currentUserEmail={(post as PostType).author_email}
                             currentUserPhoto={(post as PostType).author_photo}
-                            currentUserFullname={(post as PostType).author_name}
-                        />
+                            currentUserFullname={(post as PostType).author_name} category={[]}                        />
                     ) : (
                         <QuestionItem
                             author_email={(post as QuestionType).author_email}

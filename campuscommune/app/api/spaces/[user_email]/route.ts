@@ -1,12 +1,11 @@
 import { db } from "@/firebase/config";
 import { SpaceType } from "@/types";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
 
 export async function GET(
-    request: NextApiRequest,
+    request: Request,
     { params }: { params: { user_email: string }}
 ) {
     try {
