@@ -49,16 +49,18 @@ const UserFeed = ({
                             currentUserFullname={(post as PostType).author_name} category={[]}                        />
                     ) : (
                         <QuestionItem
-                            author_email={(post as QuestionType).author_email}
-                            author_id={(post as QuestionType).author_id}
-                            author_name={(post as QuestionType).author_name}
-                            text={(post as QuestionType).text}
-                            answers={(post as QuestionType).answers}
-                            followers={(post as QuestionType).followers}
-                            pass={(post as QuestionType).pass}
-                            created_at={(post as QuestionType).created_at}
-                            type={(post as QuestionType).type}
-                        />
+                                id={post.id}
+                                author_email={(post as QuestionType).author_email}
+                                author_id={(post as QuestionType).author_id}
+                                author_name={(post as QuestionType).author_name}
+                                text={(post as QuestionType).text}
+                                answers={(post as QuestionType).answers}
+                                followers={(post as QuestionType).followers}
+                                pass={(post as QuestionType).pass}
+                                created_at={(post as QuestionType).created_at}
+                                type={(post as QuestionType).type} 
+                                currentUserEmail={""} 
+                            />
                     )}
                 </div>
             )}
