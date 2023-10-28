@@ -12,6 +12,7 @@ const useGetCurrentUser = () => {
 
     
     useEffect(() => {
+        console.log(user?.email)
         const getCurrentUser = async () => {
             const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
             const querySnapshot = await getDocs(userRef);
@@ -19,7 +20,7 @@ const useGetCurrentUser = () => {
         };
 
         getCurrentUser();
-    }, []);
+    }, [user]);
     
     return { currentUser };
 }

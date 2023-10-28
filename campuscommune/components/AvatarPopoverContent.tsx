@@ -80,7 +80,6 @@ const AvatarPopoverContent: React.FC<AvatarPopoverContentProps> = ({
 }) => {
 
     const router = useRouter();
-    console.log(user_name)
 
     return (
         <div className="flex flex-col justify-start">

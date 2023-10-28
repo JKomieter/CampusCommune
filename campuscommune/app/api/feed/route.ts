@@ -13,8 +13,19 @@ export async function GET(request: Request) {
         const postsSnapshot = await getDocs(postsCollectionRef);
         const questionsSnapshot = await getDocs(questionsCollectionRef);
 
-        const posts = postsSnapshot.docs.map((doc) => doc.data() as PostType);
-        const questions = questionsSnapshot.docs.map((doc) => doc.data() as QuestionType);
+        const posts = postsSnapshot.docs.map((doc) => {
+            return {
+                id: doc.id,
+                ...doc.data()
+            } as PostType
+        });
+        const questions = questionsSnapshot.docs.map((doc) => {
+                return {
+                    id: doc.id,
+                    ...doc.data()
+                } as QuestionType
+            }
+        );
 
 
         let feed = [...posts, ...questions].sort(() => Math.random() - 0.5);

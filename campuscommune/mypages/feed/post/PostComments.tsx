@@ -1,6 +1,6 @@
 import { Avatar, Button, Input } from "@nextui-org/react";
 import PostCommentsList from "./PostComentsList";
-import { Comment } from "@/types";
+import { Comment, NotificationType } from "@/types";
 import { toast } from "react-hot-toast";
 import { useCallback, useState } from "react";
 import { db } from "@/firebase/config";
@@ -31,6 +31,7 @@ const PostComments = ({
 }) => {
     const [comment, setComment] = useState<string>("");
     const commentsCollectionRef = collection(db, "comments");
+    const notificationsCollectionRef = collection(db, "notifications");
 
 
     const handleComment = useCallback(async () => {
@@ -49,12 +50,27 @@ const PostComments = ({
             }
 
             await addDoc(commentsCollectionRef, newComment);
+
+            const notification = {
+                sender_email: currentUserEmail,
+                sender_name: currentUserFullname,
+                recipient_email: author_email,
+                sender_photo: currentUserPhoto,
+                post_title: post_title,
+                created_at: new Date(),
+                seen: false,
+                type: "comment",
+                link: `/feed/post/${post_title}`,
+            } as NotificationType;
+
+            await addDoc(notificationsCollectionRef, notification);
+
             toast.success("Commented");
         } catch (error) {
             console.log(error);
             toast.error("Failed to comment");
         }
-    }, [comment]);
+    }, [comment, currentUserEmail, currentUserFullname, currentUserPhoto, post_title, author_email]);
 
     if (!openComments) return false;
 

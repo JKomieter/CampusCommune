@@ -11,7 +11,7 @@ import { Comment } from "@/types";
 
 
 interface PostItemProps extends PostType {
-    handleUpvote: (post_id: string) => void;
+    handleUpvote: (e: React.MouseEvent<HTMLDivElement, MouseEvent> , post_id: string) => void;
     currentUserEmail: string;
     currentUserPhoto: string;
     currentUserFullname: string;
@@ -43,7 +43,7 @@ const PostItem: React.FC<PostItemProps> = ({
     const [openComments, setOpenComments] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    
+
     const handleOpenComments = useCallback(async (post_title: string) => {
         setIsLoading(true);
 
@@ -70,7 +70,7 @@ const PostItem: React.FC<PostItemProps> = ({
 
 
     return (
-        <div className="w-full bg-white shadow-lg rounded-md overflow-y-visible">
+        <div className="w-full bg-white shadow-sm rounded-md overflow-y-visible">
             <div className="w-full flex flex-col gap-4 items-start">
                 <UserPostDisplay
                     author_id={author_id}
@@ -108,7 +108,8 @@ const PostItem: React.FC<PostItemProps> = ({
                     post_title={title}
                     currentUserFullname={currentUserFullname}
                     author_email={author_email}
-                    author_name={author_name} />
+                    author_name={author_name} 
+                />
             </div>
         </div>
     )

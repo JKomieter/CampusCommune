@@ -6,7 +6,11 @@ import { Badge } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { Tooltip } from '@nextui-org/react'
 
-const HeaderIcons = () => {
+const HeaderIcons = ({
+  notificationsCount
+}: {
+  notificationsCount: number
+}) => {
   const router = useRouter()
 
   const Icons = [
@@ -38,7 +42,7 @@ const HeaderIcons = () => {
       name: 'Notifications',
       icon: <FaRegBell size={27} className='text-neutral-600' />,
       link: '/notifications',
-      badgeContent: 2
+      badgeContent: notificationsCount
     }
   ]
 

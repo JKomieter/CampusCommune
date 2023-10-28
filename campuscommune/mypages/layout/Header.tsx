@@ -10,7 +10,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { auth, db } from "@/firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { currentUserType } from "@/types";
 import AvatarPopoverContent from "../../components/AvatarPopoverContent";
 import { usePathname } from "next/navigation";
@@ -22,7 +22,9 @@ const Header = () => {
   const pathname = usePathname();
   const { toggleSidebar, isSidebarOpen } = useSidebarStore();
   const [user] = useAuthState(auth);
-  const usersCollectionRef = collection(db, "user")
+  const [ notificationsCount, setNotificationsCount ] = useState<number>(0);
+  const usersCollectionRef = collection(db, "user");
+  const notificationsCollectionRef = collection(db, "notifications");
   const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
 
   useEffect(() => {
@@ -32,7 +34,16 @@ const Header = () => {
       setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
     };
 
-    getCurrentUser();
+    // listen for queried notifications for currentUser and update notificationsCount
+    const notificationsRef = query(notificationsCollectionRef, where("recipient_email", "==", user?.email || ""));
+    const unsubscribe = onSnapshot(notificationsRef, (snapshot) => {
+      setNotificationsCount(snapshot.docs.length);
+    });
+
+    return () => {
+      getCurrentUser();
+      unsubscribe();
+    }
   }, [user]);
 
 
@@ -41,16 +52,18 @@ const Header = () => {
   return (
     <div className="top-0 fixed w-full lg:px-36 md:px-16 sm:px-12 px-3 py-2 z-50 shadow-lg bg-white">
       <div className="flex items-center justify-between gap-4 w-full ">
-        <div 
-        onClick={() => router.push("/")}
-        className="font-sans font-semibold md:text-2xl sm:text-xl text-lg text-neutral-700 hidden md:flex cursor-pointer">
+        <div
+          onClick={() => router.push("/")}
+          className="font-sans font-semibold md:text-2xl sm:text-xl text-lg text-neutral-700 hidden md:flex cursor-pointer">
           Camp<span className=" text-[#FF725E]">Comm</span>
         </div>
         <div className="flex md:hidden font-semibold lg:text-2xl md:text-xl text-lg">
           <span className="text-neutral-700">C</span>
           <span className="text-[#FF725E]">C</span>
         </div>
-        <HeaderIcons />
+        <HeaderIcons
+          notificationsCount={notificationsCount}
+        />
         <HeaderSearchBar />
         <span className="md:hidden flex">
           <Badge color="primary" shape="circle" content="2">
@@ -58,9 +71,9 @@ const Header = () => {
           </Badge>
         </span>
         <div className="md:flex hidden cursor-pointer">
-          <Popover 
-          showArrow
-          placement="bottom" color="default">
+          <Popover
+            showArrow
+            placement="bottom" color="default">
             <PopoverTrigger>
               <Avatar
                 src={currentUser?.profile_pic || "https://publichealth.uga.edu/wp-content/uploads/2020/01/Thomas-Cameron_Student_Profile.jpg"}
@@ -80,9 +93,9 @@ const Header = () => {
         <Button className="rounded-3xl bg-blue-700 md:flex hidden items-center justify-center px-2 py-2">
           <p className="text-neutral-100 font-bold text-lg">Ask</p>
         </Button>
-        <span 
-        onClick={() => toggleSidebar(!isSidebarOpen)}
-        className="flex md:hidden p-2 bg-neutral-300 rounded-lg items-center justify-center cursor-pointer">
+        <span
+          onClick={() => toggleSidebar(!isSidebarOpen)}
+          className="flex md:hidden p-2 bg-neutral-300 rounded-lg items-center justify-center cursor-pointer">
           <GiHamburgerMenu size={25} />
         </span>
       </div>

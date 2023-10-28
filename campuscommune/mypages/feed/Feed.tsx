@@ -1,7 +1,7 @@
 import { db, auth } from "@/firebase/config";
 import { useState, useEffect, useCallback } from "react";
-import { arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore";
-import { PostType, FeedType, QuestionType, currentUserType } from "@/types";
+import { arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { PostType, FeedType, QuestionType } from "@/types";
 import { usePostLoadingStore } from "@/store/usePostLoading";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
@@ -14,16 +14,15 @@ import { useFeed } from "@/services/useFeed";
 
 
 const Feed = () => {
-  const { data, mutate } = useFeed();
+  const { currentUser } = useGetCurrentUser();
+  const { data, mutate, isLoading } = useFeed();
   const [posts, setPosts] = useState<FeedType[]>([]);
   const [user] = useAuthState(auth);
   const { postLoading } = usePostLoadingStore();
-  const postsCollectionRef = collection(db, "posts");
-  const questionsCollectionRef = collection(db, "questions");
-  const { currentUser } = useGetCurrentUser();
 
-
-  const handleUpvote = useCallback(async (post_title: string) => {
+  
+  const handleUpvote = useCallback(async (e: React.MouseEvent<HTMLDivElement, MouseEvent>, post_title: string) => {
+    e.preventDefault();
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
       const postSnapshot = await getDocs(postRefQuery);
@@ -59,47 +58,21 @@ const Feed = () => {
 
   useEffect(() => {
     setPosts(data);
-  }, [data]);
+  }, []);
 
-  // useEffect(() => {
-  //   const unsubQuestions = onSnapshot(questionsCollectionRef, (snapshot) => {
-  //     const newQuestions = snapshot.docChanges().map((change) => {
-  //       if (change.type === "added") {
-  //         return change.doc.data() as QuestionType;
-  //       }
-  //       return null;
-  //     }).filter(Boolean) as QuestionType[];
 
-  //     setPosts((prev) => [...prev, ...newQuestions].sort(() => Math.random() - 0.5));
-  //   });
-
-  //   const unsubPosts = onSnapshot(postsCollectionRef, (snapshot) => {
-  //     const newPosts = snapshot.docChanges().map((change) => {
-  //       if (change.type === "added") {
-  //         return change.doc.data() as PostType;
-  //       }
-  //       return null;
-  //     }).filter(Boolean) as PostType[];
-
-  //     setPosts((prev) => [...prev, ...newPosts].sort(() => Math.random() - 0.5));
-  //   });
-
-  //   return () => {
-  //     unsubQuestions();
-  //     unsubPosts();
-  //   };
-  // }, []);
-
-  if (posts?.length === 0) return <FeedSkeleton />;
+  if (posts?.length === 0 && isLoading) return <FeedSkeleton />;
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
       <PostProgress postLoading={postLoading} />
       {posts?.map((post: 
-      { author_id: string; created_at: Date; type: string; author_email: any; author_name: any; answers: any; id?: string; author_major?: string; author_year?: number; author_photo?: string; title?: string; body?: string; upvotes?: string[]; downvotes?: number; tags?: string[]; image?: string; category?: string[]; text?: string; followers?: string[]; pass?: boolean; }) =>
-        <div key={post.author_id + post.created_at} className="w-full">
+        PostType | QuestionType
+      ) =>
+        <div key={post.author_email + post.id} className="w-full">
           {post.type === "post" ? (
             <PostItem
+              id={post.id}
               author_email={post.author_email}
               author_id={post.author_id}
               author_name={post.author_name}
@@ -116,7 +89,6 @@ const Feed = () => {
               answers={post.answers}
               type={post.type}
               handleUpvote={handleUpvote}
-              id={""}
               currentUserEmail={currentUser?.email}
               currentUserPhoto={currentUser?.profile_pic}
               currentUserFullname={currentUser?.full_name}
@@ -124,15 +96,17 @@ const Feed = () => {
             />
           ) : (
             <QuestionItem
-              author_email={(post as QuestionType).author_email}
-              author_id={(post as QuestionType).author_id}
-              author_name={(post as QuestionType).author_name}
-              text={(post as QuestionType).text}
-              answers={(post as QuestionType).answers}
-              followers={(post as QuestionType).followers}
-              pass={(post as QuestionType).pass}
-              created_at={(post as QuestionType).created_at}
-              type={(post as QuestionType).type}
+                id={post.id}
+                author_email={(post as QuestionType).author_email}
+                author_id={(post as QuestionType).author_id}
+                author_name={(post as QuestionType).author_name}
+                text={(post as QuestionType).text}
+                answers={(post as QuestionType).answers}
+                followers={(post as QuestionType).followers}
+                pass={(post as QuestionType).pass}
+                created_at={(post as QuestionType).created_at}
+                type={(post as QuestionType).type} 
+                currentUserEmail={currentUser?.email}
             />
           )}
         </div>

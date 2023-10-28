@@ -7,15 +7,22 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import { IoIosWifi } from "react-icons/io";
 import { TbPencilOff } from "react-icons/tb";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Button } from "@nextui-org/react";
+import { Modal, ModalContent, ModalBody, ModalFooter, useDisclosure, Button } from "@nextui-org/react";
 import AnswerModal from "@/modals/answerModal/AnswerModal";
 import { db } from "@/firebase/config";
 import { collection, addDoc } from "firebase/firestore";
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
+import { handleFollow } from "@/services/handleFollow";
 
 
-const QuestionItem: React.FC<QuestionType> = ({
+interface QuestionItemProps extends QuestionType {
+  currentUserEmail: string
+}
+
+
+const QuestionItem: React.FC<QuestionItemProps> = ({
+  id,
   author_id,
   author_name,
   text,
@@ -24,13 +31,18 @@ const QuestionItem: React.FC<QuestionType> = ({
   pass,
   created_at,
   author_email,
+  currentUserEmail,
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [answer, setAnswer] = useState<string>("");
   const answersCollectionRef = collection(db, "answers");
+  const questionCollectionRef = collection(db, "questions");
   const [answerCount, setAnswerCount] = useState<number>(answers?.length || 0);
+  const [followCount, setFollowCount] = useState<number>(followers?.length || 0);
 
-  const handleSubmit = useCallback(async () => {
+
+  const handleSubmit = useCallback(async (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+    e.preventDefault();
     if (answer.length === 0) return;
 
     const answerObj = {
@@ -55,7 +67,7 @@ const QuestionItem: React.FC<QuestionType> = ({
 
 
   return (
-    <div className="w-full bg-white shadow-lg rounded-md overflow-y-visible flex flex-col gap-3 overflow-x-hidden">
+    <div className="w-full bg-white shadow-sm rounded-md overflow-y-visible flex flex-col gap-3 overflow-x-hidden">
       <div
         style={{ borderBottomWidth: "0.3px" }}
         className="border-b-neutral-500 w-full px-3 py-2 flex flex-row items-center justify-between hover:bg-neutral-100 cursor-pointer"
@@ -110,7 +122,7 @@ const QuestionItem: React.FC<QuestionType> = ({
                         Cancel
                       </Button>
                       <Button color="primary">
-                        <p onClick={handleSubmit}>Post</p>
+                        <p onClick={(e) => handleSubmit(e)}>Post</p>
                       </Button>
                     </ModalFooter>
                   </ModalBody>
@@ -118,9 +130,16 @@ const QuestionItem: React.FC<QuestionType> = ({
               }
             </ModalContent>
           </Modal>
-          <span className="rounded-2xl py-1 px-3.5 hover:bg-neutral-100 flex flex-row gap-1 cursor-pointer">
+          <span
+            onClick={(e) => {
+              setFollowCount((prev) => prev + 1);
+              handleFollow(e, id, currentUserEmail)
+            }}
+            className="rounded-2xl py-1 px-3.5 hover:bg-neutral-100 flex flex-row gap-1 cursor-pointer items-center">
             <IoIosWifi size={20} className="text-neutral-600" />
-            <p className="text-sm text-neutral-500">Follow</p>
+            <span className="text-sm text-neutral-500">Follow</span>
+            <BsDot size={10} className="text-neutral-400" />
+            <span className="text-sm text-neutral-500">{followCount}</span>
           </span>
           <span className="rounded-2xl py-1 px-3.5 hover:bg-neutral-100 flex flex-row gap-1 cursor-pointer">
             <TbPencilOff size={20} className="text-neutral-600" />

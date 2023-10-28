@@ -3,7 +3,7 @@ import { BsDot } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import { BadgesLvlOne } from '../../../svgs';
 import { Avatar } from '@nextui-org/react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 
 const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
@@ -14,6 +14,8 @@ const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
   author_year,
   created_at,
 }) => {
+  const router = useRouter();
+
   return (
     <div className="flex flex-row items-center justify-between px-3 py-2 gap-3 w-full">
       <div className="w-10 h-10">
@@ -27,12 +29,12 @@ const UserPostDisplay: React.FC<UserPostDisplayProps> = ({
       <div className="w-full flex flex-col gap-1">
         <div className="w-full flex flex-row items-start justify-between">
           <div className="w-full flex flex-row gap-1">
-            <Link
-              href={`/profile/${author_name}`}
+            <div
+              onClick={() => router.push(`/profile/${author_name.split(" ").join("-") }`)}
               className="text-sm font-bold text-neutral-800 cursor-pointer">
               {author_name}
               <BadgesLvlOne className="inline-block ml-1 text-blue-400 text-lg" />
-            </Link>
+            </div>
             <BsDot size={18} className="text-neutral-800" />
             <p className="text-sm text-blue-400 cursor-pointer font-semibold">
               Follow

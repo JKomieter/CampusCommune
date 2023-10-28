@@ -60,21 +60,27 @@ export interface PostActionProps {
     upvotes: string[];
     downvotes: number;
     answers: Answer[];
-    handleUpvote: (post_title: string) => void;
+    handleUpvote: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, post_title: string) => void;
     title: string;
     comments: Comment[];
 }
 
 export type QuestionType = {
+    id: string;
     author_id: string;
     author_name: string;
     author_email: string;
     created_at: Date;
     text: string;
     answers: Answer[];
-    followers: string[];
+    followers: Follower[];
     pass: boolean;
     type: "question";
+}
+
+export type Follower = {
+    user_email: string;
+    created_at: Date;
 }
 
 
@@ -168,4 +174,20 @@ export type NoteType = {
     media_path: string;
     type: string;
     course: string;
+};
+
+export type NotificationType = {
+    id: string;
+    sender_email: string;
+    sender_name: string;
+    recipient_email: string;
+    sender_photo: string;
+    post_title: string;
+    created_at: {
+        seconds: number;
+        nanoseconds: number;
+    };
+    seen: boolean;
+    type: string;
+    link: string;
 };
