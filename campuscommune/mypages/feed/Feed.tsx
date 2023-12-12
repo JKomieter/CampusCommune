@@ -1,7 +1,7 @@
 import { db, auth } from "@/firebase/config";
 import { useState, useEffect, useCallback } from "react";
-import { arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
-import { PostType, FeedType, QuestionType } from "@/types";
+import { addDoc, arrayUnion, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { PostType, FeedType, QuestionType, NotificationType } from "@/types";
 import { usePostLoadingStore } from "@/store/usePostLoading";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
@@ -19,9 +19,13 @@ const Feed = () => {
   const [posts, setPosts] = useState<FeedType[]>([]);
   const [user] = useAuthState(auth);
   const { postLoading } = usePostLoadingStore();
+  const notificationsCollectionRef = collection(db, "notifications");
 
-  
-  const handleUpvote = useCallback(async (e: React.MouseEvent<HTMLDivElement, MouseEvent>, post_title: string) => {
+
+  const handleUpvote = useCallback(async (
+    e: React.MouseEvent<HTMLDivElement,
+      MouseEvent>, post_title: string
+  ) => {
     e.preventDefault();
     try {
       const postRefQuery = query(collection(db, "posts"), where("title", "==", post_title));
@@ -47,26 +51,40 @@ const Feed = () => {
             : post
         )
       );
+
+      const notification = {
+        sender_email: currentUser?.email,
+        sender_name: currentUser?.full_name,
+        recipient_email: "",
+        sender_photo: currentUser?.profile_pic,
+        post_title: post_title,
+        created_at: new Date(),
+        seen: false,
+        type: "upvote",
+      } as unknown as NotificationType;
+
+      await addDoc(notificationsCollectionRef, notification);
+
       toast.success("Upvoted post");
       mutate();
     } catch (error) {
       console.log(error);
       toast.error("Error upvoting post");
     }
-  }, [user?.email]);
+  }, [user?.email, ]);
 
 
   useEffect(() => {
     setPosts(data);
-  }, []);
+  }, [isLoading]);
 
 
-  if (posts?.length === 0 && isLoading) return <FeedSkeleton />;
+  if (posts?.length === 0) return <FeedSkeleton />;
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center overflow-y-scroll w-full">
       <PostProgress postLoading={postLoading} />
-      {posts?.map((post: 
+      {posts?.map((post:
         PostType | QuestionType
       ) =>
         <div key={post.author_email + post.id} className="w-full">
@@ -96,17 +114,17 @@ const Feed = () => {
             />
           ) : (
             <QuestionItem
-                id={post.id}
-                author_email={(post as QuestionType).author_email}
-                author_id={(post as QuestionType).author_id}
-                author_name={(post as QuestionType).author_name}
-                text={(post as QuestionType).text}
-                answers={(post as QuestionType).answers}
-                followers={(post as QuestionType).followers}
-                pass={(post as QuestionType).pass}
-                created_at={(post as QuestionType).created_at}
-                type={(post as QuestionType).type} 
-                currentUserEmail={currentUser?.email}
+              id={post.id}
+              author_email={(post as QuestionType).author_email}
+              author_id={(post as QuestionType).author_id}
+              author_name={(post as QuestionType).author_name}
+              text={(post as QuestionType).text}
+              answers={(post as QuestionType).answers}
+              followers={(post as QuestionType).followers}
+              pass={(post as QuestionType).pass}
+              created_at={(post as QuestionType).created_at}
+              type={(post as QuestionType).type}
+              currentUserEmail={currentUser?.email}
             />
           )}
         </div>

@@ -61,7 +61,7 @@ const PostComments = ({
                 seen: false,
                 type: "comment",
                 link: `/feed/post/${post_title}`,
-            } as NotificationType;
+            } as unknown as NotificationType;
 
             await addDoc(notificationsCollectionRef, notification);
 

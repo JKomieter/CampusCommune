@@ -14,6 +14,7 @@ import { collection, getDocs, onSnapshot, query, where } from "firebase/firestor
 import { currentUserType } from "@/types";
 import AvatarPopoverContent from "../../components/AvatarPopoverContent";
 import { usePathname } from "next/navigation";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 
 
 const Header = () => {
@@ -25,13 +26,14 @@ const Header = () => {
   const [ notificationsCount, setNotificationsCount ] = useState<number>(0);
   const usersCollectionRef = collection(db, "user");
   const notificationsCollectionRef = collection(db, "notifications");
-  const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
+  // const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
+  const { currentUser } = useGetCurrentUser();
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-      const querySnapshot = await getDocs(userRef);
-      setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
+      // const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
+      // const querySnapshot = await getDocs(userRef);
+      // setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
     };
 
     // listen for queried notifications for currentUser and update notificationsCount

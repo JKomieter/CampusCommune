@@ -8,6 +8,8 @@ import { RiDraftLine } from "react-icons/ri";
 import { VscGraph } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 import { Switch } from "@nextui-org/react";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase/config";
 
 
 interface AvatarPopoverContentProps {
@@ -58,18 +60,22 @@ const bottomItems = [
     {
         name: "Settings",
         link: "/settings",
+        func: () => { },
     },
     {
         name: "Languages",
         link: "/languages",
+        func: () => { },
     },
     {
         name: "Help",
         link: "/help",
+        func: () => { },
     },
     {
         name: "Logout",
         link: "/logout",
+        func: () => signOut(auth),
     }
 ]
 
@@ -115,7 +121,9 @@ const AvatarPopoverContent: React.FC<AvatarPopoverContentProps> = ({
                     <Switch />
                 </span>
                 {bottomItems.map((item) => (
-                    <p key={item.name} className="text-xs px-3 py-1 text-neutral-600 cursor-pointer duration-200 transition-all hover:bg-neutral-100 border-neutral-600">{item.name}</p>
+                    <p 
+                    onClick={() => item.func()}
+                    key={item.name} className="text-xs px-3 py-1 text-neutral-600 cursor-pointer duration-200 transition-all hover:bg-neutral-100 border-neutral-600">{item.name}</p>
                 ))}
             </div>
         </div>
