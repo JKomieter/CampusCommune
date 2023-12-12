@@ -46,10 +46,10 @@ const UserFeed = ({
                             id={""}
                             currentUserEmail={(post as PostType).author_email}
                             currentUserPhoto={(post as PostType).author_photo}
-                            currentUserFullname={(post as PostType).author_name} category={[]}                        />
+                            currentUserFullname={(post as PostType).author_name} category={[]}                        
+                          />
                     ) : (
                         <QuestionItem
-                                id={post.id}
                                 author_email={(post as QuestionType).author_email}
                                 author_id={(post as QuestionType).author_id}
                                 author_name={(post as QuestionType).author_name}
@@ -59,7 +59,8 @@ const UserFeed = ({
                                 pass={(post as QuestionType).pass}
                                 created_at={(post as QuestionType).created_at}
                                 type={(post as QuestionType).type} 
-                                currentUserEmail={""} 
+                                currentUserEmail={(post as QuestionType).author_email} 
+                                id={""}     
                             />
                     )}
                 </div>

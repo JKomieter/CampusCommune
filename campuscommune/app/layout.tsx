@@ -5,6 +5,7 @@ import Header from '../mypages/layout/Header'
 import { Providers } from '@/themeProvider/Provider'
 import { Toaster } from "react-hot-toast";
 import SideBar from '@/mypages/layout/SideBar'
+import { AuthProvider } from '@/context/Auth'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en" className='light'>
       <body className={inter.className}>
+        <AuthProvider>
         <Providers>
           <Toaster position="top-center" reverseOrder={false} />
           <Header />
           <SideBar />
           {children}
         </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

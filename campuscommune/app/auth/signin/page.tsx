@@ -21,10 +21,12 @@ export default function SignInPage() {
   const onSubmit = useCallback(async (data: Record<string, string>) => {
     try {
       const { email, password } = data;
-      await signin(email, password);
-
-      router.push("/")
-      console.log(user?.email);   
+      await signin(email, password)
+        .then(() => router.push("/"))
+        .catch((err) => {
+          console.log(err);
+          setErr("Invalid email or password");
+        });
     } catch (error) {
       console.log(error);
       setErr("Invalid email or password")
@@ -79,6 +81,14 @@ export default function SignInPage() {
                   Log In
                 </span>
               </button>
+              <p>
+                Don't have an account?{" "}
+                <span
+                  onClick={() => router.push("/auth/signup")}
+                  className="text-[#FF725E] cursor-pointer hover:underline">
+                  Sign up
+                </span>
+              </p>
             </div>
           </form>
         </div>

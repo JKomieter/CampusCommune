@@ -30,6 +30,11 @@ const ProfileFeed = ({
         if (user_email?.length > 0) getUserFeed();
     }, [user_email]);
 
+    if (feed.length <= 0) return (
+        <div className="w-full h-full flex justify-center items-center">
+            <h1 className="text-2xl font-semibold text-center">No posts yet</h1>
+        </div>
+    );
 
     return (
         <div className="w-full">
