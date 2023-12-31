@@ -14,7 +14,7 @@ export async function GET(
 
         const spacesSnapshot = query(
             spacesCollectionRef,
-            // where('contributors', 'array-contains', { "user_email": user_email })
+            where('contributors', 'array-contains', { "user_email": user_email })
         );
         const spacesSnapshotData = await getDocs(spacesSnapshot);
         const spacesData = spacesSnapshotData.docs.map(doc => ({
