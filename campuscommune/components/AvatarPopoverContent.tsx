@@ -84,7 +84,6 @@ const AvatarPopoverContent: React.FC<AvatarPopoverContentProps> = ({
     user_name,
     user_email,
 }) => {
-
     const router = useRouter();
 
     return (

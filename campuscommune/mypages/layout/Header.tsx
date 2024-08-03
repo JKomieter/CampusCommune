@@ -24,18 +24,10 @@ const Header = () => {
   const { toggleSidebar, isSidebarOpen } = useSidebarStore();
   const [user] = useAuthState(auth);
   const [ notificationsCount, setNotificationsCount ] = useState<number>(0);
-  const usersCollectionRef = collection(db, "user");
   const notificationsCollectionRef = collection(db, "notifications");
-  // const [currentUser, setCurrentUser] = useState<currentUserType>({} as currentUserType);
   const { currentUser } = useGetCurrentUser();
 
   useEffect(() => {
-    const getCurrentUser = async () => {
-      // const userRef = query(usersCollectionRef, where("email", "==", user?.email || ""));
-      // const querySnapshot = await getDocs(userRef);
-      // setCurrentUser(querySnapshot.docs.map((doc) => doc.data())[0] as currentUserType);
-    };
-
     // listen for queried notifications for currentUser and update notificationsCount
     const notificationsRef = query(notificationsCollectionRef, where("recipient_email", "==", user?.email || ""));
     const unsubscribe = onSnapshot(notificationsRef, (snapshot) => {
@@ -43,7 +35,6 @@ const Header = () => {
     });
 
     return () => {
-      getCurrentUser();
       unsubscribe();
     }
   }, [user]);

@@ -8,6 +8,8 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileBtns from "./ProfileBtns";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { FaTwitter } from "react-icons/fa";
+import { SlPencil } from "react-icons/sl";
+import { useRef, useState } from "react";
 
 
 const Hero: React.FC<currentUserType> = ({
@@ -23,6 +25,8 @@ const Hero: React.FC<currentUserType> = ({
     level,
     about_me,
 }) => {
+    const [showEditProfile, setShowEditProfile] = useState<boolean>(false);
+    const profileRef = useRef<HTMLSpanElement | null>(null);
 
     const levels = {
         1: "Freshman",
@@ -36,11 +40,20 @@ const Hero: React.FC<currentUserType> = ({
         <div className="flex flex-col gap-4 w-full ">
             <div className="flex flex-row gap-2 items-start w-full">
                 <div className="pr-2">
+                    {showEditProfile && profileRef.current &&
+                        <div className={`p-2 bg-blue-500 rounded-full absolute z-30 top-[${profileRef.current.getBoundingClientRect().top + 100}rem] left-[${profileRef.current.getBoundingClientRect().left}rem]`}>
+                            <SlPencil size={18} className="text-[#fff] cursor-pointer" />
+                        </div>
+                    }
                     <Avatar
+                        onMouseEnter={() => setShowEditProfile(true)}
+                        onMouseLeave={() => setShowEditProfile(false)}
+                        onClick={() => {}}
+                        ref={profileRef}
                         src={profile_pic || "https://collegelifemadeeasy.com/wp-content/uploads/2023/01/black-women-scholarships.jpg"} 
                         size="lg"
                         alt="Profile"
-                        style={{width: "120px", height: "120px"}}
+                        style={{width: "120px", height: "120px", cursor: "pointer"}}
                     />
                 </div>
                 <div className="flex flex-col gap-2">
