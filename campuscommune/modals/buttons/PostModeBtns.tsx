@@ -41,7 +41,6 @@ const PostModeBtns: React.FC<PostModeBtnsProps> = ({
     reader.onload = async (event: any) => {
       const image = await resizeFile(file) as string;
       setImage(image as string);
-      console.log(`Post: ${event.target.result}`);
     };
 
     reader.readAsDataURL(file);

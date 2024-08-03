@@ -10,6 +10,7 @@ import BottomActions from "../buttons/BottomActions";
 import CreateMode from "./CreateMode";
 import { ModalFooter } from "@nextui-org/react";
 import { Answer, QuestionType } from "@/types";
+import { useFeed } from "@/services/useFeed";
 
 
 
@@ -27,6 +28,7 @@ const AskModal = () => {
   const { setPostLoading } = usePostLoadingStore();
   const { currentUser } = useGetCurrentUser();
   const [categories, setCategories] = useState<string[]>([]);
+  const { mutate } = useFeed();
 
 
   const handleAddQuestion = useCallback(async () => {
@@ -46,7 +48,7 @@ const AskModal = () => {
         answers: [] as Answer[],
       } as unknown as QuestionType;
 
-      await addDoc(questionsCollectionRef, Question);
+      Object.keys(currentUser).length > 0 && await addDoc(questionsCollectionRef, Question);
       setOpen(false);
       setStep(1);
       setText("");
@@ -56,6 +58,7 @@ const AskModal = () => {
       }, 2000);
 
       toast.success("Question added successfully!");
+      mutate();
     } catch (error) {
       console.log(error);
       toast.error("Error adding question");
@@ -64,16 +67,15 @@ const AskModal = () => {
   }, [text]);
 
   const handleAddPost = useCallback(async () => {
-    if (title.split("").length < 1 && description.split("").length < 1) return;
+    if (title.split("").length === 0 && description.split("").length === 0) return;
     try {
       setPostLoading(true);
-
       const Post = {
         title: title,
         body: description,
         author_email: currentUser.email,
         author_major: currentUser.major,
-        author_name: currentUser.username,
+        author_name: currentUser.full_name,
         created_at: new Date(),
         type: "post",
         image: image as string,
@@ -93,7 +95,7 @@ const AskModal = () => {
       console.log(error);
       toast.error("Error adding post");
     }
-    
+
   }, []);
 
   const handleChangeStep = useCallback(() => {
@@ -106,39 +108,39 @@ const AskModal = () => {
 
 
   return (
-      <div
-        className={`flex flex-col gap-2 overflow-y-scroll `}
-      >
-        <CreateMode
+    <div
+      className={`flex flex-col gap-2 overflow-y-scroll `}
+    >
+      <CreateMode
+        mode={mode}
+        setMode={setMode}
+        step={step}
+        text={text}
+        setText={setText}
+        image={image}
+        setImage={setImage}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        setCategories={setCategories}
+      />
+      <ModalFooter
+        style={{ borderTopWidth: "0.5px" }}
+        className="w-full py-3 px-3 border-t-neutral-700 flex items-end justify-end gap-3">
+        <BottomActions
           mode={mode}
-          setMode={setMode}
           step={step}
-          text={text}
+          handleChangeStep={handleChangeStep}
+          handleAddQuestion={handleAddQuestion}
+          setStep={setStep}
           setText={setText}
           image={image}
           setImage={setImage}
-          title={title}
-          setTitle={setTitle}
-          description={description}
-          setDescription={setDescription}
-          setCategories={setCategories}
+          handleAddPost={handleAddPost}
         />
-        <ModalFooter 
-        style={{ borderTopWidth: "0.5px" }}
-        className="w-full py-3 px-3 border-t-neutral-700 flex items-end justify-end gap-3">
-            <BottomActions
-              mode={mode}
-              step={step}
-              handleChangeStep={handleChangeStep}
-              handleAddQuestion={handleAddQuestion}
-              setStep={setStep}
-              setText={setText}
-              image={image}
-              setImage={setImage}
-              handleAddPost={handleAddPost}
-            />
-        </ModalFooter>
-      </div>
+      </ModalFooter>
+    </div>
   );
 };
 
